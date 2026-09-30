@@ -107,9 +107,12 @@ The maintainer asked to follow the recommendations below.
 2. **Clipboard fixtures before the video — decided.** The video is recorded after the SoT §19.1
    fixtures are captured and the item-specific pool works, so it does not go stale. Fixture capture
    is therefore a gate for the video (F5).
-3. **Code signing — decided: not for this release.** The build stays unsigned (SoT §19.4); the video
-   and both READMEs show the SmartScreen step "More info → Run anyway". Revisit when the audience
-   grows.
+3. **Code signing — decided: not for this release, and no paid signing (2026-09-30).** The build
+   stays unsigned (SoT §19.4); the video and both READMEs show the SmartScreen step "More info → Run
+   anyway". slapinskiDEV has under three years of tax history, so Azure Artifact Signing is not
+   available; paid OV certificates (e.g. Certum) were declined. Free option to consider: SignPath
+   Foundation (publisher shown as "SignPath Foundation", manual approval per release, MFA; ask
+   whether the bundled GGG data pack is acceptable under its "no proprietary components" rule).
 4. **Dependabot — decided, done.** Vulnerability alerts and security update PRs on; version
    update PRs off (no `dependabot.yml`). With D1 a merged Dependabot PR is not released to players
    until a publish run.
