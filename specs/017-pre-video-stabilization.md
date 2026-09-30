@@ -47,9 +47,26 @@ vulnerabilities), Electron security settings (sandbox, context isolation, CSP, n
 
 ### C. Engine and parser (`src/domain/`, `src/parser/`)
 
-Pending: results of the engine/parser review are added here. Minimum requirement regardless of the
-review: parser and evaluation never throw on arbitrary clipboard text (empty, huge, CRLF,
-non-English, non-item); they return a structured failure (SoT §9.4, §15.3).
+Suite state: 240 tests green, none skipped. Probes were throwaway scripts outside the repo.
+
+| ID | Severity | Problem | Fix |
+|---|---|---|---|
+| C1 | should-fix | `adapter.ts:260-275` `readNormalAffixes` walks every split of the lines into affixes without memoization; the `splits.length > 16` cap only counts successful splits. Probe: two-line hybrid affixes (each line also matching a mod alone) followed by one unrecognized line: 5 hybrids 0.36 s, 6 → 1.2 s, 8 → 14 s, 10 → 163 s. It runs synchronously in the renderer (`Workspace.tsx:62`), so the overlay freezes. | Memoize candidates per (start, end) range and cap the total number of attempts; on the cap return the existing `AFFIX_AMBIGUOUS`. |
+| C2 | should-fix | `adapter.ts:112` `plausible` accepts any `desecrated_exclusive` mod of any base and any regular mod of the domain, without the spawn-weight / applicability check of spec 004 step 7. Probe: a Body Armour line matching only a mace-only Amanamu exclusive → `exclusiveMatch` (`:127`) → `existingDesecration: 'present'` → `ITEM_ALREADY_DESECRATED` → exact check and base pool `invalid`. An `invalid` from a mod that cannot exist on the base breaks guardrail 3. | Filter candidates by the base's tags (spawn weight for regular mods, applicability for exclusives); only applicable exclusives may set `present`. |
+| C3 | should-fix | Unidentified rare parses with `confidence: 'full'` and 0 affixes; `affixSlots` (`slots.ts:21-35`) reports 3/3 free on both sides and `defaultSides` uses it. `unidentified` and `mirrored` are parsed but read nowhere in `src/domain` or `src/renderer`. | `affixSlots` → `undetermined` for unidentified items (fail closed). The SoT does not cover unidentified/mirrored items: register a U-item in SoT §20 before deciding anything beyond fail-closed. |
+| C4 | nice-to-have | `grammar.ts:50` advanced-block header regex is quadratic and is tested on every body line. Probe: a 32k-char line `{ a — a — …` without closing brace → 6 s. | Cap the tested line length (e.g. 500 chars) or make the pattern parts non-overlapping. |
+| C5 | nice-to-have | Normal copy records "Desecrated Prefix/Suffix" placeholders (`adapter.ts:328`) but `affixSlots` does not count them: one extra free slot on that side (labelled `recognized_only`). | Count seen Unrevealed placeholders as used. |
+
+Checked and fine: CRLF/NBSP/zero-width normalization; empty, whitespace-only and 5 MB text →
+`NOT_A_POE2_ITEM` without throwing; German text → `UNSUPPORTED_CLIPBOARD_LOCALE`; notes/price
+lines; corrupted, magic, normal, unique handling; Ancient floor from pack data with highest-tier
+fallback; Gnawed limit; Lich Omen/Bone family rules and U-013; Putrefaction regular sources only;
+side Omen conflict; U-008, U-012; fractured affixes excluded from removal branches; base pool never
+`final` and never uses the Mark floor; Mark detected by mod ID; `lichPoolConflict` rows excluded;
+full evaluation 20–40 ms.
+
+Still required regardless of the review: parser and evaluation never throw on arbitrary clipboard
+text (SoT §9.4, §15.3) — a fuzz test pins it (see Tests).
 
 ### D. Release process
 
@@ -105,7 +122,7 @@ The maintainer asked to follow the recommendations below.
 
 ## Acceptance criteria
 
-1. A–B "should-fix" items fixed, each with a test; C items per the review.
+1. All "should-fix" items (A1–A4, B1–B3, C1–C3) fixed, each with a test.
 2. Forced faults do not leave a dead app: throwing parser/evaluation → error fallback, not a blank
    window; unwritable settings file → no crash dialog; unreadable settings file → error dialog and
    exit; second instance → exits without window or tray; renderer crash → reload.
@@ -124,7 +141,9 @@ The maintainer asked to follow the recommendations below.
 - `tests/renderer/app.test.tsx`: error boundary fallback and reset; stale category/level filters;
   truncation note; startup IPC rejection (B1, B2, B4, B5).
 - `tests/architecture/renderer-catalog-guard.test.ts`: extended to pool names (B3).
-- Parser fuzz test over odd clipboard inputs: never throws (C).
+- Parser tests: fuzz over odd clipboard inputs never throws; hybrid-heavy normal copy with an
+  unrecognized line parses under 100 ms (C1); off-base exclusive line does not set `present` (C2);
+  unidentified rare → slots `undetermined` (C3); long unterminated header line stays fast (C4).
 - Manual: F1–F4.
 
 ## Dependencies
@@ -133,4 +152,6 @@ The maintainer asked to follow the recommendations below.
 
 ## Unresolved items
 
-None new. U-011/U-014 decide how much of the video can show the item-specific pool (decision 2).
+- New U-item needed for unidentified/mirrored items (C3); register in SoT §20 and
+  `specs/000-index.md` before handling them beyond fail-closed.
+- U-011/U-014 decide whether the item-specific pool exists for the video (decision 2, F5).
