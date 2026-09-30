@@ -34,6 +34,7 @@ export function createGameTermProvider(
     omenName: withFallback((p) => p.omenName),
     baseItemName: withFallback((p) => p.baseItemName),
     itemClassName: withFallback((p) => p.itemClassName),
+    poolName: withFallback((p) => p.poolName),
     modifierText: withFallback((p) => p.modifierText),
     diagnostics: () => [...fallbacks.values(), ...canonical.diagnostics()],
   };

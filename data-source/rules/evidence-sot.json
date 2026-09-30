@@ -33,5 +33,26 @@
     "observedVersion": "0.2.4",
     "evidenceLevel": "VERIFIED_SECONDARY",
     "notes": "Known Bone set and targets; armour includes shields/foci where the data classifies them as armour-compatible (SoT §2.1)."
+  },
+  {
+    "id": "sot:v0.2.13#7.5",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.13",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Lich pools by canonical EN name pattern: `Amanamu's` or `of Amanamu` -> amanamu, `Ulaman's` or `of Ulaman` -> ulaman, `Kurgal's` or `of Kurgal` -> kurgal."
+  },
+  {
+    "id": "sot:v0.2.13#7.6",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.13",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Otherworldly modifiers are Desecration-domain rows gated by a positive `breach_desecration` entry; Altered Collarbone unlocks this indexed Otherworldly set."
+  },
+  {
+    "id": "sot:v0.2.13#7.7",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.13",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Jewel-exclusive display families: `Lightless` -> jewel_lightless, `of the Abyss` -> jewel_of_the_abyss."
   }
 ]

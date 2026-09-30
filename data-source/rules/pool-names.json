@@ -1,0 +1,68 @@
+[
+  {
+    "poolId": "lich:amanamu",
+    "nameEn": "Amanamu",
+    "evidence": {
+      "ruleId": "pool_name.lich.amanamu",
+      "evidenceRefs": [
+        "sot:v0.2.13#7.5"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "poolId": "lich:ulaman",
+    "nameEn": "Ulaman",
+    "evidence": {
+      "ruleId": "pool_name.lich.ulaman",
+      "evidenceRefs": [
+        "sot:v0.2.13#7.5"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "poolId": "lich:kurgal",
+    "nameEn": "Kurgal",
+    "evidence": {
+      "ruleId": "pool_name.lich.kurgal",
+      "evidenceRefs": [
+        "sot:v0.2.13#7.5"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "poolId": "special:otherworldly",
+    "nameEn": "Otherworldly",
+    "evidence": {
+      "ruleId": "pool_name.special.otherworldly",
+      "evidenceRefs": [
+        "sot:v0.2.13#7.6"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "poolId": "special:jewel_lightless",
+    "nameEn": "Lightless",
+    "evidence": {
+      "ruleId": "pool_name.special.jewel_lightless",
+      "evidenceRefs": [
+        "sot:v0.2.13#7.7"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "poolId": "special:jewel_of_the_abyss",
+    "nameEn": "of the Abyss",
+    "evidence": {
+      "ruleId": "pool_name.special.jewel_of_the_abyss",
+      "evidenceRefs": [
+        "sot:v0.2.13#7.7"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  }
+]

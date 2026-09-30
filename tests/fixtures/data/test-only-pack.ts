@@ -1,10 +1,11 @@
 // TEST_ONLY data pack builder (SoT §0.2 rule 9, §18.1). Role-named synthetic entities only; never
 // real IDs or names. Shared by parser (004) and engine (005) tests.
-import type {
-  BaseItemDefinition,
-  DataPack,
-  ModifierDefinition,
-  StatTranslationEntry,
+import {
+  DATA_PACK_SCHEMA_VERSION,
+  type BaseItemDefinition,
+  type DataPack,
+  type ModifierDefinition,
+  type StatTranslationEntry,
 } from '../../../src/data/normalized/types';
 
 export const mod = (id: string, overrides: Partial<ModifierDefinition> = {}): ModifierDefinition => ({
@@ -66,7 +67,7 @@ export function testPack(input: TestPackInput = {}): DataPack {
   };
   return {
     manifest: {
-      schemaVersion: 1,
+      schemaVersion: DATA_PACK_SCHEMA_VERSION,
       targetGameVersion: 'TEST_ONLY',
       generatedAt: '1970-01-01T00:00:00.000Z',
       sources: [],
@@ -95,6 +96,7 @@ export function testPack(input: TestPackInput = {}): DataPack {
     mechanicsConstants: {},
     abyssMarkModifierIds: input.markIds ?? [],
     specialItems: input.specialItems ?? [],
+    poolNamesEn: [],
     ...input.extra,
   };
 }

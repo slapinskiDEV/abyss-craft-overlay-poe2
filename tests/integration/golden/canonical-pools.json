@@ -1,6 +1,6 @@
 {
   "ornate-plate__preserved-rib__dextral": {
-    "dataPackId": "6d3bdf338a48d9a3bf430f9c2b7675ccf99332eedec8b16ff530335d5b6745be",
+    "dataPackId": "6683ae4ea9025337fa3000b79b93188f987487dac846132a5479e088d3334884",
     "base": "Metadata/Items/Armours/BodyArmours/FourBodyStr6Endgame",
     "status": "valid",
     "branches": [
@@ -108,7 +108,7 @@
     ]
   },
   "ornate-plate__preserved-rib__sinistral": {
-    "dataPackId": "6d3bdf338a48d9a3bf430f9c2b7675ccf99332eedec8b16ff530335d5b6745be",
+    "dataPackId": "6683ae4ea9025337fa3000b79b93188f987487dac846132a5479e088d3334884",
     "base": "Metadata/Items/Armours/BodyArmours/FourBodyStr6Endgame",
     "status": "valid",
     "branches": [
@@ -180,7 +180,7 @@
     ]
   },
   "bow__preserved-jawbone__liege__sinistral": {
-    "dataPackId": "6d3bdf338a48d9a3bf430f9c2b7675ccf99332eedec8b16ff530335d5b6745be",
+    "dataPackId": "6683ae4ea9025337fa3000b79b93188f987487dac846132a5479e088d3334884",
     "base": "Metadata/Items/Weapons/TwoHandWeapons/Bows/FourBow1",
     "status": "valid",
     "branches": [

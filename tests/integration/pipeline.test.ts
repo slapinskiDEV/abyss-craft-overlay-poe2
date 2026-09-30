@@ -33,6 +33,7 @@ describe('pipeline invariants (SoT §18.4)', () => {
         omenName: (id) => ({ text: `L:${id}`, locale: 'test-only', fallback: false }),
         baseItemName: (id) => ({ text: `L:${id}`, locale: 'test-only', fallback: false }),
         itemClassName: (id) => ({ text: `L:${id}`, locale: 'test-only', fallback: false }),
+        poolName: (id) => ({ text: `L:${id}`, locale: 'test-only', fallback: false }),
         modifierText: (id) => ({ text: `L:${id}`, locale: 'test-only', fallback: false }),
         diagnostics: () => [],
       }),

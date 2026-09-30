@@ -20,12 +20,13 @@ describe('renderer catalog guard', () => {
 });
 
 describeRealData('renderer catalog guard against the real pack', () => {
-  it('contains no real Bone, Omen, currency, base or class name or ID', () => {
+  it('contains no real Bone, Omen, currency, base, class or pool name or ID', () => {
     const pack = JSON.parse(readFileSync('src/data/normalized/pack/pack.json', 'utf8')) as DataPack;
     const needles = [
       ...[...pack.bones, ...pack.omens, ...pack.otherCurrencies].flatMap((e) => [e.id, e.gameMetadataId, e.canonicalNameEn]),
       ...pack.baseItems.flatMap((b) => [b.id, b.canonicalNameEn]),
       ...pack.itemClasses.map((c) => c.canonicalNameEn),
+      ...pack.poolNamesEn.map((p) => p.nameEn), // spec 017 B3
     ].filter((n) => n.length > 3);
     const hits = renderer.flatMap((f) => needles.filter((n) => new RegExp(`['"\`]${n.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"\`]`).test(f.text)).map((n) => `${f.path}: ${n}`));
     expect(hits).toEqual([]);

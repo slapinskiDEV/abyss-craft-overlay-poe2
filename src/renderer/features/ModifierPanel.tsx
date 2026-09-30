@@ -5,9 +5,9 @@ import { diagnosticParams } from '../../i18n/format-diagnostic';
 import {
   availableCategories,
   buildRows,
-  poolCategoryName,
   poolHeadingKey,
   weakestCompleteness,
+  withOfferedCategories,
   type ModifierCategoryId,
   type ModifierFilters,
   type ModifierRow,
@@ -44,9 +44,11 @@ export function ModifierPanel({ pool, source, branchId, view, filters, selectedI
   const selected = effectiveBranch === 'union' ? pool.branches : pool.branches.filter((b) => b.id === effectiveBranch);
   const completeness = weakestCompleteness(selected);
   const heading = poolHeadingKey(completeness, source);
-  const rows = heading === null ? [] : buildRows(pool, effectiveBranch, view, filters, game);
   const categories = availableCategories(pool, view === 'blocked' ? undefined : view);
-  const categoryLabel = (c: ModifierCategoryId) => (c === 'regular' || c === 'exclusive' ? t(`workspace:category.${c}`) : poolCategoryName(c) ?? c);
+  const levelFilters = (filters.minLevel !== undefined ? 1 : 0) + (filters.maxLevel !== undefined ? 1 : 0);
+  const rows = heading === null ? [] : buildRows(pool, effectiveBranch, view, withOfferedCategories(filters, categories), game);
+  // Pool names are official game terms from the data pack (spec 017 B3).
+  const categoryLabel = (c: ModifierCategoryId) => (c === 'regular' || c === 'exclusive' ? t(`workspace:category.${c}`) : game.poolName(c).text);
   const branchLabel = (b: DesecrationBranchResult) =>
     b.kind === 'mark_replacement'
       ? t('workspace:branchMarkReplaced')
@@ -118,7 +120,10 @@ export function ModifierPanel({ pool, source, branchId, view, filters, selectedI
             <p className="note side-note">{t('workspace:openSideOnly', { side: t(`common:${openSideOnly}`) })}</p>
           ) : null}
           <details className="more-filters">
-            <summary>{t('workspace:moreFilters')}</summary>
+            <summary>
+              {t('workspace:moreFilters')}
+              {levelFilters > 0 ? <span className="count"> ({levelFilters})</span> : null}
+            </summary>
             <div className="filters">
               <input type="number" aria-label={t('workspace:levelMin')} placeholder={t('workspace:levelMin')} value={filters.minLevel ?? ''} onChange={(e) => onFilters({ minLevel: e.target.value === '' ? undefined : Number(e.target.value) })} />
               <input type="number" aria-label={t('workspace:levelMax')} placeholder={t('workspace:levelMax')} value={filters.maxLevel ?? ''} onChange={(e) => onFilters({ maxLevel: e.target.value === '' ? undefined : Number(e.target.value) })} />

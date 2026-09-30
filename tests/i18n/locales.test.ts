@@ -15,6 +15,7 @@ const pack = {
   baseItems: [{ id: 'TEST_ONLY_BASE', canonicalNameEn: 'TEST_ONLY Base Name' }],
   itemClasses: [{ id: 'TEST_ONLY_CLASS', canonicalNameEn: 'TEST_ONLY Class Name' }],
   modifiers: [{ id: 'TEST_ONLY_MOD', canonicalNameEn: 'TEST_ONLY', text: '+(1-2) to [TEST_ONLY_Link|TEST_ONLY Stat]' }],
+  poolNamesEn: [{ poolId: 'special:TEST_ONLY_pool', nameEn: 'TEST_ONLY Pool Name' }],
 } as unknown as DataPack;
 
 describe('locale resolution (SoT §5.6)', () => {
@@ -39,6 +40,7 @@ describe('EN game-term provider', () => {
   it('returns pack names and strips RePoE link markup', () => {
     expect(game.omenName('test_only_omen')).toEqual({ text: 'TEST_ONLY Omen Name', locale: 'en', fallback: false });
     expect(game.modifierText('TEST_ONLY_MOD').text).toBe('+(1-2) to TEST_ONLY Stat');
+    expect(game.poolName('special:TEST_ONLY_pool')).toEqual({ text: 'TEST_ONLY Pool Name', locale: 'en', fallback: false });
     expect(stripRePoEMarkup('[A|B] and [C]')).toBe('B and C');
   });
 
@@ -58,6 +60,7 @@ describe('locale axes are independent (SoT §5.10, §18.3 #23)', () => {
         omenName: (id) => (id === 'test_only_omen' ? { text: 'TEST_ONLY Localized', locale: 'test-only', fallback: false } : { text: id, locale: 'test-only', fallback: true }),
         baseItemName: (id) => ({ text: id, locale: 'test-only', fallback: true }),
         itemClassName: (id) => ({ text: id, locale: 'test-only', fallback: true }),
+        poolName: (id) => ({ text: id, locale: 'test-only', fallback: true }),
         modifierText: (id) => ({ text: id, locale: 'test-only', fallback: true }),
         diagnostics: () => [],
       }),

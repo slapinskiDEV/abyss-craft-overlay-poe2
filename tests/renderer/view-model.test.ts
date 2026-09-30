@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { evaluateDesecration } from '../../src/domain';
 import { createGameTermProvider } from '../../src/i18n/game/providers/registry';
 import { buildDebugReport } from '../../src/renderer/view-model/debug-report';
-import { availableCategories, buildRows, DEFAULT_FILTERS, defaultPoolSource, poolBranches, poolHeadingKey, weakestCompleteness } from '../../src/renderer/view-model/rows';
+import { availableCategories, buildRows, DEFAULT_FILTERS, defaultPoolSource, poolBranches, poolHeadingKey, weakestCompleteness, withOfferedCategories } from '../../src/renderer/view-model/rows';
 import { INITIAL_WORKSPACE, workspaceReducer } from '../../src/renderer/view-model/workspace';
 import { ENGINE_PACK as data, affix, parsed } from '../fixtures/data/test-only-engine-pack';
 
@@ -59,6 +59,19 @@ describe('workspace reducer', () => {
     s = workspaceReducer(s, { type: 'keepSelectable', boneIds: new Set(), omenIds: new Set(['TEST_ONLY_OMEN_FORCE_SUFFIX']) });
     expect(s).toMatchObject({ boneId: null, omenIds: ['TEST_ONLY_OMEN_FORCE_SUFFIX'] });
     expect(workspaceReducer(s, { type: 'toggleOmen', omenId: 'TEST_ONLY_OMEN_FORCE_SUFFIX' }).omenIds).toEqual([]);
+  });
+});
+
+describe('stale filters (spec 017 B2)', () => {
+  it('ignores a chosen category the current view does not offer', () => {
+    const filters = { ...DEFAULT_FILTERS, categories: ['exclusive', 'lich:TEST_ONLY_gone'] as const };
+    expect(withOfferedCategories({ ...filters, categories: [...filters.categories] }, ['regular', 'exclusive']).categories).toEqual(['exclusive']);
+  });
+
+  it('clears category chips and the level range for a new item, but keeps the search text', () => {
+    let s = workspaceReducer(INITIAL_WORKSPACE, { type: 'filters', patch: { text: 'TEST_ONLY', categories: ['exclusive'], minLevel: 40, maxLevel: 60 } });
+    s = workspaceReducer(s, { type: 'clipboard', text: 'TEST_ONLY next item' });
+    expect(s.filters).toEqual({ ...DEFAULT_FILTERS, text: 'TEST_ONLY' });
   });
 });
 

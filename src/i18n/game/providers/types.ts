@@ -18,6 +18,8 @@ export interface GameLocalizationProvider {
   omenName(id: string): LocalizedTerm;
   baseItemName(id: string): LocalizedTerm;
   itemClassName(id: string): LocalizedTerm;
+  /** Official name of a Lich or special pool category (`lich:<pool>`, `special:<pool>`). */
+  poolName(poolId: string): LocalizedTerm;
   /** Official modifier text with value ranges, e.g. "+(10-20) to Strength". */
   modifierText(modId: string): LocalizedTerm;
   /** Diagnostics recorded so far, one per entity ID (visible in the debug report). */

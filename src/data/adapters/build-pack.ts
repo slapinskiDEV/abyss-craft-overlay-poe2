@@ -9,6 +9,8 @@ import type {
   LichPool,
   OmenDefinition,
   OtherCurrencyDefinition,
+  PoolCategoryId,
+  PoolNameDefinition,
   ProvenanceRecord,
   SpecialItemDefinition,
   StatTranslationEntry,
@@ -194,6 +196,24 @@ export function buildPack(inputs: SnapshotInputs, registry: RuleRegistry, target
     return { handling: s.handling, baseItemIds, uniqueNamesEn, evidence: s.evidence };
   });
 
+  // Pool display names (spec 017 B3): every Lich/special pool that occurs has exactly one name,
+  // and the name occurs in the canonical names of that pool's rows or in the quoted evidence.
+  const poolIds = [...new Set(modifiers.flatMap((m): PoolCategoryId[] => [...(m.lichPool ? [`lich:${m.lichPool}` as const] : []), ...m.specialPools.map((p) => `special:${p}` as const)]))].sort();
+  const poolNamesEn = poolIds.flatMap((poolId): PoolNameDefinition[] => {
+    const rules = registry.poolNames.filter((p) => p.poolId === poolId);
+    const [rule] = rules;
+    if (rules.length !== 1 || !rule) {
+      issues.push({ code: 'POOL_NAME_UNRESOLVED', detail: `${poolId}: ${rules.length} rule entries` });
+      return [];
+    }
+    const rows = modifiers.filter((m) => (poolId.startsWith('lich:') ? `lich:${m.lichPool}` === poolId : m.specialPools.some((p) => `special:${p}` === poolId)));
+    const inRows = rows.some((m) => m.canonicalNameEn.includes(rule.nameEn));
+    const inEvidence = rule.evidence.evidenceRefs.some((ref) => provenance[ref]?.notes?.includes(rule.nameEn));
+    if (!inRows && !inEvidence) issues.push({ code: 'POOL_NAME_UNEVIDENCED', detail: `${poolId}: ${rule.nameEn}` });
+    return [{ poolId: rule.poolId, nameEn: rule.nameEn, evidence: rule.evidence }];
+  });
+  for (const p of registry.poolNames) if (!poolIds.includes(p.poolId)) issues.push({ code: 'POOL_NAME_UNUSED', detail: p.poolId });
+
   // EN stat translations limited to stats used by included modifiers.
   const neededStats = new Set(modifiers.flatMap((m) => m.stats.map((s) => s.id)));
   const statTranslationsEn: StatTranslationEntry[] = inputs.statDescriptions
@@ -226,6 +246,7 @@ export function buildPack(inputs: SnapshotInputs, registry: RuleRegistry, target
     mechanicsConstants: registry.constants,
     abyssMarkModifierIds,
     specialItems,
+    poolNamesEn,
   };
 
   const evidenceTimes = registry.evidence.map((e) => e.retrievedAt).filter((t): t is string => t !== undefined);

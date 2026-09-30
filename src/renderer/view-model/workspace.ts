@@ -44,7 +44,20 @@ export type WorkspaceAction =
 export function workspaceReducer(state: WorkspaceState, action: WorkspaceAction): WorkspaceState {
   switch (action.type) {
     case 'clipboard':
-      return action.text === state.rawText ? state : { ...state, rawText: action.text, boneCleared: false, selectedBranchId: null, poolSource: null, view: 'eligible' };
+      // A new item also clears the category chips and the level range: they may not exist on the
+      // new item's pools and would empty the list unseen (spec 017 B2). The search text stays, so
+      // a target modifier can be looked up across items (SoT §16.6).
+      return action.text === state.rawText
+        ? state
+        : {
+            ...state,
+            rawText: action.text,
+            boneCleared: false,
+            selectedBranchId: null,
+            poolSource: null,
+            view: 'eligible',
+            filters: { text: state.filters.text, sides: state.filters.sides, categories: [], showBaseIneligible: state.filters.showBaseIneligible },
+          };
     case 'bone':
       return {
         ...state,

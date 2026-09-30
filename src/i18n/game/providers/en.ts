@@ -10,6 +10,7 @@ export function createEnProvider(pack: DataPack): GameLocalizationProvider {
   for (const e of [...pack.bones, ...pack.omens, ...pack.otherCurrencies]) names.set(e.id, e.canonicalNameEn);
   const bases = new Map(pack.baseItems.map((b) => [b.id, b.canonicalNameEn]));
   const classes = new Map(pack.itemClasses.map((c) => [c.id, c.canonicalNameEn]));
+  const pools = new Map(pack.poolNamesEn.map((p) => [p.poolId, p.nameEn]));
   const modText = new Map(pack.modifiers.map((m) => [m.id, m.text ? stripRePoEMarkup(m.text) : m.canonicalNameEn]));
 
   const recorded = new Map<string, GameTermDiagnostic>();
@@ -26,6 +27,7 @@ export function createEnProvider(pack: DataPack): GameLocalizationProvider {
     omenName: (id) => lookup(names, id),
     baseItemName: (id) => lookup(bases, id),
     itemClassName: (id) => lookup(classes, id),
+    poolName: (id) => lookup(pools, id),
     modifierText: (id) => lookup(modText, id),
     diagnostics: () => [...recorded.values()],
   };

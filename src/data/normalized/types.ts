@@ -154,6 +154,16 @@ export interface DataManifest {
   validated: boolean;
 }
 
+/** Pool category shown in the UI: a Lich pool or a special pool (SoT §7.5–7.7). */
+export type PoolCategoryId = `lich:${LichPool}` | `special:${SpecialPool}`;
+
+/** Official EN display name of a pool category, evidenced (spec 017 B3). */
+export interface PoolNameDefinition {
+  poolId: PoolCategoryId;
+  nameEn: string;
+  evidence: RuleEvidence;
+}
+
 export interface DataPackContent {
   provenance: Record<string, ProvenanceRecord>;
   itemClasses: ItemClassDefinition[];
@@ -169,10 +179,12 @@ export interface DataPackContent {
   mechanicsConstants: Record<string, MechanicsConstant>;
   abyssMarkModifierIds: string[];
   specialItems: SpecialItemDefinition[];
+  poolNamesEn: PoolNameDefinition[];
 }
 
 export interface DataPack extends DataPackContent {
   manifest: DataManifest;
 }
 
-export const DATA_PACK_SCHEMA_VERSION = 1;
+/** 2: `poolNamesEn` (spec 017 B3). */
+export const DATA_PACK_SCHEMA_VERSION = 2;

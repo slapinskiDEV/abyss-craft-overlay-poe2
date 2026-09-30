@@ -24,6 +24,15 @@ export interface ModifierFilters {
 
 export const DEFAULT_FILTERS: ModifierFilters = { text: '', sides: ['prefix', 'suffix'], categories: [], showBaseIneligible: false };
 
+/**
+ * Only category chips the current view offers may filter it: a chosen category the view does not
+ * offer would empty the list with no chip left to turn it off (spec 017 B2).
+ */
+export const withOfferedCategories = (filters: ModifierFilters, offered: readonly ModifierCategoryId[]): ModifierFilters => ({
+  ...filters,
+  categories: filters.categories.filter((c) => offered.includes(c)),
+});
+
 export interface ModifierRow {
   modifierId: string;
   text: string;
@@ -132,16 +141,3 @@ export function buildRows(
     .sort((a, b) => a.side.localeCompare(b.side) || a.categories[0]!.localeCompare(b.categories[0]!) || a.text.localeCompare(b.text) || b.requiredLevel - a.requiredLevel);
 }
 
-/**
- * Display names for Lich / special pool categories: the official English family names used by the
- * SoT (§7.5–7.7). They are game terms, so they stay English in every UI locale (SoT §5.2).
- */
-const POOL_NAMES: Record<string, string> = {
-  'lich:amanamu': 'Amanamu',
-  'lich:ulaman': 'Ulaman',
-  'lich:kurgal': 'Kurgal',
-  'special:otherworldly': 'Otherworldly',
-  'special:jewel_lightless': 'Lightless',
-  'special:jewel_of_the_abyss': 'of the Abyss',
-};
-export const poolCategoryName = (c: ModifierCategoryId): string | undefined => POOL_NAMES[c];

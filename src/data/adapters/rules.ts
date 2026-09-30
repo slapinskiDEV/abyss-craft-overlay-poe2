@@ -2,7 +2,7 @@
 // files hold mechanics only; game IDs and names are resolved from the snapshot, never typed.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
-import type { BoneFamily, BoneTargetGroup, EvidenceLevel, LichPool, ProvenanceRecord, RuleEvidence, SpecialPool } from '../normalized/types';
+import type { BoneFamily, BoneTargetGroup, EvidenceLevel, LichPool, PoolNameDefinition, ProvenanceRecord, RuleEvidence, SpecialPool } from '../normalized/types';
 import type { RawBaseItem, RawMod } from './raw-types';
 
 
@@ -57,6 +57,7 @@ export interface RuleRegistry {
   lichOverrides: LichOverrideRule[];
   abyssMark: AbyssMarkRule;
   specialItems: SpecialItemRuleInput[];
+  poolNames: PoolNameDefinition[];
 }
 
 export function loadRuleRegistry(rulesDir: string): RuleRegistry {
@@ -72,6 +73,7 @@ export function loadRuleRegistry(rulesDir: string): RuleRegistry {
     lichOverrides: read('lich-overrides.json'),
     abyssMark: read('abyss-mark.json'),
     specialItems: read('special-items.json'),
+    poolNames: read('pool-names.json'),
   };
 }
 
@@ -94,6 +96,7 @@ export function checkEvidence(registry: RuleRegistry, snapshotRecordIds: Readonl
     ...registry.lichOverrides.map((o): [string, RuleEvidence] => [`lich override ${o.description}`, o.evidence]),
     ['abyss mark', registry.abyssMark.evidence],
     ...registry.specialItems.map((s): [string, RuleEvidence] => [`special ${JSON.stringify(s.match)}`, s.evidence]),
+    ...registry.poolNames.map((p): [string, RuleEvidence] => [`pool name ${p.poolId}`, p.evidence]),
   ];
   const issues: RegistryIssue[] = [];
   for (const [label, evidence] of entries) {
