@@ -16,13 +16,15 @@ export type AffixSlots =
        */
       basis: 'complete' | 'recognized_only';
     }
-  | { state: 'undetermined'; reason: 'NOT_RARE' | 'NO_AFFIX_LIMIT' | 'AFFIX_SIDE_UNKNOWN' };
+  | { state: 'undetermined'; reason: 'NOT_RARE' | 'NO_AFFIX_LIMIT' | 'AFFIX_SIDE_UNKNOWN' | 'UNIDENTIFIED' };
 
 export function affixSlots(item: ParsedItem, data: DataPack): AffixSlots {
   if (item.rarity !== 'rare') return { state: 'undetermined', reason: 'NOT_RARE' };
   const limits = data.affixLimits.find((l) => l.itemClassId === item.itemClassId && l.rarity === 'rare');
   if (!limits) return { state: 'undetermined', reason: 'NO_AFFIX_LIMIT' };
   if (item.unknownAffixes.length > 0) return { state: 'undetermined', reason: 'AFFIX_SIDE_UNKNOWN' };
+  // Explicit modifiers are hidden until identified (SoT U-015).
+  if (item.unidentified) return { state: 'undetermined', reason: 'UNIDENTIFIED' };
   const side = (s: AffixSide, max: number): SideSlots => {
     const used = (s === 'prefix' ? item.prefixes : item.suffixes).length;
     return { used, max, free: Math.max(0, max - used) };

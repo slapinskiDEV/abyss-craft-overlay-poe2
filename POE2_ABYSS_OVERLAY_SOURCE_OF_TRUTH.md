@@ -1,7 +1,7 @@
 # PoE2 Abyss Craft Overlay — Source of Truth
 
 **Status:** Living master document  
-**Document version:** 0.2.13  
+**Document version:** 0.2.14  
 **Target game context:** Path of Exile 2, 0.5.5 / Forbidden Rites event context  
 **Verified/researched:** 2026-09-26  
 **Primary implementation target:** Windows 10/11 desktop overlay  
@@ -2097,6 +2097,16 @@ Status: `NEEDS_MANUAL_FIXTURE`.
 
 A revealed Desecrated affix may originate from the ordinary regular modifier pool, so `desecratedSource !== regular` is not sufficient to identify every already-Desecrated item. Real EN normal/advanced clipboard fixtures must establish whether the game emits a persistent Desecrated marker or other reliable metadata after reveal. Until then, the parser must not claim complete existing-Desecrated detection for regular-source reveals.
 
+## U-015 — unidentified and mirrored items
+
+Status: `NEEDS_MANUAL_VALIDATION`.
+
+This document does not state whether Abyssal Bones can be used on unidentified or mirrored Rare
+items, and an unidentified item hides its explicit modifiers. Until evidenced: the exact item check
+of such an item is `unknown`, its free prefix/suffix slots are undetermined, and no final eligible
+pool is shown. Neither state is `invalid`. The base Desecration pool (§14.7) stays available, as
+for any other undetermined item state.
+
 ---
 
 # 21. Example: Ornate Plate + Preserved Rib
@@ -2350,6 +2360,11 @@ Checked on 2026-09-26.
 ---
 
 # 26. Changelog
+
+## 0.2.14 — 2026-09-30
+
+- §20: U-015 — unidentified and mirrored items: exact check `unknown`, slots undetermined, base
+  pool unchanged (code review, spec 017 C3).
 
 ## 0.2.13 — 2026-09-29
 

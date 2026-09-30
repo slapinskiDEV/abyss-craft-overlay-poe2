@@ -1,6 +1,6 @@
 // Free affix slots and item-usable Omens (SoT §16.4, 0.2.9).
 import { describe, expect, it } from 'vitest';
-import { affixSlots, defaultBoneId, defaultSides, usableOmenIds } from '../../src/domain';
+import { affixSlots, defaultBoneId, defaultSides, evaluateDesecration, usableOmenIds } from '../../src/domain';
 import { ENGINE_PACK, affix, parsed } from '../fixtures/data/test-only-engine-pack';
 
 describe('affixSlots', () => {
@@ -19,6 +19,26 @@ describe('affixSlots', () => {
     expect(affixSlots(parsed('armour', [unknownSide]), ENGINE_PACK)).toEqual({ state: 'undetermined', reason: 'AFFIX_SIDE_UNKNOWN' });
     expect(affixSlots(parsed('armour', [], { rarity: 'magic' }), ENGINE_PACK)).toEqual({ state: 'undetermined', reason: 'NOT_RARE' });
     expect(affixSlots(parsed('armour', [], { itemClassId: 'TEST_ONLY_CLASS_NONE' }), ENGINE_PACK)).toEqual({ state: 'undetermined', reason: 'NO_AFFIX_LIMIT' });
+  });
+});
+
+describe('unidentified and mirrored items (SoT U-015, spec 017 C3)', () => {
+  const run = (extra: Parameters<typeof parsed>[2]) =>
+    evaluateDesecration({ item: parsed('armour', [], extra, { existingDesecration: 'absent' }), parserConfidence: 'full', currency: 'TEST_ONLY_BONE_ARMOUR_PLAIN', activeOmens: [], data: ENGINE_PACK });
+
+  it('does not count free slots on an unidentified item', () => {
+    expect(affixSlots(parsed('armour', [], { unidentified: true }), ENGINE_PACK)).toEqual({ state: 'undetermined', reason: 'UNIDENTIFIED' });
+  });
+
+  it('makes the exact check unknown, never invalid, and keeps the base pool', () => {
+    for (const extra of [{ unidentified: true }, { mirrored: true }]) {
+      const e = run(extra);
+      expect(e.status).toBe('unknown');
+      expect(e.reasons.map((d) => d.code)).toContain('ITEM_STATE_UNDOCUMENTED');
+      expect(e.branches.every((b) => b.completeness !== 'final')).toBe(true);
+      expect(e.basePool.status).toBe('valid');
+    }
+    expect(run({}).status).not.toBe('unknown');
   });
 });
 

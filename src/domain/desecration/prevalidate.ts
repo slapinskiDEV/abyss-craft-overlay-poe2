@@ -70,6 +70,9 @@ export function preValidate(ctx: CraftContext, parserConfidence: ParserConfidenc
   if (item.corrupted) out.push(diag('ITEM_CORRUPTED'));
   if (item.abyss.existingDesecration === 'present') out.push(diag('ITEM_ALREADY_DESECRATED'));
   else if (itemScope && item.abyss.existingDesecration === 'undetermined') out.push(diag('EXISTING_DESECRATION_UNDETERMINED'));
+  // SoT U-015: not evidenced either way, so the exact check is unknown; the base pool stays.
+  if (itemScope && item.unidentified) out.push(diag('ITEM_STATE_UNDOCUMENTED', { state: 'unidentified' }));
+  if (itemScope && item.mirrored) out.push(diag('ITEM_STATE_UNDOCUMENTED', { state: 'mirrored' }));
 
   const seen = new Set<string>();
   for (const omen of ctx.omens) {

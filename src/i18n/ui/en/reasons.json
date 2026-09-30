@@ -111,6 +111,10 @@
     "title": "Existing Desecration not ruled out",
     "detail": "The overlay cannot yet confirm that the item has no Desecrated modifier, so it will not calculate a pool."
   },
+  "ITEM_STATE_UNDOCUMENTED": {
+    "title": "Unidentified or mirrored item",
+    "detail": "Whether Abyssal Bones work on an unidentified or mirrored item is not verified yet, and an unidentified item hides its modifiers. The overlay shows only the pool for the base."
+  },
   "BONE_INCOMPATIBLE_ITEM_CLASS": {
     "title": "Currency does not fit this item",
     "detail": "{{currencyName}} cannot be used on {{itemClassName}}."

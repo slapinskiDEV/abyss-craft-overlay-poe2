@@ -40,6 +40,7 @@ export const DIAGNOSTIC_CODE_DEFINITIONS = [
   { code: 'ITEM_CORRUPTED', layer: 'domain', severity: 'error' },
   { code: 'ITEM_ALREADY_DESECRATED', layer: 'domain', severity: 'error' },
   { code: 'EXISTING_DESECRATION_UNDETERMINED', layer: 'domain', severity: 'unknown', uRef: 'U-014' },
+  { code: 'ITEM_STATE_UNDOCUMENTED', layer: 'domain', severity: 'unknown', uRef: 'U-015' },
   { code: 'BONE_INCOMPATIBLE_ITEM_CLASS', layer: 'domain', severity: 'error' },
   { code: 'ITEM_CLASS_TARGET_UNMAPPED', layer: 'domain', severity: 'unknown' },
   { code: 'GNAWED_ITEM_LEVEL_TOO_HIGH', layer: 'domain', severity: 'error' },

@@ -111,6 +111,10 @@
     "title": "Nie wykluczono istniejącej Desecration",
     "detail": "Nakładka nie potrafi jeszcze potwierdzić, że przedmiot nie ma modyfikatora Desecrated, więc nie obliczy puli."
   },
+  "ITEM_STATE_UNDOCUMENTED": {
+    "title": "Przedmiot niezidentyfikowany lub mirrored",
+    "detail": "Nie zostało jeszcze sprawdzone, czy Abyssal Bones działają na przedmiocie niezidentyfikowanym lub mirrored, a niezidentyfikowany przedmiot ukrywa swoje modyfikatory. Nakładka pokazuje tylko pulę dla bazy."
+  },
   "BONE_INCOMPATIBLE_ITEM_CLASS": {
     "title": "Waluta nie pasuje do przedmiotu",
     "detail": "{{currencyName}} nie można użyć na {{itemClassName}}."

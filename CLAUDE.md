@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Derived operational summary of `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT, v0.2.13).
+Derived operational summary of `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT, v0.2.14).
 This file is not a second source of truth: **if it conflicts with the SoT, the SoT wins.**
 
 ## Guardrails (SoT §23.1)
@@ -36,7 +36,7 @@ This file is not a second source of truth: **if it conflicts with the SoT, the S
   exact item check stays fail-closed.
 - Production UI options (Bones, Omens, categories) come from the data pack only.
 - Release requires `npm run verify:release` (real validated pack, no skipped tests).
-- Open questions: SoT §20 (U-001–U-009, U-011–U-014); register in `specs/000-index.md`.
+- Open questions: SoT §20 (U-001–U-009, U-011–U-015); register in `specs/000-index.md`.
 
 ## Commands
 

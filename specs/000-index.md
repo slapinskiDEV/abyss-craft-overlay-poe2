@@ -1,6 +1,6 @@
 # Specs index
 
-**Parent document:** `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT) **v0.2.13**
+**Parent document:** `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT) **v0.2.14**
 **Spec set version:** 0.3.0 (draft, awaiting maintainer review — SoT §23)
 
 The SoT is authoritative. Specs clarify implementation detail and record algorithm/design choices
@@ -74,8 +74,9 @@ created with 002 and extended by each later spec, so earlier specs can reference
 | U-012 | ASSUMPTION_BLOCKED | Mixed open/full sides, no side Omen | 005 | `unknown`, no pool |
 | U-013 | ASSUMPTION_BLOCKED | Empty forced-Lich fallback vs floors / non-forced exclusives | 005 | craft `valid_with_warning`; pool `unknown` whenever those details can affect it |
 | U-014 | NEEDS_MANUAL_FIXTURE | Detectability of revealed regular-source Desecrated affix | 004, 005 | existing-Desecration state `undetermined` -> evaluation `unknown` |
+| U-015 | NEEDS_MANUAL_VALIDATION | Unidentified and mirrored items (SoT 0.2.14) | 005, 017 | exact check `unknown` (`ITEM_STATE_UNDOCUMENTED`), slots undetermined, base pool unchanged |
 
-No U-item numbers are introduced by the specs.
+U-015 was added to the SoT (0.2.14) from the spec 017 review; the specs introduce no U-item of their own.
 
 ## Expected MVP behavior to be aware of
 
