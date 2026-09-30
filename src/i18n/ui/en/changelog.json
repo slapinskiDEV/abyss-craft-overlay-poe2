@@ -41,6 +41,17 @@
       "items": [
         "The overlay is now open source under the MIT license: github.com/slapinskiDEV/abyss-craft-overlay-poe2"
       ]
+    },
+    "2026-09-30b": {
+      "heading": "2026-09-30 (stability)",
+      "items": [
+        "The overlay no longer freezes on some copied items and reacts faster.",
+        "If an item cannot be shown, you get a message with \"Read clipboard again\" and \"Copy debug report\" instead of an empty window.",
+        "If the hotkey is already used by another program, the overlay opens and tells you so.",
+        "The tray icon menu has \"Reset window position\", for a window that ended up off-screen.",
+        "Filters no longer get stuck: a new item starts without the previous item's category and level filters.",
+        "Unidentified and mirrored items show only the pool for the base, and free slots are not guessed."
+      ]
     }
   }
 }

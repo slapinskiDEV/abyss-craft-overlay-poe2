@@ -41,6 +41,17 @@
       "items": [
         "Nakładka jest teraz open source na licencji MIT: github.com/slapinskiDEV/abyss-craft-overlay-poe2"
       ]
+    },
+    "2026-09-30b": {
+      "heading": "30.09.2026 (stabilność)",
+      "items": [
+        "Nakładka nie zawiesza się już na niektórych skopiowanych przedmiotach i reaguje szybciej.",
+        "Jeśli przedmiotu nie da się pokazać, zamiast pustego okna pojawia się komunikat z przyciskami „Odczytaj schowek ponownie” i „Kopiuj raport debug”.",
+        "Jeśli skrót jest zajęty przez inny program, nakładka się otwiera i o tym informuje.",
+        "Menu ikony w zasobniku ma „Resetuj pozycję okna”, gdy okno trafi poza ekran.",
+        "Filtry już się nie zacinają: nowy przedmiot startuje bez filtrów kategorii i poziomu z poprzedniego.",
+        "Przedmioty niezidentyfikowane i mirrored pokazują tylko pulę dla bazy, a wolne sloty nie są zgadywane."
+      ]
     }
   }
 }

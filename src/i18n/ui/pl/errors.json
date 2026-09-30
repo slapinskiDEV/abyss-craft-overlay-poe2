@@ -4,5 +4,5 @@
   "hotkeyRegistrationFailed": "Skrót {{accelerator}} jest już zajęty. Wybierz inny.",
   "hotkeyInvalid": "{{accelerator}} nie jest poprawnym skrótem.",
   "renderFailedTitle": "Coś poszło nie tak z tym przedmiotem",
-  "renderFailedDetail": "Nakładka nie mogła pokazać tego przedmiotu. Skopiuj inny przedmiot albo wczytaj schowek ponownie. Jeśli to się powtarza, skopiuj raport debug i załóż zgłoszenie (issue)."
+  "renderFailedDetail": "Nakładka nie mogła pokazać tego przedmiotu. Skopiuj inny przedmiot albo odczytaj schowek ponownie. Jeśli to się powtarza, skopiuj raport debug i załóż zgłoszenie (issue)."
 }
