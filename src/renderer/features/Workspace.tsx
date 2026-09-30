@@ -35,6 +35,9 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
   const [includeRaw, setIncludeRaw] = useState(false);
   const [selected, setSelected] = useState<ModifierRow | null>(null);
   const [copied, setCopied] = useState(false);
+  // The last hotkey copy never arrived (SoT 0.2.15): the overlay stays open and says so.
+  const [copyMissed, setCopyMissed] = useState(false);
+  useEffect(() => api.onCopyMissed(setCopyMissed), [api]);
   // Time from a new clipboard text to the next painted frame, last ten items (spec 018).
   const renderStart = useRef<number | null>(null);
   const renderTimes = useRef<number[]>([]);
@@ -133,6 +136,11 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
   return (
     <main className="workspace">
       {pack.manifest.stale ? <p className="banner warning">{t('workspace:dataStale')}</p> : null}
+      {copyMissed ? (
+        <p className="banner warning" role="status">
+          {t('workspace:copyMissed', { hotkey: settings.hotkey.replace('CommandOrControl', 'Ctrl') })}
+        </p>
+      ) : null}
       {!item ? (
         <section className="empty-state">
           <p className="hint">{t('workspace:copyItemHint', { hotkey: settings.hotkey.replace('CommandOrControl', 'Ctrl') })}</p>

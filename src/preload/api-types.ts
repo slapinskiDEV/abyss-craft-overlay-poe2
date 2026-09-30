@@ -77,6 +77,8 @@ export interface OverlayApi {
   startUpdate(): void;
   /** true while the hotkey copies the hovered item; false when it is shown or nothing changed. */
   onCopyBusy(cb: (busy: boolean) => void): Unsubscribe;
+  /** true: the last hotkey copy never arrived (SoT 0.2.15); false: cleared by the next item. */
+  onCopyMissed(cb: (missed: boolean) => void): Unsubscribe;
   /** A text field was pressed: the overlay may take keyboard focus while typing (spec 015). */
   requestKeyboardFocus(): void;
   releaseKeyboardFocus(): void;
@@ -99,5 +101,5 @@ export interface CopyTiming {
   /** From the hotkey until the clipboard changed, or the bounded wait ended. */
   totalMs: number;
   clipboardChanged: boolean;
-  action: 'show' | 'hide' | 'refresh';
+  action: 'show' | 'hide' | 'refresh' | 'keep';
 }

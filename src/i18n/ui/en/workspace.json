@@ -12,6 +12,7 @@
   "unionCoverageDisclaimer": "Branch coverage only — this is not a probability.",
   "unknownInteraction": "This interaction is not verified yet. The overlay will not guess the modifier pool.",
   "dataStale": "Crafting data may be outdated for the current PoE2 patch.",
+  "copyMissed": "No item was copied. Hover an item in the game (the game window must be active, the item not covered by the overlay) and press {{hotkey}} again.",
   "revealOptions": "Reveal offers {{count}} options",
   "rerollAvailable": "Reroll available ×{{count}}",
   "searchPlaceholder": "Search modifiers",

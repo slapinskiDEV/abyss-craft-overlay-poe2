@@ -18,6 +18,7 @@
   "unionCoverageDisclaimer": "To tylko pokrycie gałęzi — nie prawdopodobieństwo.",
   "unknownInteraction": "Ta interakcja nie jest jeszcze zweryfikowana. Nakładka nie będzie zgadywać puli modyfikatorów.",
   "dataStale": "Dane o craftingu mogą być nieaktualne dla bieżącej łatki PoE2.",
+  "copyMissed": "Nie skopiowano przedmiotu. Najedź na przedmiot w grze (okno gry musi być aktywne, a przedmiot nie może być zasłonięty nakładką) i naciśnij {{hotkey}} ponownie.",
   "revealOptions": "Liczba opcji przy odsłonięciu: {{count}}",
   "rerollAvailable": "Ponowne losowanie: ×{{count}}",
   "searchPlaceholder": "Szukaj modyfikatorów",

@@ -96,7 +96,8 @@ function toggle(): void {
   const refocus = focused ? (target.hide(), sleep(REFOCUS_MS)) : Promise.resolve();
   const busy = (on: boolean) => target.webContents.send(IPC.copyBusy, on);
   const started = performance.now();
-  let timing: (Pick<CopyTiming, 'clipboardChanged' | 'sendMs'> & { showMs: number; waitMs: number; readMs: number; polls: number }) | null = null;
+  let timing: (Pick<CopyTiming, 'clipboardChanged' | 'sendMs'> & { copied: boolean; showMs: number; waitMs: number; readMs: number; polls: number }) | null = null;
+  let copyMissed = false;
   const read = refocus.then(async () => {
     if (!autoCopyEnabled()) return readClipboardSnapshot();
     // Immediate feedback (spec 016): show the overlay without focus and a loading state while the
@@ -106,19 +107,24 @@ function toggle(): void {
     if (!target.isVisible()) showWithoutFocus(target);
     const showMs = Math.round(performance.now() - showStart);
     const result = await copyThenReadDetailed({ read: readClipboardSnapshot, sendCopy: sendCopyShortcut, sleep, sequence: clipboardSequenceNumber, now: () => performance.now() });
-    timing = { clipboardChanged: result.changed, sendMs: Math.round(result.sendMs), showMs, waitMs: Math.round(result.waitMs), readMs: Math.round(result.readMs), polls: result.polls };
+    timing = { clipboardChanged: result.changed, copied: result.copied, sendMs: Math.round(result.sendMs), showMs, waitMs: Math.round(result.waitMs), readMs: Math.round(result.readMs), polls: result.polls };
+    copyMissed = result.sent && !result.copied;
     return result.snapshot;
   });
   void read
     .then((snapshot) => {
-      const action = decideHotkeyAction(visible, lastSnapshot?.text, snapshot.text);
+      const action = decideHotkeyAction(visible, lastSnapshot?.text, snapshot.text, copyMissed);
       log('hotkey:done', { action, ms: Math.round(performance.now() - started), ...(timing ?? {}) });
       if (timing) {
         copyTimings.push({ at: new Date().toISOString(), sendMs: timing.sendMs, totalMs: Math.round(performance.now() - started), clipboardChanged: timing.clipboardChanged, action });
         if (copyTimings.length > 10) copyTimings.shift();
       }
       if (action === 'hide') target.hide();
-      else deliver(target, snapshot, false);
+      else if (action === 'keep') target.webContents.send(IPC.copyMissed, true);
+      else {
+        deliver(target, snapshot, false);
+        target.webContents.send(IPC.copyMissed, copyMissed);
+      }
     })
     // A failed read or a window closed during quit must not become an unhandled rejection (spec 017 A6).
     .catch((error: unknown) => console.error('hotkey: copy flow failed', error))

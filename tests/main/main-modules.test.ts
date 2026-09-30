@@ -22,6 +22,9 @@ describe('hotkey action (SoT §16.1, spec 009)', () => {
     expect(decideHotkeyAction(true, 'TEST_ONLY a', 'TEST_ONLY b')).toBe('refresh');
     expect(decideHotkeyAction(true, undefined, 'TEST_ONLY a')).toBe('refresh');
     expect(decideHotkeyAction(true, 'TEST_ONLY a', 'TEST_ONLY a')).toBe('hide');
+    // SoT 0.2.15: the auto-copy never arrived -> keep the overlay open (and say so) instead of hiding.
+    expect(decideHotkeyAction(true, 'TEST_ONLY a', 'TEST_ONLY a', true)).toBe('keep');
+    expect(decideHotkeyAction(false, 'TEST_ONLY a', 'TEST_ONLY a', true)).toBe('show');
   });
 });
 
@@ -93,10 +96,14 @@ describe('auto-copy (SoT §3.1 0.2.6, spec 010)', () => {
     expect(reads()).toBe(2); // before and one final read, no polling of the text
   });
 
-  it('keeps waiting when the sequence changes but the text stays the same (follow-up 3)', async () => {
+  it('reports the same item copied again when the sequence changes but the text does not', async () => {
     const r = await withSequence(1, ['TEST_ONLY old']).flow;
-    expect(r.changed).toBe(false);
-    expect(r.snapshot.text).toBe('TEST_ONLY old');
+    expect(r).toMatchObject({ copied: true, changed: false, snapshot: { text: 'TEST_ONLY old' } });
+  });
+
+  it('reports nothing copied when the sequence never changes', async () => {
+    const r = await withSequence(null, ['TEST_ONLY old']).flow;
+    expect(r).toMatchObject({ copied: false, changed: false });
   });
 
   it('falls back to a plain read where sending is unsupported', async () => {

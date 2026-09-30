@@ -26,6 +26,7 @@ const api: OverlayApi = {
   onUpdateStatus: (cb) => subscribe<UpdateStatus>(IPC.updateStatus, cb),
   startUpdate: () => ipcRenderer.send(IPC.startUpdate),
   onCopyBusy: (cb) => subscribe<boolean>(IPC.copyBusy, cb),
+  onCopyMissed: (cb) => subscribe<boolean>(IPC.copyMissed, cb),
   requestKeyboardFocus: () => ipcRenderer.send(IPC.requestKeyboardFocus),
   releaseKeyboardFocus: () => ipcRenderer.send(IPC.releaseKeyboardFocus),
   getHotkeyStatus: () => ipcRenderer.invoke(IPC.getHotkeyStatus),

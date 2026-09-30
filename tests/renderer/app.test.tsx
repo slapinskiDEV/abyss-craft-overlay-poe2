@@ -18,6 +18,7 @@ function fakeApi(overrides: { pack?: DataPackLoadResult; settings?: Partial<AppS
   const settingsListeners: Array<(s: AppSettings) => void> = [];
   const clipboardListeners: Array<(s: ClipboardSnapshot) => void> = [];
   const busyListeners: Array<(b: boolean) => void> = [];
+  const missedListeners: Array<(m: boolean) => void> = [];
   // Like main (spec 009): the last pushed snapshot is served to a renderer that subscribed late, so
   // a push that races the subscription on a slow runner is not lost.
   let lastSnapshot: ClipboardSnapshot | null = null;
@@ -48,11 +49,12 @@ function fakeApi(overrides: { pack?: DataPackLoadResult; settings?: Partial<AppS
     moveWindowBy: vi.fn(),
     getCopyTimings: async () => [],
     diag: vi.fn(),
+    onCopyMissed: (cb) => (missedListeners.push(cb), () => undefined),
   };
   return { api, pushClipboard: (text: string) => {
       lastSnapshot = { text, readAt: '' };
       clipboardListeners.forEach((l) => l({ text, readAt: '' }));
-    }, pushBusy: (b: boolean) => busyListeners.forEach((l) => l(b)) };
+    }, pushBusy: (b: boolean) => busyListeners.forEach((l) => l(b)), pushMissed: (m: boolean) => missedListeners.forEach((l) => l(m)) };
 }
 
 const parseAs = (item: ParsedItem, confidence: 'full' | 'partial' = 'full'): ParseFn => (raw) =>
@@ -247,6 +249,17 @@ describe('overlay UI (spec 006)', () => {
   it('always shows the GGG notice', async () => {
     await mount(armour);
     expect(screen.getByText("This product isn't affiliated with or endorsed by Grinding Gear Games in any way.")).toBeTruthy();
+  });
+});
+
+describe('copy not received (SoT 0.2.15)', () => {
+  it('keeps the item and shows a hint when the game copied nothing, until the next item', async () => {
+    const f = await mount(armour);
+    act(() => f.pushMissed(true));
+    expect(await screen.findByText(/No item was copied/)).toBeTruthy();
+    expect(document.querySelector('.item-preview')).not.toBeNull();
+    act(() => f.pushMissed(false));
+    expect(screen.queryByText(/No item was copied/)).toBeNull();
   });
 });
 

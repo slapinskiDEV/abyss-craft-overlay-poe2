@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Derived operational summary of `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT, v0.2.14).
+Derived operational summary of `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT, v0.2.15).
 This file is not a second source of truth: **if it conflicts with the SoT, the SoT wins.**
 
 ## Guardrails (SoT §23.1)

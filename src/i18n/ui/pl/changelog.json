@@ -88,6 +88,13 @@
       "items": [
         "Poprawiono zawieszanie nakładki, gdy pokazuje się ją skrótem ponownie po ukryciu."
       ]
+    },
+    "2026-09-30h": {
+      "heading": "30.09.2026 (kopia nie dotarła)",
+      "items": [
+        "Jeśli gra nic nie skopiuje (brak przedmiotu pod kursorem albo nieaktywne okno gry), nakładka już nie znika: zostaje otwarta i o tym informuje.",
+        "Wskazówka: przesuń nakładkę tak, by nie zasłaniała ekwipunku ani skrzyni; przedmiotu pod nakładką nie da się skopiować."
+      ]
     }
   }
 }

@@ -19,8 +19,10 @@ export interface CopyResult {
   snapshot: ClipboardSnapshot;
   /** The copy shortcut was sent (false where unsupported). */
   sent: boolean;
-  /** The clipboard changed within the bounded wait. */
+  /** The clipboard text changed within the bounded wait. */
   changed: boolean;
+  /** The game copied something (the clipboard sequence changed), possibly the same item again. */
+  copied: boolean;
   /** Checks until the change or the end of the wait. */
   polls: number;
   /** ms spent sending the shortcut, waiting for the change, and reading clipboard text. */
@@ -53,7 +55,7 @@ export async function copyThenReadDetailed(deps: CopyFlowDeps): Promise<CopyResu
   // game re-writing it) does not count as the new item (follow-up 3).
   const before = await read();
   const t0 = now();
-  if (!(await deps.sendCopy())) return { snapshot: before, sent: false, changed: false, polls: 0, sendMs: now() - t0, waitMs: 0, readMs };
+  if (!(await deps.sendCopy())) return { snapshot: before, sent: false, changed: false, copied: false, polls: 0, sendMs: now() - t0, waitMs: 0, readMs };
   const sentAt = now();
   const sendMs = sentAt - t0;
   let polls = 0;
@@ -62,17 +64,16 @@ export async function copyThenReadDetailed(deps: CopyFlowDeps): Promise<CopyResu
     while (now() - sentAt < COPY_WAIT_MS) {
       await deps.sleep(SEQUENCE_POLL_MS);
       polls += 1;
-      const seq = deps.sequence();
-      if (seq === seq0) continue;
-      seq0 = seq;
+      if (deps.sequence() === seq0) continue;
       let snap = await read();
       for (let i = 0; i < EMPTY_RETRIES && snap.text === ''; i += 1) {
         await deps.sleep(COPY_POLL_MS);
         snap = await read();
       }
-      if (snap.text !== '' && snap.text !== before.text) return { snapshot: snap, sent: true, changed: true, polls, sendMs, waitMs: now() - sentAt, readMs };
+      // A copy with the same text is the same item copied again (SoT §16.1: hides).
+      return { snapshot: snap, sent: true, changed: snap.text !== before.text, copied: true, polls, sendMs, waitMs: now() - sentAt, readMs };
     }
-    return { snapshot: await read(), sent: true, changed: false, polls, sendMs, waitMs: now() - sentAt, readMs };
+    return { snapshot: await read(), sent: true, changed: false, copied: false, polls, sendMs, waitMs: now() - sentAt, readMs };
   }
 
   const previous = before;
@@ -80,9 +81,10 @@ export async function copyThenReadDetailed(deps: CopyFlowDeps): Promise<CopyResu
     await deps.sleep(COPY_POLL_MS);
     polls += 1;
     const snap = await read();
-    if (snap.text !== previous.text) return { snapshot: snap, sent: true, changed: true, polls, sendMs, waitMs: now() - sentAt, readMs };
+    if (snap.text !== previous.text) return { snapshot: snap, sent: true, changed: true, copied: true, polls, sendMs, waitMs: now() - sentAt, readMs };
   }
-  return { snapshot: await read(), sent: true, changed: false, polls, sendMs, waitMs: now() - sentAt, readMs };
+  // Without a sequence number an unchanged text cannot tell "same item" from "nothing copied".
+  return { snapshot: await read(), sent: true, changed: false, copied: false, polls, sendMs, waitMs: now() - sentAt, readMs };
 }
 
 /** Returns the clipboard after the copy; unchanged text after the wait means nothing was copied. */

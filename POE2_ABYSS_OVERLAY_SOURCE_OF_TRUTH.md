@@ -1,7 +1,7 @@
 # PoE2 Abyss Craft Overlay — Source of Truth
 
 **Status:** Living master document  
-**Document version:** 0.2.14  
+**Document version:** 0.2.15  
 **Target game context:** Path of Exile 2, 0.5.5 / Forbidden Rites event context  
 **Verified/researched:** 2026-09-26  
 **Primary implementation target:** Windows 10/11 desktop overlay  
@@ -1683,6 +1683,12 @@ the item currently shown, the overlay shows the new item and stays open; otherwi
 the player copy the next item and press the hotkey once. The overlay also offers an explicit
 "read clipboard" button and hides on `Escape`.
 
+Copy not received (maintainer decision, 0.2.15): with auto-copy, when the game did not copy anything
+within the bounded wait (the clipboard did not change at all, e.g. no item under the cursor or the
+game not focused), a visible overlay does not hide. It keeps the item shown and says that no item was
+copied, with a hint to hover an item in the active game window. Hiding on a repeated press stays for
+a copy that arrived with the same item text.
+
 ## 16.2 On open
 
 1. Read clipboard once.
@@ -2360,6 +2366,11 @@ Checked on 2026-09-26.
 ---
 
 # 26. Changelog
+
+## 0.2.15 — 2026-09-30
+
+- §16.1: a hotkey press whose copy never arrives no longer hides the overlay; it shows a "no item
+  copied" hint (maintainer log analysis, spec 018 follow-up 5).
 
 ## 0.2.14 — 2026-09-30
 

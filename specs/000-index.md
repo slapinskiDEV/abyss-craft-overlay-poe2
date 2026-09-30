@@ -1,6 +1,6 @@
 # Specs index
 
-**Parent document:** `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT) **v0.2.14**
+**Parent document:** `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT) **v0.2.15**
 **Spec set version:** 0.3.0 (draft, awaiting maintainer review — SoT §23)
 
 The SoT is authoritative. Specs clarify implementation detail and record algorithm/design choices

@@ -94,6 +94,21 @@ after `showInactive` over the fullscreen game, so the page stops painting. Chang
 - `renderer:visibility` in the log (page visible/hidden plus whether the window is shown); a hidden
   page in a shown window confirms the hypothesis.
 
+## Follow-up 5 (log analysis, v0.4.26; SoT 0.2.15)
+
+Every "the overlay suddenly disappears" in the log is a press whose copy never arrived
+(`clipboardChanged: false`, sequence unchanged for 600 ms). It was treated like a press on the same
+item and hid the overlay; the next press failed too and showed the old item — a hide/show loop that
+looked like a broken window. Failures come in streaks: right after start until the game is clicked
+(game not focused), and while the cursor is over the overlay instead of the item (the default
+1180×760 window easily covers the inventory). `sendMs` ≈ 120 ms instead of ~50 ms is Windows timer
+granularity (~15.6 ms per sleep), harmless.
+
+Changes (SoT §16.1, 0.2.15): the copy result tells `copied` (sequence changed) from `changed` (text
+changed). Same text after a change = same item → hides as before (follow-up 3's "keep waiting" is
+dropped). Nothing copied → a visible overlay stays (`keep`) and shows a hint (EN/PL) to hover an item
+in the active game window, not covered by the overlay; the next item clears it.
+
 ## Out of scope
 
 - Any change to the copy sequence or the bounded wait (spec 010, 016) before the timings show the
