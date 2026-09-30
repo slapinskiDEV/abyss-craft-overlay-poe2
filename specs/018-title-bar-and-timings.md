@@ -62,6 +62,23 @@ Changes:
 - The sequence number is read from `src/main/copy-shortcut.ts`, the one module allowed to use
   `koffi` (runtime boundary test); it reads no content and sends nothing.
 
+## Follow-up 3 (maintainer log, v0.4.24)
+
+The sequence-number wait works (`readMs: 0`, the game's copy arrives after ~15 ms). Still seen:
+0.7–1.6 s between the hotkey and the start of the copy flow with nothing measured in between, and
+presses after a restart where the game never copied (focus left the game, e.g. through the tray).
+The unclickable state still cannot be told apart. Changes:
+
+- The log is written asynchronously through a queue; the synchronous append (possibly slowed by a
+  virus scanner) could itself stall the main thread.
+- `main:lag` when the main thread's 250 ms timer is more than 300 ms late.
+- Renderer heartbeat every 2 s (`renderer:lag` above 300 ms, `renderer:silent` after 5 s without
+  one while visible) and `renderer:pointerdown` (at most once a second) when a press reaches the
+  page. Unclickable with pointer presses logged → page logic; without → input never reaches the
+  window; with `main:lag` → blocked main thread.
+- The copy flow reads the text once before the copy; a sequence change that leaves the same text no
+  longer ends the wait (it made the overlay hide although the new item was still coming).
+
 ## Out of scope
 
 - Any change to the copy sequence or the bounded wait (spec 010, 016) before the timings show the

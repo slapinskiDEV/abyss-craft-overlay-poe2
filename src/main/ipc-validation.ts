@@ -11,6 +11,10 @@ export function validMoveDelta(dx: unknown, dy: unknown): boolean {
   return ok(dx) && ok(dy);
 }
 
+export function validDiag(event: unknown, ms: unknown): event is 'heartbeat' | 'pointerdown' {
+  return (event === 'heartbeat' || event === 'pointerdown') && typeof ms === 'number' && Number.isFinite(ms) && ms >= 0 && ms < 1e7;
+}
+
 export function validAcceleratorPayload(value: unknown): value is string {
   return typeof value === 'string' && value.length > 0 && value.length <= 64;
 }

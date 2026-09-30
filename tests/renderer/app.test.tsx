@@ -47,6 +47,7 @@ function fakeApi(overrides: { pack?: DataPackLoadResult; settings?: Partial<AppS
     getHotkeyStatus: async () => overrides.hotkey ?? { ok: true, accelerator: settings.hotkey },
     moveWindowBy: vi.fn(),
     getCopyTimings: async () => [],
+    diag: vi.fn(),
   };
   return { api, pushClipboard: (text: string) => {
       lastSnapshot = { text, readAt: '' };

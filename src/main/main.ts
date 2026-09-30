@@ -10,7 +10,7 @@ import { clipboardSequenceNumber, sendCopyShortcut } from './copy-shortcut';
 import { loadDataPackFile } from './data-pack-loader';
 import { decideHotkeyAction } from './hotkey-action';
 import { dataPackPath } from './resource-paths';
-import { validAcceleratorPayload, validDebugReport, validMoveDelta } from './ipc-validation';
+import { validAcceleratorPayload, validDebugReport, validDiag, validMoveDelta } from './ipc-validation';
 import { allowKeyboardFocus, centerOnPrimary, createOverlayWindow, releaseKeyboardFocus } from './overlay-window';
 import { SettingsStore } from './settings';
 import { registerToggleHotkey, unregisterAll } from './shortcuts';
@@ -130,6 +130,14 @@ app.whenReady().then(() => {
   if (!primaryInstance) return;
   const logDir = initLog(join(app.getPath('userData'), 'logs'));
   log('start', { version: app.getVersion(), platform: process.platform });
+  // Main-thread stalls: while it is blocked the overlay cannot handle clicks or the hotkey.
+  let tick = performance.now();
+  setInterval(() => {
+    const now = performance.now();
+    const lag = now - tick - 250;
+    if (lag > 300) log('main:lag', { ms: Math.round(lag) });
+    tick = now;
+  }, 250).unref();
   const settings = new SettingsStore(app.getPath('userData'), app.getLocale());
   autoCopyEnabled = () => settings.get().autoCopy;
   // A fresh install starts with the current notes marked as read (spec 011).
@@ -236,6 +244,26 @@ app.whenReady().then(() => {
   ipcMain.handle(IPC.getUpdateStatus, () => updater.status());
   ipcMain.handle(IPC.getHotkeyStatus, () => hotkeyStatus);
   ipcMain.handle(IPC.getCopyTimings, () => copyTimings);
+  // Renderer liveness and input (spec 018): a heartbeat every 2 s with its own timer lag, and each
+  // pointer press that reached the page (at most one per second). Logged locally only.
+  let lastBeat = performance.now();
+  let beatGapLogged = false;
+  ipcMain.on(IPC.diag, (_e, event: unknown, ms: unknown) => {
+    if (!validDiag(event, ms)) return;
+    if (event === 'pointerdown') return log('renderer:pointerdown');
+    lastBeat = performance.now();
+    beatGapLogged = false;
+    const lag = ms as number;
+    if (lag > 300) log('renderer:lag', { ms: Math.round(lag) });
+  });
+  setInterval(() => {
+    if (!win?.isVisible() || beatGapLogged) return;
+    const gap = performance.now() - lastBeat;
+    if (gap > 5000) {
+      beatGapLogged = true;
+      log('renderer:silent', { ms: Math.round(gap) });
+    }
+  }, 1000).unref();
   // Title-bar drag in JS (spec 018): an OS drag region in a non-focusable window swallowed clicks on
   // the title-bar buttons and froze the overlay on Windows.
   ipcMain.on(IPC.moveWindowBy, (_e, dx: unknown, dy: unknown) => {

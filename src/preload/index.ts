@@ -31,6 +31,7 @@ const api: OverlayApi = {
   getHotkeyStatus: () => ipcRenderer.invoke(IPC.getHotkeyStatus),
   moveWindowBy: (dx, dy) => ipcRenderer.send(IPC.moveWindowBy, dx, dy),
   getCopyTimings: () => ipcRenderer.invoke(IPC.getCopyTimings),
+  diag: (event, ms) => ipcRenderer.send(IPC.diag, event, ms),
 };
 
 contextBridge.exposeInMainWorld('overlayApi', api);

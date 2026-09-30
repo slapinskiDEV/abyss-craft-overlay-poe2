@@ -48,10 +48,12 @@ export async function copyThenReadDetailed(deps: CopyFlowDeps): Promise<CopyResu
     readMs += now() - t;
     return snap;
   };
-  const seq0 = deps.sequence?.() ?? null;
-  const before = seq0 === null ? await read() : null;
+  let seq0 = deps.sequence?.() ?? null;
+  // One read before the copy: a sequence change that leaves the same text (another program, or the
+  // game re-writing it) does not count as the new item (follow-up 3).
+  const before = await read();
   const t0 = now();
-  if (!(await deps.sendCopy())) return { snapshot: before ?? (await read()), sent: false, changed: false, polls: 0, sendMs: now() - t0, waitMs: 0, readMs };
+  if (!(await deps.sendCopy())) return { snapshot: before, sent: false, changed: false, polls: 0, sendMs: now() - t0, waitMs: 0, readMs };
   const sentAt = now();
   const sendMs = sentAt - t0;
   let polls = 0;
@@ -60,19 +62,20 @@ export async function copyThenReadDetailed(deps: CopyFlowDeps): Promise<CopyResu
     while (now() - sentAt < COPY_WAIT_MS) {
       await deps.sleep(SEQUENCE_POLL_MS);
       polls += 1;
-      if (deps.sequence() === seq0) continue;
-      const waitMs = now() - sentAt;
+      const seq = deps.sequence();
+      if (seq === seq0) continue;
+      seq0 = seq;
       let snap = await read();
       for (let i = 0; i < EMPTY_RETRIES && snap.text === ''; i += 1) {
         await deps.sleep(COPY_POLL_MS);
         snap = await read();
       }
-      return { snapshot: snap, sent: true, changed: true, polls, sendMs, waitMs, readMs };
+      if (snap.text !== '' && snap.text !== before.text) return { snapshot: snap, sent: true, changed: true, polls, sendMs, waitMs: now() - sentAt, readMs };
     }
     return { snapshot: await read(), sent: true, changed: false, polls, sendMs, waitMs: now() - sentAt, readMs };
   }
 
-  const previous = before as ClipboardSnapshot;
+  const previous = before;
   while (now() - sentAt < COPY_WAIT_MS) {
     await deps.sleep(COPY_POLL_MS);
     polls += 1;

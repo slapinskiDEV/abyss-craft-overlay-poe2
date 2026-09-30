@@ -86,6 +86,9 @@ export interface OverlayApi {
   moveWindowBy(dx: number, dy: number): void;
   /** Timings of the last hotkey copies, newest last (spec 018). */
   getCopyTimings(): Promise<CopyTiming[]>;
+  /** Renderer diagnostics for the local log (spec 018): a heartbeat with its own timer lag, or a
+   * pointer press that reached the page. */
+  diag(event: 'heartbeat' | 'pointerdown', ms: number): void;
 }
 
 /** One hotkey press with auto-copy: where the time went (spec 018). */

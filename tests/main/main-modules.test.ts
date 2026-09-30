@@ -12,7 +12,7 @@ import { loadDataPackFile } from '../../src/main/data-pack-loader';
 import { validDebugReport } from '../../src/main/ipc-validation';
 import { DEFAULT_HOTKEY, defaultSettings, mergeSettings, sanitizeSettings } from '../../src/main/settings-model';
 import { SettingsStore } from '../../src/main/settings';
-import { initLog, log, LOG_MAX_BYTES } from '../../src/main/log';
+import { flushLog, initLog, log, LOG_MAX_BYTES } from '../../src/main/log';
 import { restoreBounds } from '../../src/main/window-bounds';
 import { testPack } from '../fixtures/data/test-only-pack';
 
@@ -74,14 +74,14 @@ describe('auto-copy (SoT §3.1 0.2.6, spec 010)', () => {
   };
 
   it('reads the clipboard text only once the sequence number changed', async () => {
-    const { flow, reads } = withSequence(3, ['TEST_ONLY new']);
+    const { flow, reads } = withSequence(3, ['TEST_ONLY old', 'TEST_ONLY new']);
     const r = await flow;
     expect(r).toMatchObject({ changed: true, snapshot: { text: 'TEST_ONLY new' } });
-    expect(reads()).toBe(1);
+    expect(reads()).toBe(2); // once before the copy, once after the change
   });
 
   it('re-reads while the game has emptied the clipboard but not written the item yet', async () => {
-    const r = await withSequence(1, ['', '', 'TEST_ONLY new']).flow;
+    const r = await withSequence(1, ['TEST_ONLY old', '', '', 'TEST_ONLY new']).flow;
     expect(r.snapshot.text).toBe('TEST_ONLY new');
   });
 
@@ -90,7 +90,13 @@ describe('auto-copy (SoT §3.1 0.2.6, spec 010)', () => {
     const r = await flow;
     expect(r.changed).toBe(false);
     expect(r.waitMs).toBeGreaterThanOrEqual(COPY_WAIT_MS);
-    expect(reads()).toBe(1); // one final read, no polling of the text
+    expect(reads()).toBe(2); // before and one final read, no polling of the text
+  });
+
+  it('keeps waiting when the sequence changes but the text stays the same (follow-up 3)', async () => {
+    const r = await withSequence(1, ['TEST_ONLY old']).flow;
+    expect(r.changed).toBe(false);
+    expect(r.snapshot.text).toBe('TEST_ONLY old');
   });
 
   it('falls back to a plain read where sending is unsupported', async () => {
@@ -162,18 +168,21 @@ describe('settings file errors never escape (spec 017 A2, A3)', () => {
 });
 
 describe('diagnostic log (spec 018)', () => {
-  it('appends events, rotates a large file and never throws', () => {
+  it('appends events, rotates a large file and never throws', async () => {
     const dir = initLog(join(mkdtempSync(join(tmpdir(), 'log-')), 'logs'));
     log('hotkey', { visible: true });
+    await flushLog();
     expect(readFileSync(join(dir, 'overlay.log'), 'utf8')).toMatch(/ hotkey \{"visible":true\}\n$/);
     writeFileSync(join(dir, 'overlay.log'), 'x'.repeat(LOG_MAX_BYTES + 1));
     log('after-rotate');
+    await flushLog();
     expect(readFileSync(join(dir, 'overlay.log'), 'utf8')).toMatch(/after-rotate/);
     expect(readFileSync(join(dir, 'overlay.log.1'), 'utf8').length).toBe(LOG_MAX_BYTES + 1);
     mkdirSync(join(dir, 'blocked'));
     initLog(join(dir, 'blocked'));
     mkdirSync(join(dir, 'blocked', 'overlay.log')); // appending to a directory fails
     expect(() => log('ignored')).not.toThrow();
+    await flushLog();
   });
 });
 

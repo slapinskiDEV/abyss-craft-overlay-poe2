@@ -76,6 +76,7 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
   const busy = useCopyBusy(api);
   const hotkeyError = useHotkeyError(api, settings.hotkey);
   const drag = useTitleBarDrag(api);
+  useRendererDiagnostics(api);
   // The overlay keeps keyboard focus in the game (spec 015); only text fields take it, while typing.
   const isTextField = (el: EventTarget | null) => el instanceof HTMLElement && el.closest('input, select, textarea') !== null;
 
@@ -208,6 +209,30 @@ function useTitleBarDrag(api: OverlayApi) {
       drag.current = null;
     },
   };
+}
+
+/** Heartbeat and pointer presses for the local log (spec 018): tells a hung page from lost clicks. */
+function useRendererDiagnostics(api: OverlayApi): void {
+  useEffect(() => {
+    let expected = performance.now() + 2000;
+    const beat = setInterval(() => {
+      const now = performance.now();
+      api.diag('heartbeat', Math.max(0, Math.round(now - expected)));
+      expected = now + 2000;
+    }, 2000);
+    let lastPointer = 0;
+    const onPointer = () => {
+      const now = performance.now();
+      if (now - lastPointer < 1000) return;
+      lastPointer = now;
+      api.diag('pointerdown', 0);
+    };
+    window.addEventListener('pointerdown', onPointer, true);
+    return () => {
+      clearInterval(beat);
+      window.removeEventListener('pointerdown', onPointer, true);
+    };
+  }, [api]);
 }
 
 /** The hotkey that could not be registered (e.g. taken by another program), or null (spec 017 A7). */

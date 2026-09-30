@@ -75,6 +75,13 @@
         "Skrót nie blokuje już schowka grze: przełączanie przedmiotów jest szybsze, a nakładka nie znika, bo kopia nie zdążyła dotrzeć.",
         "Nakładka pozostaje klikalna podczas kopiowania przedmiotu."
       ]
+    },
+    "2026-09-30f": {
+      "heading": "30.09.2026 (diagnostyka)",
+      "items": [
+        "Nakładka nie chowa się już, gdy gra nie skończyła jeszcze kopiować nowego przedmiotu.",
+        "Dokładniejszy lokalny log (overlay.log), żeby znaleźć przyczynę, gdy nakładka czasem przestaje reagować."
+      ]
     }
   }
 }

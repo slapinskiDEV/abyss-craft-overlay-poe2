@@ -75,6 +75,13 @@
         "The hotkey no longer fights the game over the clipboard: switching items is faster and the overlay no longer hides because the copy did not arrive.",
         "The overlay stays clickable while an item is being copied."
       ]
+    },
+    "2026-09-30f": {
+      "heading": "2026-09-30 (diagnostics)",
+      "items": [
+        "The overlay no longer hides when the game has not finished copying the new item.",
+        "More detailed local log (overlay.log) to find why the overlay sometimes stops reacting."
+      ]
     }
   }
 }
