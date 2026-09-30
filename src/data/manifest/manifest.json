@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "targetGameVersion": "0.5.5",
   "generatedAt": "2026-09-26T13:56:39.053Z",
   "sources": [
@@ -200,7 +200,7 @@
     "en"
   ],
   "repoeObservedVersion": "4.5.5.2",
-  "dataPackId": "6683ae4ea9025337fa3000b79b93188f987487dac846132a5479e088d3334884",
+  "dataPackId": "ad4cab7690c7dcc9f7a732593e2970e5ee3252b43e4c53d31d6d7dc5722baa42",
   "rulesEvidenceDigest": "b7248928fd6e26e7761dbfb58a90a9ebccf2745020ef0f7e51078248616b9d05",
   "stale": false,
   "validated": true

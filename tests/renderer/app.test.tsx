@@ -252,6 +252,30 @@ describe('overlay UI (spec 006)', () => {
   });
 });
 
+describe('Bone and Omen tooltips (spec 019)', () => {
+  const hoverBone = () => fireEvent.mouseEnter(controls().getByRole('radio', { name: 'TEST_ONLY_BONE_ARMOUR_PLAIN_NAME' }));
+
+  it('shows the official description on hover, without a summary in the official language', async () => {
+    await mount(armour);
+    hoverBone();
+    const tip = await screen.findByRole('tooltip');
+    expect(tip.textContent).toContain('TEST_ONLY_BONE_ARMOUR_PLAIN_DESCRIPTION');
+    expect(tip.textContent).not.toMatch(/Unofficial/);
+    fireEvent.mouseLeave(controls().getByRole('radio', { name: 'TEST_ONLY_BONE_ARMOUR_PLAIN_NAME' }));
+    expect(screen.queryByRole('tooltip')).toBeNull();
+  });
+
+  it('adds an unofficial summary from the rules in the Polish UI; names stay English', async () => {
+    const f = await mount(armour);
+    await act(async () => void (await f.api.updateSettings({ localization: { uiLocale: 'pl', gameLocale: 'en', clipboardLocale: 'auto' } })));
+    await screen.findByRole('button', { name: 'Kopiuj raport debug' });
+    hoverBone();
+    const tip = await screen.findByRole('tooltip');
+    expect(tip.textContent).toContain('TEST_ONLY_BONE_ARMOUR_PLAIN_DESCRIPTION');
+    expect(tip.textContent).toContain('Nieoficjalnie: Desecration: zbroja');
+  });
+});
+
 describe('copy not received (SoT 0.2.15)', () => {
   it('keeps the item and shows a hint when the game copied nothing, until the next item', async () => {
     const f = await mount(armour);

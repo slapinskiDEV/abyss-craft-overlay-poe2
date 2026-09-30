@@ -1,7 +1,7 @@
 # PoE2 Abyss Craft Overlay — Source of Truth
 
 **Status:** Living master document  
-**Document version:** 0.2.15  
+**Document version:** 0.2.16  
 **Target game context:** Path of Exile 2, 0.5.5 / Forbidden Rites event context  
 **Verified/researched:** 2026-09-26  
 **Primary implementation target:** Windows 10/11 desktop overlay  
@@ -490,6 +490,13 @@ Translate application-owned text:
 - validation errors,
 - onboarding/help,
 - `Prefix`, `Suffix`, `Eligible`, `Blocked`, etc.
+
+Tooltips on Bones and Omens (maintainer decision, 0.2.16): the official English in-game description
+from the data pack, unchanged. Where the UI language differs from the official game-term language
+(PL UI), a short explanation follows, marked as unofficial ("Nieoficjalnie: …"). It is app-owned
+text built only from the evidenced rule fields of the data pack (target group, item-level limit,
+minimum modifier level, special pools, Omen effect, compatible Bone families) — never a free
+translation per entity. Official names inside it stay English.
 
 ## 5.4 Do not unofficially translate
 
@@ -2366,6 +2373,11 @@ Checked on 2026-09-26.
 ---
 
 # 26. Changelog
+
+## 0.2.16 — 2026-09-30
+
+- §5.3: Bone/Omen tooltips with the official EN description; PL UI adds an unofficial summary built
+  from the evidenced rules (spec 019).
 
 ## 0.2.15 — 2026-09-30
 

@@ -1,9 +1,11 @@
+import { useState, type ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { DataPack } from '../../data/normalized/types';
 import { boneOptions, omenOptions, usableOmenIds } from '../../domain';
 import { diagnosticParams } from '../../i18n/format-diagnostic';
 import type { ParsedItem } from '../../parser/common/types';
 import { useGameTerms } from './game-terms';
+import { explainBone, explainOmen, type ExplainPart } from '../view-model/explain';
 
 interface Props {
   item: ParsedItem;
@@ -17,7 +19,7 @@ interface Props {
 
 // Every option comes from the data pack via the engine helpers (SoT §0.2 rule 7).
 export function CraftControls({ item, pack, boneId, omenIds, showLegacy, onBone, onToggleOmen }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const game = useGameTerms();
   // SoT §16.4 (0.2.8): only Bones usable on this item are shown; legacy ones only with the setting.
   const bones = boneOptions(item, pack, { includeLegacy: showLegacy }).filter((o) => o.selectable);
@@ -28,6 +30,42 @@ export function CraftControls({ item, pack, boneId, omenIds, showLegacy, onBone,
   const phases = [...new Set(omens.map((o) => o.phase))];
   const reasonText = (reasons: typeof omens[number]['reasons']) =>
     reasons.map((r) => t(`reasons:${r.code}.detail`, diagnosticParams(r, game))).join('\n');
+
+  // Tooltip (spec 019): the official in-game description; where the UI language differs from the
+  // official game-term language, an unofficial summary built from the evidenced rules; then reasons.
+  const [tip, setTip] = useState<{ id: string; content: ReactNode; left: number; top: number } | null>(null);
+  const explained = i18n.language !== game.locale;
+  const partText = (p: ExplainPart): string => {
+    const params = p.params ?? {};
+    return t(p.key, {
+      ...params,
+      ...(typeof params.targetKey === 'string' ? { target: t(`workspace:explain.target.${params.targetKey}`) } : {}),
+      ...(typeof params.targetKeys === 'string' ? { targets: params.targetKeys.split(',').filter(Boolean).map((k) => t(`workspace:explain.targetOf.${k}`)).join(t('workspace:explain.or')) } : {}),
+      ...(typeof params.poolId === 'string' ? { pool: game.poolName(params.poolId).text } : {}),
+      ...(p.key.endsWith('.otherworldly') ? { pool: game.poolName('special:otherworldly').text } : {}),
+      ...(typeof params.currencyId === 'string' ? { currency: game.currencyName(params.currencyId).text } : {}),
+    });
+  };
+  const tipContent = (id: string, parts: ExplainPart[], reasons: string) => (
+    <>
+      <span className="tip-official">{game.description(id).text}</span>
+      {explained ? <span className="tip-unofficial">{t('workspace:explain.unofficial', { text: parts.map(partText).join(t('workspace:explain.separator')) })}</span> : null}
+      {reasons ? <span className="tip-reasons">{reasons}</span> : null}
+    </>
+  );
+  const tipHandlers = (id: string, content: () => ReactNode) => ({
+    'aria-describedby': tip?.id === id ? 'craft-tip' : undefined,
+    onMouseEnter: (e: React.MouseEvent<HTMLElement>) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      setTip({ id, content: content(), left: Math.max(4, Math.min(r.left, window.innerWidth - 332)), top: r.bottom + 6 });
+    },
+    onMouseLeave: () => setTip(null),
+    onFocus: (e: React.FocusEvent<HTMLElement>) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      setTip({ id, content: content(), left: Math.max(4, Math.min(r.left, window.innerWidth - 332)), top: r.bottom + 6 });
+    },
+    onBlur: () => setTip(null),
+  });
 
   return (
     <section className="controls">
@@ -47,7 +85,10 @@ export function CraftControls({ item, pack, boneId, omenIds, showLegacy, onBone,
                 aria-checked={checked}
                 className="chip bone"
                 disabled={!o.selectable}
-                title={reasonText(o.reasons)}
+                {...tipHandlers(o.boneId, () => {
+                  const def = pack.bones.find((b) => b.id === o.boneId);
+                  return tipContent(o.boneId, def ? explainBone(def) : [], reasonText(o.reasons));
+                })}
                 onClick={() => onBone(checked ? null : o.boneId)}
               >
                 {game.currencyName(o.boneId).text}
@@ -75,7 +116,10 @@ export function CraftControls({ item, pack, boneId, omenIds, showLegacy, onBone,
                         className="chip omen"
                         aria-pressed={active}
                         disabled={!active && !o.selectable}
-                        title={reasonText(o.reasons)}
+                        {...tipHandlers(o.omenId, () => {
+                          const def = pack.omens.find((x) => x.id === o.omenId);
+                          return tipContent(o.omenId, def ? explainOmen(def, pack) : [], reasonText(o.reasons));
+                        })}
                         onClick={() => onToggleOmen(o.omenId)}
                       >
                         {game.omenName(o.omenId).text}
@@ -87,6 +131,11 @@ export function CraftControls({ item, pack, boneId, omenIds, showLegacy, onBone,
           ))}
         </div>
       </div>
+      {tip ? (
+        <div id="craft-tip" className="craft-tip" role="tooltip" style={{ left: tip.left, top: tip.top }}>
+          {tip.content}
+        </div>
+      ) : null}
     </section>
   );
 }

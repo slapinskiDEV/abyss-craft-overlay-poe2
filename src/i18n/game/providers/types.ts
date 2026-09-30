@@ -18,6 +18,8 @@ export interface GameLocalizationProvider {
   omenName(id: string): LocalizedTerm;
   baseItemName(id: string): LocalizedTerm;
   itemClassName(id: string): LocalizedTerm;
+  /** Official in-game description of a Bone or Omen ("what it does"), markup removed (spec 019). */
+  description(id: string): LocalizedTerm;
   /** Official name of a Lich or special pool category (`lich:<pool>`, `special:<pool>`). */
   poolName(poolId: string): LocalizedTerm;
   /** Official modifier text with value ranges, e.g. "+(10-20) to Strength". */

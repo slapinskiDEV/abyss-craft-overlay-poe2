@@ -147,6 +147,12 @@ export function buildPack(inputs: SnapshotInputs, registry: RuleRegistry, target
   issues.push(...allEntities.issues);
   const entity = (name: string): ResolvedEntity | undefined => allEntities.resolved.find((r) => r.lookupNameEn === name);
   const constant = (key: string | undefined): number | undefined => (key ? registry.constants[key]?.value : undefined);
+  // Official in-game description (spec 019); required for every Bone and Omen.
+  const description = (e: ResolvedEntity): string => {
+    const text = inputs.bases[e.gameMetadataId]?.properties?.description?.trim() ?? '';
+    if (!text) issues.push({ code: 'ENTITY_DESCRIPTION_MISSING', detail: e.canonicalNameEn });
+    return text;
+  };
 
   const bones = registry.bones.flatMap((b): BoneDefinition[] => {
     const e = entity(b.lookupNameEn);
@@ -164,6 +170,7 @@ export function buildPack(inputs: SnapshotInputs, registry: RuleRegistry, target
       ...(minimumModifierLevel !== undefined ? { minimumModifierLevel } : {}),
       unlocksSpecialPools: b.unlocksSpecialPools,
       releaseState: b.releaseState,
+      descriptionEn: description(e),
       evidence: b.evidence,
       sourceRefs: [`${basesRef}#${e.gameMetadataId}`],
     }];
@@ -171,7 +178,7 @@ export function buildPack(inputs: SnapshotInputs, registry: RuleRegistry, target
   const omens = registry.omens.flatMap((o): OmenDefinition[] => {
     const e = entity(o.lookupNameEn);
     return e
-      ? [{ id: e.id, gameMetadataId: e.gameMetadataId, canonicalNameEn: e.canonicalNameEn, phase: o.phase, effect: o.effect, compatibleBoneFamilies: o.compatibleBoneFamilies, evidence: o.evidence, sourceRefs: [`${basesRef}#${e.gameMetadataId}`] }]
+      ? [{ id: e.id, gameMetadataId: e.gameMetadataId, canonicalNameEn: e.canonicalNameEn, phase: o.phase, effect: o.effect, compatibleBoneFamilies: o.compatibleBoneFamilies, descriptionEn: description(e), evidence: o.evidence, sourceRefs: [`${basesRef}#${e.gameMetadataId}`] }]
       : [];
   });
   const otherCurrencies = registry.otherCurrencies.flatMap((c): OtherCurrencyDefinition[] => {

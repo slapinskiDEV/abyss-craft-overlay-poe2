@@ -101,6 +101,12 @@
       "items": [
         "Poprawiono zepsute okno nakładki po zamknięciu jej skrótem i ponownym otwarciu."
       ]
+    },
+    "2026-10-01": {
+      "heading": "01.10.2026 (podpowiedzi)",
+      "items": [
+        "Najedź na Bone albo Omen, żeby zobaczyć, co robi: oficjalny opis z gry i krótkie nieoficjalne wyjaśnienie po polsku."
+      ]
     }
   }
 }

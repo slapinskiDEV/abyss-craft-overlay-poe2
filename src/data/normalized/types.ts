@@ -81,6 +81,8 @@ export interface BoneDefinition {
   minimumModifierLevel?: number;
   unlocksSpecialPools: SpecialPool[];
   releaseState: 'current' | 'drop_disabled_legacy';
+  /** Official EN item description from the snapshot, RePoE link markup kept (spec 019). */
+  descriptionEn: string;
   evidence: RuleEvidence;
   sourceRefs: string[];
 }
@@ -99,6 +101,8 @@ export interface OmenDefinition {
   phase: 'desecrate' | 'reveal' | 'annul';
   effect: OmenEffect;
   compatibleBoneFamilies: BoneFamily[] | 'any';
+  /** Official EN item description from the snapshot, RePoE link markup kept (spec 019). */
+  descriptionEn: string;
   evidence: RuleEvidence;
   sourceRefs: string[];
 }
@@ -186,5 +190,5 @@ export interface DataPack extends DataPackContent {
   manifest: DataManifest;
 }
 
-/** 2: `poolNamesEn` (spec 017 B3). */
-export const DATA_PACK_SCHEMA_VERSION = 2;
+/** 2: `poolNamesEn` (spec 017 B3). 3: Bone/Omen `descriptionEn` (spec 019). */
+export const DATA_PACK_SCHEMA_VERSION = 3;

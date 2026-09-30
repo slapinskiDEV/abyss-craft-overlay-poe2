@@ -101,6 +101,12 @@
       "items": [
         "Fixed the overlay being broken after it was closed with the hotkey and opened again."
       ]
+    },
+    "2026-10-01": {
+      "heading": "2026-10-01 (tooltips)",
+      "items": [
+        "Hover a Bone or Omen to see what it does, with the official in-game text."
+      ]
     }
   }
 }

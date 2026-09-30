@@ -281,3 +281,13 @@ button.update-button {
 @keyframes busy-spin { from { transform: rotate(45deg); } to { transform: rotate(405deg); } }
 @keyframes busy-in { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .busy-sigil { animation-duration: 2.4s; } }
+
+/* Bone/Omen tooltip (spec 019) ------------------------------------------------------------------- */
+.craft-tip {
+  position: fixed; z-index: 30; max-width: 320px; display: flex; flex-direction: column; gap: 5px;
+  padding: 8px 10px; background: var(--panel); border: 1px solid var(--abyss-dim); border-radius: var(--radius-sm);
+  box-shadow: 0 0 14px var(--abyss-glow); font-size: 12px; line-height: 1.4; pointer-events: none;
+}
+.craft-tip .tip-official { color: var(--text); }
+.craft-tip .tip-unofficial { color: var(--muted); font-style: italic; }
+.craft-tip .tip-reasons { color: var(--warning); white-space: pre-line; }

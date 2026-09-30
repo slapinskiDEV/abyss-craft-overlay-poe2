@@ -79,5 +79,37 @@
   "previewTitle": "Item preview",
   "previewPick": "Click a modifier in the list to see it on the item.",
   "previewDesecrated": "Desecrated · preview",
-  "openSideOnly": "Filter: {{side}} — only this side has a free slot. Whether Desecration can also replace a modifier on the full side is not confirmed yet."
+  "openSideOnly": "Filter: {{side}} — only this side has a free slot. Whether Desecration can also replace a modifier on the full side is not confirmed yet.",
+  "explain": {
+    "unofficial": "Unofficial summary: {{text}}",
+    "or": " or ",
+    "separator": "; ",
+    "bone": "Desecration: {{target}}",
+    "target": {
+      "weapon_or_quiver": "weapon or quiver",
+      "armour": "armour",
+      "jewellery": "jewellery",
+      "jewel": "jewel",
+      "waystone": "waystone"
+    },
+    "targetOf": {
+      "weapon_or_quiver": "a weapon or quiver",
+      "armour": "armour",
+      "jewellery": "jewellery",
+      "jewel": "a jewel",
+      "waystone": "a waystone"
+    },
+    "maxItemLevel": "only items up to level {{level}}",
+    "minModifierLevel": "revealed modifiers are at least level {{level}}",
+    "otherworldly": "can also give {{pool}} modifiers",
+    "legacy": "currently does not drop (legacy)",
+    "forceSide": {
+      "prefix": "the new modifier will be a prefix",
+      "suffix": "the new modifier will be a suffix"
+    },
+    "forceLich": "guarantees a {{pool}} modifier when desecrating {{targets}}",
+    "putrefaction": "replaces the item's modifiers with Unrevealed Desecrated modifiers and corrupts the item",
+    "revealReroll": "reroll the reveal options {{count}}× when revealing",
+    "annulDesecratedOnly": "the next {{currency}} removes only a Desecrated modifier"
+  }
 }

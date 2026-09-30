@@ -9,8 +9,8 @@ import { stripRePoEMarkup } from '../../src/i18n/game/providers/en';
 
 // Minimal TEST_ONLY pack slice: only what the EN provider reads.
 const pack = {
-  bones: [{ id: 'test_only_bone', canonicalNameEn: 'TEST_ONLY Bone Name' }],
-  omens: [{ id: 'test_only_omen', canonicalNameEn: 'TEST_ONLY Omen Name' }],
+  bones: [{ id: 'test_only_bone', canonicalNameEn: 'TEST_ONLY Bone Name', descriptionEn: 'TEST_ONLY [Abyssalify|Desecrates] a thing' }],
+  omens: [{ id: 'test_only_omen', canonicalNameEn: 'TEST_ONLY Omen Name', descriptionEn: 'TEST_ONLY omen\ntext' }],
   otherCurrencies: [],
   baseItems: [{ id: 'TEST_ONLY_BASE', canonicalNameEn: 'TEST_ONLY Base Name' }],
   itemClasses: [{ id: 'TEST_ONLY_CLASS', canonicalNameEn: 'TEST_ONLY Class Name' }],
@@ -40,6 +40,8 @@ describe('EN game-term provider', () => {
   it('returns pack names and strips RePoE link markup', () => {
     expect(game.omenName('test_only_omen')).toEqual({ text: 'TEST_ONLY Omen Name', locale: 'en', fallback: false });
     expect(game.modifierText('TEST_ONLY_MOD').text).toBe('+(1-2) to TEST_ONLY Stat');
+    expect(game.description('test_only_bone').text).toBe('TEST_ONLY Desecrates a thing');
+    expect(game.description('test_only_omen').text).toBe('TEST_ONLY omen text');
     expect(game.poolName('special:TEST_ONLY_pool')).toEqual({ text: 'TEST_ONLY Pool Name', locale: 'en', fallback: false });
     expect(stripRePoEMarkup('[A|B] and [C]')).toBe('B and C');
   });
@@ -60,6 +62,7 @@ describe('locale axes are independent (SoT §5.10, §18.3 #23)', () => {
         omenName: (id) => (id === 'test_only_omen' ? { text: 'TEST_ONLY Localized', locale: 'test-only', fallback: false } : { text: id, locale: 'test-only', fallback: true }),
         baseItemName: (id) => ({ text: id, locale: 'test-only', fallback: true }),
         itemClassName: (id) => ({ text: id, locale: 'test-only', fallback: true }),
+        description: (id) => ({ text: id, locale: 'test-only', fallback: true }),
         poolName: (id) => ({ text: id, locale: 'test-only', fallback: true }),
         modifierText: (id) => ({ text: id, locale: 'test-only', fallback: true }),
         diagnostics: () => [],

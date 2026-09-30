@@ -1,6 +1,6 @@
 # Specs index
 
-**Parent document:** `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT) **v0.2.15**
+**Parent document:** `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT) **v0.2.16**
 **Spec set version:** 0.3.0 (draft, awaiting maintainer review — SoT §23)
 
 The SoT is authoritative. Specs clarify implementation detail and record algorithm/design choices
@@ -27,6 +27,7 @@ maintainer-decision overrides of the SoT in this spec set.
 | 016 | `016-hotkey-latency.md` | Hotkey latency, loading state (SoT 0.2.13) | 010, 015 |
 | 015 | `015-focus-and-hotkey.md` | Overlay keeps keyboard focus in the game; default hotkey Alt+T (SoT 0.2.12) | 010, 012 |
 | 014 | `014-item-defaults.md` | Default Bone and side filter for a new item (SoT 0.2.11) | 009, 012 |
+| 019 | `019-bone-omen-tooltips.md` | Bone/Omen tooltips: official description, PL unofficial summary from rules (SoT 0.2.16) | 002, 003, 006 |
 | 018 | `018-title-bar-and-timings.md` | Title bar without an OS drag region; hotkey timings in the debug report | 001, 015, 016 |
 | 017 | `017-pre-video-stabilization.md` | **Open:** stabilization and release process before the public video | 008, 010, 011, 015, 016 |
 

@@ -91,5 +91,37 @@
   "previewTitle": "Podgląd przedmiotu",
   "previewPick": "Kliknij modyfikator na liście, aby zobaczyć go na przedmiocie.",
   "previewDesecrated": "Desecrated · podgląd",
-  "openSideOnly": "Filtr: {{side}} — tylko ta strona ma wolne miejsce. Czy Desecration może też zastąpić modyfikator z pełnej strony, nie jest jeszcze potwierdzone."
+  "openSideOnly": "Filtr: {{side}} — tylko ta strona ma wolne miejsce. Czy Desecration może też zastąpić modyfikator z pełnej strony, nie jest jeszcze potwierdzone.",
+  "explain": {
+    "unofficial": "Nieoficjalnie: {{text}}",
+    "or": " albo ",
+    "separator": "; ",
+    "bone": "Desecration: {{target}}",
+    "target": {
+      "weapon_or_quiver": "broń lub kołczan",
+      "armour": "zbroja",
+      "jewellery": "biżuteria",
+      "jewel": "klejnot",
+      "waystone": "waystone"
+    },
+    "targetOf": {
+      "weapon_or_quiver": "broni lub kołczanu",
+      "armour": "zbroi",
+      "jewellery": "biżuterii",
+      "jewel": "klejnotu",
+      "waystone": "waystone"
+    },
+    "maxItemLevel": "tylko przedmioty do poziomu {{level}}",
+    "minModifierLevel": "odsłonięte modyfikatory mają co najmniej poziom {{level}}",
+    "otherworldly": "może też dać modyfikatory {{pool}}",
+    "legacy": "obecnie nie wypada w grze (legacy)",
+    "forceSide": {
+      "prefix": "nowy modyfikator będzie prefiksem",
+      "suffix": "nowy modyfikator będzie sufiksem"
+    },
+    "forceLich": "gwarantuje modyfikator {{pool}} przy Desecration {{targets}}",
+    "putrefaction": "zastępuje modyfikatory przedmiotu nieodsłoniętymi modyfikatorami Desecrated i korumpuje przedmiot",
+    "revealReroll": "przy odsłanianiu możesz przelosować opcje ({{count}}×)",
+    "annulDesecratedOnly": "następny {{currency}} usuwa tylko modyfikator Desecrated"
+  }
 }

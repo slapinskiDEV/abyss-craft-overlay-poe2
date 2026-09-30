@@ -27,4 +27,6 @@ export interface RawBaseItem {
   name: string;
   release_state: string;
   tags: string[];
+  /** Official item text; `description` is the in-game "what it does" line (spec 019). */
+  properties?: { description?: string };
 }

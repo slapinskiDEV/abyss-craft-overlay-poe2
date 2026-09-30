@@ -16,4 +16,13 @@ describe('release gate verdict', () => {
   it('fails on a skipped test', () => expect(evaluateTestReport(report(['passed', 'skipped'])).ok).toBe(false));
   it('fails on a failed test', () => expect(evaluateTestReport(report(['failed'])).ok).toBe(false));
   it('fails when nothing ran', () => expect(evaluateTestReport(report([])).ok).toBe(false));
+  it('fails when a test file failed to load, even if every other test passed', () => {
+    const r = report(['passed']);
+    r.testResults.push({ name: 'TEST_ONLY_broken.test.ts', status: 'failed', message: 'TypeError: TEST_ONLY', assertionResults: [] });
+    r.numFailedTestSuites = 1;
+    r.success = false;
+    const verdict = evaluateTestReport(r);
+    expect(verdict.ok).toBe(false);
+    expect(verdict.problems.join('\n')).toContain('TEST_ONLY_broken.test.ts');
+  });
 });
