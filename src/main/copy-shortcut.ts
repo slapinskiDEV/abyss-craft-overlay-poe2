@@ -42,6 +42,7 @@ export function copyShortcutSequence(): KeyEvent[] {
 interface User32 {
   keybdEvent: (vk: number, scan: number, flags: number, extra: number) => void;
   mapVirtualKey: (code: number, mapType: number) => number;
+  clipboardSequenceNumber: () => number;
 }
 let user32: User32 | null | undefined;
 
@@ -52,6 +53,7 @@ function load(): User32 | null {
     user32 = {
       keybdEvent: lib.func('void __stdcall keybd_event(uint8_t bVk, uint8_t bScan, uint32_t dwFlags, uintptr_t dwExtraInfo)'),
       mapVirtualKey: lib.func('uint32_t __stdcall MapVirtualKeyW(uint32_t uCode, uint32_t uMapType)'),
+      clipboardSequenceNumber: lib.func('uint32_t __stdcall GetClipboardSequenceNumber()'),
     };
   } catch {
     user32 = null;
@@ -60,6 +62,17 @@ function load(): User32 | null {
 }
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Windows clipboard sequence number (spec 018): changes whenever the clipboard content changes and
+ * can be read without opening the clipboard, so waiting for the game's copy never blocks the game's
+ * own clipboard write or this app's main thread. Reads no content. null where unsupported.
+ */
+export function clipboardSequenceNumber(): number | null {
+  if (process.platform !== 'win32') return null;
+  const api = load();
+  return api ? api.clipboardSequenceNumber() : null;
+}
 
 /**
  * Sends the copy shortcut once. Each event carries the hardware scan code (games that read raw

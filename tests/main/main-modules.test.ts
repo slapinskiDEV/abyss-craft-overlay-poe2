@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { computeDataPackId } from '../../src/data/adapters/build-pack';
 import { isValidAccelerator } from '../../src/main/accelerator';
 import { decideHotkeyAction } from '../../src/main/hotkey-action';
-import { copyThenRead } from '../../src/main/copy-flow';
+import { COPY_WAIT_MS, copyThenRead, copyThenReadDetailed } from '../../src/main/copy-flow';
 import { copyShortcutSequence } from '../../src/main/copy-shortcut';
 import { CHANGELOG_ENTRIES, LATEST_CHANGELOG_ENTRY, pendingChangelog } from '../../src/shared/changelog';
 import { loadDataPackFile } from '../../src/main/data-pack-loader';
@@ -36,11 +36,13 @@ describe('auto-copy (SoT §3.1 0.2.6, spec 010)', () => {
 
   const clipboardAfter = (texts: string[], sendCopy = () => true) => {
     let i = 0;
+    let clock = 0;
     const sent = { count: 0 };
     const flow = copyThenRead({
       read: async () => ({ text: texts[Math.min(i++, texts.length - 1)] ?? '', readAt: '' }),
       sendCopy: async () => (sent.count++, sendCopy()),
-      sleep: async () => undefined,
+      sleep: async (ms) => void (clock += ms),
+      now: () => clock,
     });
     return { flow, sent };
   };
@@ -54,6 +56,41 @@ describe('auto-copy (SoT §3.1 0.2.6, spec 010)', () => {
   it('returns the unchanged clipboard after a bounded wait (nothing hovered / same item)', async () => {
     const { flow } = clipboardAfter(['TEST_ONLY old']);
     expect((await flow).text).toBe('TEST_ONLY old');
+  });
+
+  // Windows path (spec 018): wait on the clipboard sequence number, read the text only after it changed.
+  const withSequence = (changeAfterPolls: number | null, texts: string[]) => {
+    let clock = 0;
+    let polls = 0;
+    let reads = 0;
+    const flow = copyThenReadDetailed({
+      read: async () => ({ text: texts[Math.min(reads++, texts.length - 1)] ?? '', readAt: '' }),
+      sendCopy: async () => true,
+      sleep: async (ms) => void (clock += ms),
+      now: () => clock,
+      sequence: () => (changeAfterPolls !== null && polls++ >= changeAfterPolls ? 2 : 1),
+    });
+    return { flow, reads: () => reads };
+  };
+
+  it('reads the clipboard text only once the sequence number changed', async () => {
+    const { flow, reads } = withSequence(3, ['TEST_ONLY new']);
+    const r = await flow;
+    expect(r).toMatchObject({ changed: true, snapshot: { text: 'TEST_ONLY new' } });
+    expect(reads()).toBe(1);
+  });
+
+  it('re-reads while the game has emptied the clipboard but not written the item yet', async () => {
+    const r = await withSequence(1, ['', '', 'TEST_ONLY new']).flow;
+    expect(r.snapshot.text).toBe('TEST_ONLY new');
+  });
+
+  it('gives up after the wall-clock bound when the sequence never changes', async () => {
+    const { flow, reads } = withSequence(null, ['TEST_ONLY old']);
+    const r = await flow;
+    expect(r.changed).toBe(false);
+    expect(r.waitMs).toBeGreaterThanOrEqual(COPY_WAIT_MS);
+    expect(reads()).toBe(1); // one final read, no polling of the text
   });
 
   it('falls back to a plain read where sending is unsupported', async () => {

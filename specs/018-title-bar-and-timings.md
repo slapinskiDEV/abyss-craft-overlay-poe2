@@ -43,6 +43,25 @@ rows at most 61 ms, median 6 ms — not the cause. Changes, since the cause is n
   result and time, show/hide, keyboard focus allow/release, renderer unresponsive/gone. No clipboard
   text; stays on the machine until the player sends it.
 
+## Follow-up 2: cause found in the log (maintainer log, v0.4.22)
+
+The local log showed hotkey presses taking 150 ms to 4.4 s from key to item, and the clipboard often
+not changing at all (`clipboardChanged: false` → the overlay hid). A press with `refresh` took
+3.8 s although the wait is bounded to 600 ms: the bound counted only the sleeps between reads, and
+each synchronous clipboard read took ~80–100 ms. Reading the clipboard every 15 ms while the game
+writes it makes both sides wait on the Windows clipboard lock: the game's copy is delayed or fails,
+and the blocked main thread cannot handle window messages, so the overlay does not react to clicks.
+
+Changes:
+
+- On Windows the wait polls the clipboard **sequence number** (`GetClipboardSequenceNumber`, every
+  10 ms) — no clipboard access, no lock. The text is read once after the number changed, re-read
+  up to five times while empty (the game empties the clipboard before writing).
+- The 600 ms bound is wall-clock time. Elsewhere the text polling (spec 016) stays as fallback.
+- The log records per press: `sendMs`, `showMs` (showing the window), `waitMs`, `readMs`, `polls`.
+- The sequence number is read from `src/main/copy-shortcut.ts`, the one module allowed to use
+  `koffi` (runtime boundary test); it reads no content and sends nothing.
+
 ## Out of scope
 
 - Any change to the copy sequence or the bounded wait (spec 010, 016) before the timings show the

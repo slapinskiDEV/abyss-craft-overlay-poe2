@@ -68,6 +68,13 @@
         "If the overlay ever stops reacting: right-click the tray icon → \"Reload overlay\".",
         "New in the tray menu: \"Open log folder\". If something goes wrong, please attach overlay.log from there to your report."
       ]
+    },
+    "2026-09-30e": {
+      "heading": "2026-09-30 (hotkey speed)",
+      "items": [
+        "The hotkey no longer fights the game over the clipboard: switching items is faster and the overlay no longer hides because the copy did not arrive.",
+        "The overlay stays clickable while an item is being copied."
+      ]
     }
   }
 }

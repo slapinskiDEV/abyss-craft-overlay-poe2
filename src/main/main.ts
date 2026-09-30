@@ -6,7 +6,7 @@ import { LATEST_CHANGELOG_ENTRY, pendingChangelog } from '../shared/changelog';
 import { readClipboardSnapshot, writeDebugReportToClipboard } from './clipboard';
 import { copyThenReadDetailed } from './copy-flow';
 import { createAppUpdater } from './app-update';
-import { sendCopyShortcut } from './copy-shortcut';
+import { clipboardSequenceNumber, sendCopyShortcut } from './copy-shortcut';
 import { loadDataPackFile } from './data-pack-loader';
 import { decideHotkeyAction } from './hotkey-action';
 import { dataPackPath } from './resource-paths';
@@ -86,24 +86,17 @@ function toggle(): void {
   const refocus = focused ? (target.hide(), sleep(REFOCUS_MS)) : Promise.resolve();
   const busy = (on: boolean) => target.webContents.send(IPC.copyBusy, on);
   const started = performance.now();
-  let sentAt = started;
-  let timing: Pick<CopyTiming, 'clipboardChanged'> | null = null;
+  let timing: (Pick<CopyTiming, 'clipboardChanged' | 'sendMs'> & { showMs: number; waitMs: number; readMs: number; polls: number }) | null = null;
   const read = refocus.then(async () => {
     if (!autoCopyEnabled()) return readClipboardSnapshot();
     // Immediate feedback (spec 016): show the overlay without focus and a loading state while the
     // game copies the item.
     busy(true);
+    const showStart = performance.now();
     if (!target.isVisible()) target.showInactive();
-    const result = await copyThenReadDetailed({
-      read: readClipboardSnapshot,
-      sendCopy: async () => {
-        const sent = await sendCopyShortcut();
-        sentAt = performance.now();
-        return sent;
-      },
-      sleep,
-    });
-    timing = { clipboardChanged: result.changed };
+    const showMs = Math.round(performance.now() - showStart);
+    const result = await copyThenReadDetailed({ read: readClipboardSnapshot, sendCopy: sendCopyShortcut, sleep, sequence: clipboardSequenceNumber, now: () => performance.now() });
+    timing = { clipboardChanged: result.changed, sendMs: Math.round(result.sendMs), showMs, waitMs: Math.round(result.waitMs), readMs: Math.round(result.readMs), polls: result.polls };
     return result.snapshot;
   });
   void read
@@ -111,7 +104,7 @@ function toggle(): void {
       const action = decideHotkeyAction(visible, lastSnapshot?.text, snapshot.text);
       log('hotkey:done', { action, ms: Math.round(performance.now() - started), ...(timing ?? {}) });
       if (timing) {
-        copyTimings.push({ at: new Date().toISOString(), sendMs: Math.round(sentAt - started), totalMs: Math.round(performance.now() - started), clipboardChanged: timing.clipboardChanged, action });
+        copyTimings.push({ at: new Date().toISOString(), sendMs: timing.sendMs, totalMs: Math.round(performance.now() - started), clipboardChanged: timing.clipboardChanged, action });
         if (copyTimings.length > 10) copyTimings.shift();
       }
       if (action === 'hide') target.hide();

@@ -68,6 +68,13 @@
         "Jeśli nakładka przestanie reagować: prawy przycisk na ikonie w zasobniku → „Przeładuj nakładkę”.",
         "Nowość w menu ikony w zasobniku: „Otwórz folder z logami”. Jeśli coś pójdzie nie tak, dołącz stamtąd plik overlay.log do zgłoszenia."
       ]
+    },
+    "2026-09-30e": {
+      "heading": "30.09.2026 (szybkość skrótu)",
+      "items": [
+        "Skrót nie blokuje już schowka grze: przełączanie przedmiotów jest szybsze, a nakładka nie znika, bo kopia nie zdążyła dotrzeć.",
+        "Nakładka pozostaje klikalna podczas kopiowania przedmiotu."
+      ]
     }
   }
 }
