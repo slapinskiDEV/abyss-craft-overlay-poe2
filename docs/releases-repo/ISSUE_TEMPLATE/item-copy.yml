@@ -1,0 +1,37 @@
+name: Item copy for testing / Kopia przedmiotu do testów
+description: Share the exact text of a copied item. Real copies let the overlay take current modifiers into account. / Podziel się dokładnym tekstem skopiowanego przedmiotu. Prawdziwe kopie pozwalają nakładce uwzględniać obecne modyfikatory.
+title: "[Item copy] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most wanted / Najbardziej potrzebne: items with an **Unrevealed** or a **revealed Desecrated** modifier, the **Mark of the Abyssal Lord**, or a **fractured** modifier.
+        Hover the item in game, press the copy shortcut, paste here **without editing**. / Najedź na przedmiot w grze, naciśnij skrót kopiowania i wklej tutaj **bez zmian**.
+  - type: dropdown
+    id: copy-mode
+    attributes:
+      label: Copy shortcut / Skrót kopiowania
+      options:
+        - Ctrl+Alt+C (advanced)
+        - Ctrl+C (normal)
+    validations:
+      required: true
+  - type: textarea
+    id: text
+    attributes:
+      label: Copied text (unedited) / Skopiowany tekst (bez zmian)
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: state
+    attributes:
+      label: What is special about this item? / Co jest szczególnego w tym przedmiocie?
+      placeholder: "e.g. one Unrevealed prefix / np. jeden Unrevealed prefix"
+  - type: input
+    id: game-version
+    attributes:
+      label: Game version and date / Wersja gry i data
+      placeholder: "e.g. 0.5.5, 2026-10-01"
+    validations:
+      required: true

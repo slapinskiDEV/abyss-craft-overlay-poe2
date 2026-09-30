@@ -74,8 +74,8 @@ text (SoT §9.4, §15.3) — a fuzz test pins it (see Tests).
 |---|---|---|
 | D1 | **Done (2026-09-30).** Every push to `master` published a player release; with a public repo every merged PR would update all players. | Push → test build only (pre-release in the source repository, not "latest"). Players get a build only from `gh workflow run "Windows build" -f publish=true`; that run also tags the commit `v<version>`. Version stays `<major>.<minor>.<run number>` so it only grows. |
 | D2 | The build shown in the video must be the one players get. | Tag the video build; no player release during recording and editing except fixes from this spec. |
-| D3 | Releases README has no prominent download block. | Same hero as the source README (icon via absolute URL, big DOWNLOAD / POBIERZ, installer button), EN + PL. |
-| D4 | Bug reports from viewers arrive incomplete. | Issue templates: wrong modifier (debug report required), bug, clipboard fixture. |
+| D3 | **Done.** Releases README has no prominent download block. | Same hero as the source README (icon via absolute URL, big DOWNLOAD / POBIERZ, installer button), EN + PL. |
+| D4 | **Done.** Bug reports from viewers arrive incomplete. | Issue templates: wrong modifier (debug report required), bug, clipboard fixture. |
 
 ### E. Data
 

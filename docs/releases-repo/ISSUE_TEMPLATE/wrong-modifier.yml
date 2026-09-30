@@ -1,0 +1,28 @@
+name: Wrong or missing modifier / Błędny lub brakujący modyfikator
+description: The overlay lists a modifier that cannot appear, or misses one that can. / Nakładka pokazuje modyfikator, który nie może wypaść, albo pomija taki, który może.
+title: "[Modifier] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! The debug report lets us reproduce the exact case. / Dzięki! Raport debug pozwala odtworzyć dokładnie ten przypadek.
+        Overlay footer → **Copy debug report** (tick "Include copied item text"), then paste it below. / Stopka nakładki → **Kopiuj raport debug** (zaznacz „Dołącz skopiowany tekst przedmiotu”), potem wklej poniżej.
+  - type: textarea
+    id: report
+    attributes:
+      label: Debug report / Raport debug
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong? / Co jest nie tak?
+      description: Which modifier, and what you saw in the game (Well of Souls choices, error message). / Który modyfikator i co widziałeś w grze (opcje w Well of Souls, komunikat błędu).
+    validations:
+      required: true
+  - type: input
+    id: game-version
+    attributes:
+      label: Game version / Wersja gry
+      placeholder: "e.g. 0.5.5"

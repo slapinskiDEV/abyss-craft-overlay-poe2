@@ -1,12 +1,37 @@
 <!-- Synced by CI from the main repository (docs/releases-repo/README.md). Edit it there. -->
 
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/slapinskiDEV/abyss-craft-overlay-poe2/master/build/icon.png" alt="PoE2 Abyss Craft Overlay icon" width="128" height="128">
+
 # PoE2 Abyss Craft Overlay
+
+**Abyss Desecration crafting overlay for Path of Exile 2**<br>
+**Nakładka do craftingu Desecration z Abyss w Path of Exile 2**
+
+<br>
+
+## ⬇ [DOWNLOAD / POBIERZ](https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/releases/latest/download/poe2-abyss-overlay-setup.exe) ⬇
+
+<a href="https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/releases/latest/download/poe2-abyss-overlay-setup.exe"><img src="https://img.shields.io/badge/%E2%AC%87%20Download%20for%20Windows-Installer%20(.exe)-3fd49a?style=for-the-badge&labelColor=0b1016" alt="Download for Windows — Installer (.exe)" height="48"></a>
+
+<a href="https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/releases/latest/download/poe2-abyss-overlay-portable.exe"><img src="https://img.shields.io/badge/Portable-.exe-8a6cff?style=for-the-badge&labelColor=0b1016" alt="Portable (.exe)" height="32"></a>
+
+Windows 10/11 · 64-bit · [All versions / Wszystkie wersje](https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/releases)
+
+**[🇬🇧 English](#english)** · **[🇵🇱 Polski](#polski)**
+
+</div>
+
+---
+
+<a id="english"></a>
+
+# 🇬🇧 PoE2 Abyss Craft Overlay (English)
 
 A small Windows overlay for **Path of Exile 2** that shows which modifiers an **Abyss Desecration
 craft** (Bones + Omens) can give on the item under your mouse, and why each of the other modifiers
 is blocked.
-
-**[🇵🇱 Polski niżej](#polski)**
 
 ## Download
 
@@ -85,7 +110,7 @@ The overlay is open source (MIT license):
 
 ## Feedback
 
-Found a wrong modifier or a bug? Open an [issue](https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/issues)
+Found a wrong modifier or a bug? Open an [issue](https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/issues/new/choose)
 and, if possible, attach the debug report (overlay footer → "Copy debug report").
 
 ---
@@ -177,7 +202,7 @@ Nakładka jest open source (licencja MIT):
 
 ## Zgłoszenia
 
-Znalazłeś błędny modyfikator albo błąd? Załóż [issue](https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/issues)
+Znalazłeś błędny modyfikator albo błąd? Załóż [issue](https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/issues/new/choose)
 i, jeśli możesz, dołącz raport debug (stopka nakładki → „Kopiuj raport debug”).
 
 ---

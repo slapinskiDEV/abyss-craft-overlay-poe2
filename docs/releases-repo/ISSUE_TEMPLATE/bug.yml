@@ -1,0 +1,49 @@
+name: Bug or crash / Błąd lub awaria
+description: The overlay does not work as expected (hotkey, window, update, crash). / Nakładka nie działa jak powinna (skrót, okno, aktualizacja, awaria).
+title: "[Bug] "
+body:
+  - type: textarea
+    id: steps
+    attributes:
+      label: What did you do? / Co zrobiłeś?
+      description: Steps, e.g. "hovered a ring, pressed Alt+T". / Kroki, np. „najechałem na pierścień, nacisnąłem Alt+T”.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What happened, and what did you expect? / Co się stało i czego się spodziewałeś?
+    validations:
+      required: true
+  - type: input
+    id: app-version
+    attributes:
+      label: Overlay version / Wersja nakładki
+      description: Settings → About. / Ustawienia → O programie.
+    validations:
+      required: true
+  - type: dropdown
+    id: build
+    attributes:
+      label: Build
+      options:
+        - Installer / Instalator
+        - Portable
+  - type: dropdown
+    id: display
+    attributes:
+      label: Game display mode / Tryb wyświetlania gry
+      options:
+        - Windowed
+        - Windowed Fullscreen
+        - Fullscreen
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version, display scaling / Wersja Windows, skalowanie ekranu
+      placeholder: "e.g. Windows 11, 125 %"
+  - type: textarea
+    id: report
+    attributes:
+      label: Debug report (if the overlay opens) / Raport debug (jeśli nakładka się otwiera)
+      render: text
