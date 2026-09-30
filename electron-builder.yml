@@ -1,5 +1,5 @@
-# Spec 008. Provisional, brand-neutral app ID (SoT §1.1). Unsigned MVP build (SoT §19.4).
-appId: dev.local.poe2-abyss-overlay
+# Spec 008. Final app ID (spec 017, maintainer decision 2026-09-30). Unsigned MVP build (SoT §19.4).
+appId: com.slapinskidev.poe2-abyss-overlay
 productName: PoE2 Abyss Craft Overlay
 directories:
   output: release/${version}
@@ -31,6 +31,9 @@ win:
     - target: portable
       arch: [x64]
 nsis:
+  # Installer identity (uninstall key, in-place updates) pinned to the GUID of the first app ID
+  # dev.local.poe2-abyss-overlay, so existing installs update in place after the app ID change.
+  guid: aeabca64-c17d-5a17-8161-b22f08656548
   artifactName: ${name}-setup.${ext}
   oneClick: false
   allowToChangeInstallationDirectory: true

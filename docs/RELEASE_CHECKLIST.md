@@ -14,3 +14,6 @@
 6. Data manifest visible in About (game version, RePoE version, data pack date).
 7. SoT §24 checklist reviewed in `tests/architecture/definition-of-done.md`.
 8. Changelog updated; SoT changelog updated if a product decision changed.
+9. Publish to players only on purpose (spec 017 D1): pushes to `master` produce test builds
+   (pre-releases in the source repository). Release: `gh workflow run "Windows build" -f publish=true`
+   — publishes to the releases repository, syncs its README and tags the commit `v<version>`.

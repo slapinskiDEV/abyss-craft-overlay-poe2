@@ -119,7 +119,8 @@ mechanics constants, Abyss Mark mod IDs, special items, full provenance with sha
 - `npm run verify:release` — non-skippable gate (real validated pack, no skipped tests)
 - `npm run package:win` — NSIS installer + portable exe (NSIS needs Windows/Wine)
 - CI: `.github/workflows/windows-build.yml` on every push to `master` → release gate → build →
-  GitHub Release `build-<run>`; the public releases repo serves updates. App version =
+  test pre-release `build-<run>`. Players get a build only from
+  `gh workflow run "Windows build" -f publish=true` (releases repo + tag `v<version>`, spec 017). App version =
   `<major>.<minor>` from `package.json` + CI run number as patch; bump the minor whenever the run
   counter could go backwards (new repo), or the updater will not offer the build.
 - Every release needs a changelog entry: ID in `src/shared/changelog.ts` + texts in

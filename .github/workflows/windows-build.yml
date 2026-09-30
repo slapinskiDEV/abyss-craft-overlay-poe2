@@ -1,11 +1,18 @@
-# Builds the Windows test artifacts (spec 008): release gate first, then NSIS installer + portable exe.
-# Every push to master also publishes a GitHub Release with both .exe files for download.
+# Builds the Windows artifacts (spec 008): release gate first, then NSIS installer + portable exe.
+# Every push to master publishes a test build (pre-release in this repository). Players get a build
+# only from a manual run with "publish" on (spec 017 D1):
+#   gh workflow run "Windows build" -f publish=true
 name: Windows build
 
 on:
   push:
     branches: [master]
   workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish this build to players (public releases repository)
+        type: boolean
+        default: false
 
 permissions:
   contents: write # create the GitHub Release
@@ -51,8 +58,9 @@ jobs:
           tag_name: build-${{ github.run_number }}
           name: Test build ${{ steps.version.outputs.version }} (${{ github.sha }})
           target_commitish: ${{ github.sha }}
-          prerelease: false
-          make_latest: true
+          # Test builds only; players download from the releases repository (spec 017 D1).
+          prerelease: true
+          make_latest: false
           body: |
             Unsigned Windows test build of commit ${{ github.sha }}.
             - `poe2-abyss-overlay-setup.exe`: installer (updates itself)
@@ -61,14 +69,15 @@ jobs:
           files: release/*/*.exe
           fail_on_unmatched_files: true
 
-      # Spec 011: public releases repository for players and the in-app updater. Skipped until the
-      # RELEASES_TOKEN secret (fine-grained token, Contents: read/write on that repository) exists.
+      # Spec 011: public releases repository for players and the in-app updater. Only on a manual
+      # run with "publish" on (spec 017 D1), and only when the RELEASES_TOKEN secret (fine-grained
+      # token, Contents: read/write on that repository) exists.
       # README first: it also gives an empty repository the commit a release tag needs.
       # The token is passed only to these steps, never to npm install scripts.
       - name: Check for the releases token
         id: pub
         shell: bash
-        run: echo "enabled=${{ secrets.RELEASES_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+        run: echo "enabled=${{ secrets.RELEASES_TOKEN != '' && github.event_name == 'workflow_dispatch' && inputs.publish }}" >> "$GITHUB_OUTPUT"
 
       - name: Sync README to the public releases repository
         if: steps.pub.outputs.enabled == 'true'
@@ -100,3 +109,10 @@ jobs:
             release/*/latest.yml
           fail_on_unmatched_files: true
 
+
+      - name: Tag the published commit
+        if: steps.pub.outputs.enabled == 'true'
+        shell: bash
+        run: |
+          git tag "v${{ steps.version.outputs.version }}" "${{ github.sha }}"
+          git push origin "v${{ steps.version.outputs.version }}"
