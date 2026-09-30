@@ -167,28 +167,45 @@ function StartupErrorText() {
  */
 function useTitleBarDrag(api: OverlayApi) {
   // A ref, not render state: moving the window saves its bounds, which re-renders the shell.
-  const last = useRef<{ x: number; y: number } | null>(null);
+  const drag = useRef<{ x: number; y: number; el: HTMLElement; pointerId: number } | null>(null);
+  const stop = () => {
+    const d = drag.current;
+    drag.current = null;
+    if (d?.el.hasPointerCapture(d.pointerId)) d.el.releasePointerCapture(d.pointerId);
+  };
+  // A drag must never outlive the window losing focus or being hidden by the hotkey: a pointer
+  // capture left behind would send every later click to the title (spec 018).
+  useEffect(() => {
+    const onHidden = () => document.visibilityState === 'hidden' && stop();
+    window.addEventListener('blur', stop);
+    window.addEventListener('pointerup', stop);
+    document.addEventListener('visibilitychange', onHidden);
+    return () => {
+      window.removeEventListener('blur', stop);
+      window.removeEventListener('pointerup', stop);
+      document.removeEventListener('visibilitychange', onHidden);
+    };
+  }, []);
   return {
     onPointerDown: (e: React.PointerEvent<HTMLElement>) => {
       if (e.button !== 0) return;
       e.currentTarget.setPointerCapture(e.pointerId);
-      last.current = { x: e.screenX, y: e.screenY };
+      drag.current = { x: e.screenX, y: e.screenY, el: e.currentTarget, pointerId: e.pointerId };
     },
     onPointerMove: (e: React.PointerEvent<HTMLElement>) => {
-      const from = last.current;
-      if (!from) return;
-      const dx = Math.round(e.screenX - from.x);
-      const dy = Math.round(e.screenY - from.y);
+      const d = drag.current;
+      if (!d) return;
+      if (e.buttons === 0) return stop(); // the button was released outside our view of events
+      const dx = Math.round(e.screenX - d.x);
+      const dy = Math.round(e.screenY - d.y);
       if (dx === 0 && dy === 0) return;
-      last.current = { x: from.x + dx, y: from.y + dy };
+      drag.current = { ...d, x: d.x + dx, y: d.y + dy };
       api.moveWindowBy(dx, dy);
     },
-    onPointerUp: (e: React.PointerEvent<HTMLElement>) => {
-      last.current = null;
-      if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
-    },
-    onPointerCancel: () => {
-      last.current = null;
+    onPointerUp: stop,
+    onPointerCancel: stop,
+    onLostPointerCapture: () => {
+      drag.current = null;
     },
   };
 }

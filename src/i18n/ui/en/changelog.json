@@ -60,6 +60,14 @@
         "Drag the overlay by its title.",
         "The debug report now includes how long the hotkey copy took; please attach it if switching items feels slow."
       ]
+    },
+    "2026-09-30d": {
+      "heading": "2026-09-30 (unclickable overlay)",
+      "items": [
+        "Fixed cases where the overlay stopped reacting to clicks after some hotkey presses.",
+        "If the overlay ever stops reacting: right-click the tray icon → \"Reload overlay\".",
+        "New in the tray menu: \"Open log folder\". If something goes wrong, please attach overlay.log from there to your report."
+      ]
     }
   }
 }

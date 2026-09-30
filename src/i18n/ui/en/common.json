@@ -21,6 +21,8 @@
   },
   "trayShow": "Show overlay",
   "trayResetPosition": "Reset window position",
+  "trayReload": "Reload overlay",
+  "trayOpenLogs": "Open log folder",
   "trayQuit": "Quit",
   "startupFailedTitle": "PoE2 Abyss Craft Overlay could not start",
   "startupFailedBody": "Something went wrong while starting the overlay. Please restart it. If this keeps happening, open an issue and include the text below.",

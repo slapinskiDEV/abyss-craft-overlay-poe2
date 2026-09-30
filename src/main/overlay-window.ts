@@ -3,6 +3,7 @@ import { BrowserWindow, screen } from 'electron';
 import { join } from 'node:path';
 import type { WindowBounds } from '../preload/api-types';
 import { appIcon } from './app-icon-image';
+import { log } from './log';
 import { restoreBounds } from './window-bounds';
 
 export interface OverlayWindowOptions {
@@ -18,6 +19,7 @@ const KEEPS_GAME_FOCUS = process.platform === 'win32';
 /** Lets the player type in a text field of the overlay (search, level filters, settings). */
 export function allowKeyboardFocus(win: BrowserWindow): void {
   if (!KEEPS_GAME_FOCUS) return;
+  log('focus:allow');
   win.setFocusable(true);
   win.focus();
 }
@@ -25,6 +27,7 @@ export function allowKeyboardFocus(win: BrowserWindow): void {
 /** Typing finished: stop taking focus again; the next click in the game gives it back. */
 export function releaseKeyboardFocus(win: BrowserWindow): void {
   if (!KEEPS_GAME_FOCUS) return;
+  log('focus:release', { focused: win.isFocused() });
   win.setFocusable(false);
 }
 

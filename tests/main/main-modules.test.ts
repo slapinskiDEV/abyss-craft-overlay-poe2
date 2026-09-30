@@ -12,6 +12,7 @@ import { loadDataPackFile } from '../../src/main/data-pack-loader';
 import { validDebugReport } from '../../src/main/ipc-validation';
 import { DEFAULT_HOTKEY, defaultSettings, mergeSettings, sanitizeSettings } from '../../src/main/settings-model';
 import { SettingsStore } from '../../src/main/settings';
+import { initLog, log, LOG_MAX_BYTES } from '../../src/main/log';
 import { restoreBounds } from '../../src/main/window-bounds';
 import { testPack } from '../fixtures/data/test-only-pack';
 
@@ -120,6 +121,22 @@ describe('settings file errors never escape (spec 017 A2, A3)', () => {
     store.update({ closeOnBlur: true });
     expect(readFileSync(join(dir, 'settings.json.bak'), 'utf8')).toBe('{ not json');
     expect(JSON.parse(readFileSync(join(dir, 'settings.json'), 'utf8')).closeOnBlur).toBe(true);
+  });
+});
+
+describe('diagnostic log (spec 018)', () => {
+  it('appends events, rotates a large file and never throws', () => {
+    const dir = initLog(join(mkdtempSync(join(tmpdir(), 'log-')), 'logs'));
+    log('hotkey', { visible: true });
+    expect(readFileSync(join(dir, 'overlay.log'), 'utf8')).toMatch(/ hotkey \{"visible":true\}\n$/);
+    writeFileSync(join(dir, 'overlay.log'), 'x'.repeat(LOG_MAX_BYTES + 1));
+    log('after-rotate');
+    expect(readFileSync(join(dir, 'overlay.log'), 'utf8')).toMatch(/after-rotate/);
+    expect(readFileSync(join(dir, 'overlay.log.1'), 'utf8').length).toBe(LOG_MAX_BYTES + 1);
+    mkdirSync(join(dir, 'blocked'));
+    initLog(join(dir, 'blocked'));
+    mkdirSync(join(dir, 'blocked', 'overlay.log')); // appending to a directory fails
+    expect(() => log('ignored')).not.toThrow();
   });
 });
 

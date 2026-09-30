@@ -60,6 +60,14 @@
         "Nakładkę przesuwasz, przeciągając jej tytuł.",
         "Raport debug zawiera teraz czas kopiowania przedmiotu po skrócie; dołącz go, jeśli przełączanie przedmiotów wydaje się wolne."
       ]
+    },
+    "2026-09-30d": {
+      "heading": "30.09.2026 (nieklikalna nakładka)",
+      "items": [
+        "Poprawiono przypadki, w których nakładka po kilku użyciach skrótu przestawała reagować na kliknięcia.",
+        "Jeśli nakładka przestanie reagować: prawy przycisk na ikonie w zasobniku → „Przeładuj nakładkę”.",
+        "Nowość w menu ikony w zasobniku: „Otwórz folder z logami”. Jeśli coś pójdzie nie tak, dołącz stamtąd plik overlay.log do zgłoszenia."
+      ]
     }
   }
 }

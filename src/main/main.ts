@@ -1,5 +1,5 @@
 // Electron main process (spec 001). Runtime path: user clipboard -> overlay (SoT §3.1).
-import { app, dialog, ipcMain, type BrowserWindow, type Tray } from 'electron';
+import { app, dialog, ipcMain, shell, type BrowserWindow, type Tray } from 'electron';
 import type { AppInfo, AppSettings, ClipboardSnapshot, CopyTiming, DataPackLoadResult, HotkeyRegistrationResult } from '../preload/api-types';
 import { IPC } from '../shared/ipc-channels';
 import { LATEST_CHANGELOG_ENTRY, pendingChangelog } from '../shared/changelog';
@@ -15,6 +15,8 @@ import { allowKeyboardFocus, centerOnPrimary, createOverlayWindow, releaseKeyboa
 import { SettingsStore } from './settings';
 import { registerToggleHotkey, unregisterAll } from './shortcuts';
 import { createTray } from './tray';
+import { initLog, log } from './log';
+import { join } from 'node:path';
 import { UI_LOCALES } from '../i18n/ui/registry';
 import { resolveUiLocale } from '../i18n/resolve-locale';
 
@@ -47,6 +49,7 @@ const packPath = () => dataPackPath({ isPackaged: app.isPackaged, resourcesPath:
  */
 function deliver(target: BrowserWindow, snapshot: ClipboardSnapshot, focus: boolean): void {
   lastSnapshot = snapshot;
+  log('deliver', { focus, wasVisible: target.isVisible() });
   if (focus) {
     target.show();
     target.focus();
@@ -78,6 +81,7 @@ function toggle(): void {
   // back to the game, then copy the hovered item there. Keys are never sent into our own window
   // (spec 010, SoT 0.2.9); the overlay reappears without focus when a new item was copied.
   const focused = visible && target.isFocused();
+  log('hotkey', { visible, focused, autoCopy: autoCopyEnabled() });
   if (focused) releaseKeyboardFocus(target);
   const refocus = focused ? (target.hide(), sleep(REFOCUS_MS)) : Promise.resolve();
   const busy = (on: boolean) => target.webContents.send(IPC.copyBusy, on);
@@ -105,6 +109,7 @@ function toggle(): void {
   void read
     .then((snapshot) => {
       const action = decideHotkeyAction(visible, lastSnapshot?.text, snapshot.text);
+      log('hotkey:done', { action, ms: Math.round(performance.now() - started), ...(timing ?? {}) });
       if (timing) {
         copyTimings.push({ at: new Date().toISOString(), sendMs: Math.round(sentAt - started), totalMs: Math.round(performance.now() - started), clipboardChanged: timing.clipboardChanged, action });
         if (copyTimings.length > 10) copyTimings.shift();
@@ -130,6 +135,8 @@ function failStartup(error: unknown): void {
 
 app.whenReady().then(() => {
   if (!primaryInstance) return;
+  const logDir = initLog(join(app.getPath('userData'), 'logs'));
+  log('start', { version: app.getVersion(), platform: process.platform });
   const settings = new SettingsStore(app.getPath('userData'), app.getLocale());
   autoCopyEnabled = () => settings.get().autoCopy;
   // A fresh install starts with the current notes marked as read (spec 011).
@@ -143,25 +150,44 @@ app.whenReady().then(() => {
   const common = uiResources(settings.get().localization.uiLocale).common;
   const overlay = win;
   tray = createTray(
-    { show: common.trayShow, resetPosition: common.trayResetPosition, quit: common.trayQuit },
-    showOverlay,
-    () => {
-      centerOnPrimary(overlay);
-      showOverlay();
-    },
-    () => {
-      quitting = true;
-      app.quit();
+    { show: common.trayShow, resetPosition: common.trayResetPosition, reload: common.trayReload, openLogs: common.trayOpenLogs, quit: common.trayQuit },
+    {
+      show: showOverlay,
+      resetPosition: () => {
+        centerOnPrimary(overlay);
+        showOverlay();
+      },
+      reload: () => {
+        log('tray:reload');
+        releaseKeyboardFocus(overlay);
+        overlay.webContents.reload();
+        showOverlay();
+      },
+      openLogs: () => void shell.openPath(logDir),
+      quit: () => {
+        quitting = true;
+        app.quit();
+      },
     },
   );
   hotkeyStatus = registerToggleHotkey(settings.get().hotkey, toggle);
+  log('hotkey:register', { ok: hotkeyStatus.ok, accelerator: hotkeyStatus.accelerator });
   // A hotkey taken by another program at launch: open the overlay once so the player sees why and
   // can choose another one (spec 017 A7).
   if (!hotkeyStatus.ok) win.once('ready-to-show', showOverlay);
   // A renderer crash reloads the window instead of leaving it blank, at most a few times a minute
   // (spec 017 A5).
   const crashes: number[] = [];
+  // A hung renderer (Windows: "not responding") is restarted; the reload below brings it back.
+  win.on('unresponsive', () => {
+    log('renderer:unresponsive');
+    overlay.webContents.forcefullyCrashRenderer();
+  });
+  win.on('responsive', () => log('renderer:responsive'));
+  win.on('show', () => log('window:show'));
+  win.on('hide', () => log('window:hide'));
   win.webContents.on('render-process-gone', (_event, details) => {
+    log('renderer:gone', { reason: details.reason });
     console.error('renderer gone', details.reason);
     if (quitting || details.reason === 'clean-exit') return;
     const now = Date.now();

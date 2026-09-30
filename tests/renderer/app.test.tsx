@@ -265,9 +265,13 @@ describe('title bar without an OS drag region (spec 018)', () => {
     title.hasPointerCapture = () => true;
     title.releasePointerCapture = () => undefined;
     fireEvent.pointerDown(title, { button: 0, screenX: 100, screenY: 100, pointerId: 1 });
-    fireEvent.pointerMove(title, { screenX: 130, screenY: 90, pointerId: 1 });
+    fireEvent.pointerMove(title, { screenX: 130, screenY: 90, pointerId: 1, buttons: 1 });
     fireEvent.pointerUp(title, { pointerId: 1 });
-    fireEvent.pointerMove(title, { screenX: 200, screenY: 200, pointerId: 1 });
+    fireEvent.pointerMove(title, { screenX: 200, screenY: 200, pointerId: 1, buttons: 1 });
+    // A drag cut short by the window losing focus sends no further moves.
+    fireEvent.pointerDown(title, { button: 0, screenX: 0, screenY: 0, pointerId: 2 });
+    fireEvent.blur(window);
+    fireEvent.pointerMove(title, { screenX: 50, screenY: 50, pointerId: 2, buttons: 1 });
     expect(f.api.moveWindowBy).toHaveBeenCalledTimes(1);
     expect(f.api.moveWindowBy).toHaveBeenCalledWith(30, -10);
   });
