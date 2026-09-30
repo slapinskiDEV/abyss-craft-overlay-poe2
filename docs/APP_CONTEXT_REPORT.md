@@ -1,7 +1,7 @@
 # App context report — PoE2 Abyss Craft Overlay
 
 Briefing for an agent that is new to this repository. Snapshot as of 2026-09-30 (app 0.4.x,
-SoT v0.2.13). Open source since 2026-09-30: code MIT (`LICENSE`), third-party data terms in
+SoT v0.2.14). Open source since 2026-09-30: code MIT (`LICENSE`), third-party data terms in
 `NOTICE.txt`, contributor rules in `CONTRIBUTING.md`. **Authority:** `POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md` (SoT). If
 this report conflicts with the SoT, the SoT wins. Operational rules are summarised in `CLAUDE.md`.
 
@@ -77,6 +77,10 @@ any way."*
   only while typing in a text field.
 - Instant loading state on hotkey (spec 016); renderer background throttling disabled; key sequence
   ~50 ms.
+- Robustness (spec 017): tray icon kept alive, second instance exits at once, settings file errors
+  never crash, startup errors show a localized dialog, renderer crash reloads the window, a hotkey
+  taken at launch opens the overlay with a warning, Reset window position also in the tray menu,
+  workspace error boundary with a debug-report fallback.
 - Settings (schema v4): UI locale, game-term locale, clipboard locale, hotkey, closeOnBlur, autoCopy,
   showLegacyCurrencies, showDataVersion, checkForUpdates, window bounds, onboarding, changelogSeen.
 - In-app update via electron-updater (installer); portable build opens the download page.
@@ -97,11 +101,12 @@ src/
   parser/      registry + EN adapter (grammar.ts, adapter.ts) + common matchers
   data/        adapters/ (RePoE → normalized pack, classify, rules, validate), normalized/pack/pack.json,
                manifest/manifest.json
-  i18n/        UI locale registry, game-term provider, diagnostic formatting
+  i18n/        UI locale registry, game-term provider (bases, classes, Bones, Omens, mods, pool
+               names), diagnostic formatting
   shared/      diagnostic-codes, ipc-channels, changelog entry IDs
 data-source/   RePoE snapshots, wiki rule evidence, game-localization, reports (audit)
 scripts/       data:fetch/evidence/normalize/validate/diff, verify-release, scan-artifact, icon, build version
-specs/         000-index + 001–016 (013 planned only)
+specs/         000-index + 001–017 (013 planned only; 017 = pre-video stabilization)
 tests/         architecture, data, domain, parser, i18n, integration (golden), main, renderer, manual
 ```
 
@@ -109,17 +114,18 @@ Engine entry point (plain TS, no Electron): `evaluateDesecration({ item, currenc
 
 **Data pack** (`pack.json`, built from RePoE PoE2 **4.5.5.2**, target game version 0.5.5): 1849 base
 items, 3373 modifiers, 30 item classes, 12 Bones, 8 Omens, 741 EN stat translations, affix limits,
-mechanics constants, Abyss Mark mod IDs, special items, full provenance with sha256 per source.
+mechanics constants, Abyss Mark mod IDs, special items, pool names (`poolNamesEn`), full provenance
+with sha256 per source. Pack schema version 2.
 
 ## 5. Workflow and commands
 
-- `npm run typecheck` · `npm test` (Vitest, 28 test files) · `npm run dev` (electron-vite)
+- `npm run typecheck` · `npm test` (Vitest, 28 test files, ~260 tests) · `npm run dev` (electron-vite)
 - `npm run data:update` — fetch RePoE + wiki evidence, normalize, validate, semantic diff
 - `npm run data:validate` · `npm run i18n:validate`
 - `npm run verify:release` — non-skippable gate (real validated pack, no skipped tests)
 - `npm run package:win` — NSIS installer + portable exe (NSIS needs Windows/Wine)
 - CI: `.github/workflows/windows-build.yml` on every push to `master` → release gate → build →
-  test pre-release `build-<run>`. Players get a build only from
+  test pre-release `build-<run>` (a newer push cancels the running test build). Players get a build only from
   `gh workflow run "Windows build" -f publish=true` (releases repo + tag `v<version>`, spec 017). App version =
   `<major>.<minor>` from `package.json` + CI run number as patch; bump the minor whenever the run
   counter could go backwards (new repo), or the updater will not offer the build.
@@ -135,14 +141,17 @@ mechanics constants, Abyss Mark mod IDs, special items, full provenance with sha
   grammar token is `confirmed`). Therefore the exact item check returns `unknown`
   (`EXISTING_DESECRATION_UNDETERMINED`, U-011/U-014) and the overlay shows the base pool. Capturing
   fixtures (SoT §19.1) is on the critical path for the item-specific pool — see `docs/HANDOFF.md`.
-- Blocked assumptions (return `unknown`, no pool): U-001, U-002, U-008, U-012, U-013; see SoT §20 and
-  the register in `specs/000-index.md`. Special uniques and Time-Lost Jewels → `unsupported`.
+- Blocked assumptions (return `unknown`, no pool): U-001, U-002, U-008, U-012, U-013; unidentified
+  and mirrored items (U-015, exact check `unknown`, slots undetermined, base pool kept); see SoT §20
+  and the register in `specs/000-index.md`. Special uniques and Time-Lost Jewels → `unsupported`.
 - Pending manual work: Windows smoke test (`tests/manual/overlay/CHECKLIST.md`), Well of Souls
   validation (`tests/manual/well-of-souls/TEMPLATE.md`), review of 13 Mace/Staff rows with two Lich
   tags (`data-source/reports/2026-09-26-4.5.5.2/audit-report.json`).
 - Trade search link (spec 013) is planned only; needs evidenced URL format/stat IDs and an SoT
   update before any code.
 - Builds are unsigned (SmartScreen warning). Exclusive Fullscreen is not supported.
+- Before the public video (spec 017): manual checks F1–F5 on Windows, `data:update` right before the
+  video build, one tagged player release for the video. Donation link and trade link: not now.
 
 ## 7. Where to read next
 

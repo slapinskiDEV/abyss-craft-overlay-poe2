@@ -17,6 +17,13 @@ on:
 permissions:
   contents: write # create the GitHub Release
 
+# A newer push cancels the running test build of the previous one: the older build could no longer
+# create its build-<n> tag once master carries a different workflow file (403 "Resource not
+# accessible by integration", run 14). Publish runs get their own group and are never cancelled.
+concurrency:
+  group: ${{ github.event_name == 'push' && 'windows-build-push' || format('windows-build-{0}', github.run_id) }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: windows-latest
