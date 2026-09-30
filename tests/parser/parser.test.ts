@@ -143,6 +143,40 @@ describe('normal copy', () => {
   });
 });
 
+describe('normal copy with hybrid modifiers (spec 017 C1)', () => {
+  const hybridPack = (withSingleStr: boolean) =>
+    testPack({
+      bases: [base('TEST_ONLY_BASE_PLATE', { canonicalNameEn: 'TEST_ONLY Plate' })],
+      modifiers: [
+        mod('TEST_ONLY_MOD_LIFE_T1', { stats: [{ id: 'TEST_ONLY_stat_life', min: 20, max: 29 }] }),
+        mod('TEST_ONLY_MOD_HYBRID', { groups: ['TEST_ONLY_GROUP_HYBRID'], stats: [{ id: 'TEST_ONLY_stat_life', min: 20, max: 29 }, { id: 'TEST_ONLY_stat_str', min: 5, max: 8 }] }),
+        ...(withSingleStr ? [mod('TEST_ONLY_MOD_STR', { side: 'suffix', stats: [{ id: 'TEST_ONLY_stat_str', min: 5, max: 8 }] })] : []),
+      ],
+      translations: [translation(['TEST_ONLY_stat_life'], '+{0} to TEST_ONLY maximum Life'), translation(['TEST_ONLY_stat_str'], '+{0} to TEST_ONLY Strength')],
+      markIds: [],
+    });
+  const pair = '+25 to TEST_ONLY maximum Life\n+6 to TEST_ONLY Strength';
+
+  it('accepts the only split: two lines as one hybrid affix', () => {
+    const r = ok(createClipboardParser(hybridPack(false)).parse(item(pair), 'auto'));
+    expect(r.item.prefixes.map((a) => [a.matchedModifierId, a.rawLines.length])).toEqual([['TEST_ONLY_MOD_HYBRID', 2]]);
+  });
+
+  it('reports several splits as ambiguous and matches nothing', () => {
+    const r = ok(createClipboardParser(hybridPack(true)).parse(item(pair), 'auto'));
+    expect(r.diagnostics).toContainEqual(expect.objectContaining({ code: 'AFFIX_AMBIGUOUS', params: { splits: 2 } }));
+    expect([...r.item.prefixes, ...r.item.suffixes]).toEqual([]);
+  });
+
+  it('stays fast when many hybrid lines end in an unrecognized line', () => {
+    const body = [...Array.from({ length: 14 }, () => pair), 'TEST_ONLY unknown modifier text'].join('\n');
+    const start = performance.now();
+    const r = ok(createClipboardParser(hybridPack(true)).parse(item(body), 'auto'));
+    expect(performance.now() - start).toBeLessThan(500);
+    expect(r.diagnostics).toContainEqual(expect.objectContaining({ code: 'AFFIX_AMBIGUOUS', params: { splits: 0 } }));
+  });
+});
+
 describe('insufficient parses (SoT §9.4)', () => {
   it('fails on an unknown base', () => {
     const r = parser.parse(item('+8 to TEST_ONLY Strength', 'Item Class: TEST_ONLY Armours\nRarity: Rare\nTEST_ONLY Doom Name\nTEST_ONLY Unknown Base'), 'auto');

@@ -259,33 +259,45 @@ export function createEnAdapter(pack: DataPack): ClipboardParserAdapter {
   }
 
   function readNormalAffixes(rawAffixes: RawAffix[], plausible: (m: ModifierDefinition) => boolean, diagnostics: ParserDiagnostic[]): ParsedAffix[] {
-    // Normal copy: every line is explicit; hybrid mods may span lines. Enumerate every way to split
-    // the lines into affixes; only a unique split is accepted (SoT §9.5).
+    // Normal copy: every line is explicit; hybrid mods may span lines. Only a unique split of the
+    // lines into affixes is accepted (SoT §9.5). Counted by dynamic programming from the last line
+    // (splits from each position, capped at 2) instead of enumerating every split, which grew
+    // exponentially when no split existed (spec 017 C1).
     const lineTexts = rawAffixes.flatMap((a) => a.lines);
     const lineMeta = rawAffixes.flatMap((a) => a.lines.map(() => a));
-    const splits: Array<Array<{ start: number; end: number; mods: ModifierDefinition[] }>> = [];
-    const walk = (pos: number, acc: Array<{ start: number; end: number; mods: ModifierDefinition[] }>) => {
-      if (splits.length > 16) return;
-      if (pos === lineTexts.length) {
-        splits.push(acc);
-        return;
-      }
-      for (let end = pos + 1; end <= Math.min(lineTexts.length, pos + 3); end += 1) {
-        const mods = new Map<string, ModifierDefinition>();
-        for (const seg of affixes.segmentations(lineTexts.slice(pos, end))) for (const m of affixes.modsFor(seg, plausible)) mods.set(m.id, m);
-        if (mods.size > 0) walk(end, [...acc, { start: pos, end, mods: [...mods.values()] }]);
-      }
+    const n = lineTexts.length;
+    const modsIn = (start: number, end: number): ModifierDefinition[] => {
+      const mods = new Map<string, ModifierDefinition>();
+      for (const seg of affixes.segmentations(lineTexts.slice(start, end))) for (const m of affixes.modsFor(seg, plausible)) mods.set(m.id, m);
+      return [...mods.values()];
     };
-    walk(0, []);
-    if (splits.length !== 1) {
-      if (lineTexts.length > 0) diagnostics.push({ code: 'AFFIX_AMBIGUOUS', severity: 'warning', params: { splits: splits.length } });
+    const splitsFrom = new Array<number>(n + 1).fill(0);
+    const firstEnd = new Array<number>(n + 1).fill(-1);
+    const modsFrom = new Array<ModifierDefinition[]>(n + 1).fill([]);
+    splitsFrom[n] = 1;
+    for (let start = n - 1; start >= 0; start -= 1) {
+      for (let end = start + 1; end <= Math.min(n, start + 3); end += 1) {
+        if ((splitsFrom[end] ?? 0) === 0) continue;
+        const mods = modsIn(start, end);
+        if (mods.length === 0) continue;
+        splitsFrom[start] = Math.min(2, (splitsFrom[start] ?? 0) + (splitsFrom[end] ?? 0));
+        firstEnd[start] = end;
+        modsFrom[start] = mods;
+      }
+    }
+    if (splitsFrom[0] !== 1) {
+      if (n > 0) diagnostics.push({ code: 'AFFIX_AMBIGUOUS', severity: 'warning', params: { splits: splitsFrom[0] ?? 0 } });
       return rawAffixes.map((a) => toParsedAffix({ ...a, side: undefined }, summarize([]), () => undefined));
     }
-    return (splits[0] ?? []).map(({ start, end, mods }) => {
+    // Exactly one split: from each position on it, exactly one end continues to a full split.
+    const out: ParsedAffix[] = [];
+    for (let start = 0; start < n; start = firstEnd[start] as number) {
+      const end = firstEnd[start] as number;
       const meta = lineMeta[start] as RawAffix;
       const group: RawAffix = { ...meta, lines: lineTexts.slice(start, end), side: undefined };
-      return toParsedAffix(group, summarize(mods), () => undefined);
-    });
+      out.push(toParsedAffix(group, summarize(modsFrom[start] ?? []), () => undefined));
+    }
+    return out;
   }
 
   return { locale: 'en', detect, parse };
