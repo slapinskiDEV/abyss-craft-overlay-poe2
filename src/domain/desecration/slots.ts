@@ -26,7 +26,8 @@ export function affixSlots(item: ParsedItem, data: DataPack): AffixSlots {
   // Explicit modifiers are hidden until identified (SoT U-015).
   if (item.unidentified) return { state: 'undetermined', reason: 'UNIDENTIFIED' };
   const side = (s: AffixSide, max: number): SideSlots => {
-    const used = (s === 'prefix' ? item.prefixes : item.suffixes).length;
+    // Unrevealed placeholders occupy a slot too (spec 017 C5).
+    const used = (s === 'prefix' ? item.prefixes : item.suffixes).length + (item.abyss.unrevealedCount?.[s] ?? 0);
     return { used, max, free: Math.max(0, max - used) };
   };
   return {

@@ -22,6 +22,13 @@ describe('affixSlots', () => {
   });
 });
 
+describe('Unrevealed placeholders take a slot (spec 017 C5)', () => {
+  it('counts them as used on their side', () => {
+    const item = parsed('armour', [affix('TEST_ONLY_MOD_ARMOUR_P1')], {}, { unrevealedCount: { prefix: 1, suffix: 0 } });
+    expect(affixSlots(item, ENGINE_PACK)).toMatchObject({ state: 'determined', prefix: { used: 2, free: 1 }, suffix: { used: 0, free: 3 } });
+  });
+});
+
 describe('unidentified and mirrored items (SoT U-015, spec 017 C3)', () => {
   const run = (extra: Parameters<typeof parsed>[2]) =>
     evaluateDesecration({ item: parsed('armour', [], extra, { existingDesecration: 'absent' }), parserConfidence: 'full', currency: 'TEST_ONLY_BONE_ARMOUR_PLAIN', activeOmens: [], data: ENGINE_PACK });

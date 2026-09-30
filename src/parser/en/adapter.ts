@@ -104,7 +104,7 @@ export function createEnAdapter(pack: DataPack): ClipboardParserAdapter {
 
     // --- affixes --------------------------------------------------------------------------
     const bodySections = sections.slice(1);
-    const advanced = bodySections.some((s) => s.some((l) => G.advancedBlock.header.value.test(l.text)));
+    const advanced = bodySections.some((s) => s.some((l) => isAdvancedHeader(l.text)));
     const unrevealed: Array<{ side: AffixSide }> = [];
     const rawAffixes = advanced ? readAdvanced(bodySections, use) : readNormal(bodySections, unrevealed, use);
     if (!advanced && rawAffixes.length > 0) diagnostics.push({ code: 'NORMAL_COPY_LIMITED_DETAIL', severity: 'info' });
@@ -184,6 +184,7 @@ export function createEnAdapter(pack: DataPack): ClipboardParserAdapter {
       fracturedState,
       abyss: {
         hasUnrevealedDesecratedModifier: unrevealed.length > 0,
+        unrevealedCount: { prefix: unrevealed.filter((u) => u.side === 'prefix').length, suffix: unrevealed.filter((u) => u.side === 'suffix').length },
         hasRevealedDesecratedModifier: revealedAffix !== undefined,
         ...(unrevealed[0] ? { desecratedSide: unrevealed[0].side } : revealedAffix && revealedAffix.side !== 'unknown' ? { desecratedSide: revealedAffix.side } : {}),
         hasMarkOfAbyssalLord: markAffixes.length > 0,
@@ -316,6 +317,14 @@ export function createEnAdapter(pack: DataPack): ClipboardParserAdapter {
 
 // --- section readers ------------------------------------------------------------------------
 
+/**
+ * The block-header pattern backtracks quadratically on long lines; only short lines that open a
+ * block are tested (spec 017 C4). Real headers are far shorter than the cap.
+ */
+const MAX_HEADER_LENGTH = 500;
+const isHeaderCandidate = (text: string): boolean => text.length <= MAX_HEADER_LENGTH && text.startsWith('{');
+const isAdvancedHeader = (text: string): boolean => isHeaderCandidate(text) && G.advancedBlock.header.value.test(text);
+
 const cleanValueLine = (text: string): string =>
   text.replace(G.advancedValueRange.value, '$1').replace(G.unscalableSuffix.value, '').trim();
 
@@ -324,7 +333,7 @@ function readAdvanced(sections: Line[][], use: (n: string, t: GrammarToken) => v
   for (const section of sections) {
     let current: RawAffix | null = null;
     for (const line of section) {
-      const header = line.text.match(G.advancedBlock.header.value);
+      const header = isHeaderCandidate(line.text) ? line.text.match(G.advancedBlock.header.value) : null;
       if (header) {
         const type = header.groups?.type ?? '';
         const side: AffixSide | undefined = type.includes(G.advancedBlock.prefixWord.value)

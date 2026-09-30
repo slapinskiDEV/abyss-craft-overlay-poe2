@@ -43,6 +43,8 @@ export interface ParsedItem {
   fracturedState: 'determined' | 'undetermined';
   abyss: {
     hasUnrevealedDesecratedModifier: boolean;
+    /** Unrevealed placeholder lines seen per side (normal copy); each takes a slot (spec 017 C5). */
+    unrevealedCount?: { prefix: number; suffix: number };
     hasRevealedDesecratedModifier: boolean;
     desecratedSide?: AffixSide;
     hasMarkOfAbyssalLord: boolean;

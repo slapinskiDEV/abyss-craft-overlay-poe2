@@ -186,6 +186,20 @@ describe('normal copy with hybrid modifiers (spec 017 C1)', () => {
   });
 });
 
+describe('robustness (spec 017 C4, C5)', () => {
+  it('stays fast on a very long line that looks like an unfinished block header', () => {
+    const start = performance.now();
+    const r = parser.parse(item(`{ ${'TEST_ONLY — '.repeat(3000)}`), 'auto');
+    expect(performance.now() - start).toBeLessThan(500);
+    expect(r.ok).toBe(true);
+  });
+
+  it('counts Unrevealed placeholder lines per side in normal copy', () => {
+    const r = ok(parser.parse(item('Desecrated Prefix\n+8 to TEST_ONLY Strength'), 'auto'));
+    expect(r.item.abyss.unrevealedCount).toEqual({ prefix: 1, suffix: 0 });
+  });
+});
+
 describe('insufficient parses (SoT §9.4)', () => {
   it('fails on an unknown base', () => {
     const r = parser.parse(item('+8 to TEST_ONLY Strength', 'Item Class: TEST_ONLY Armours\nRarity: Rare\nTEST_ONLY Doom Name\nTEST_ONLY Unknown Base'), 'auto');
