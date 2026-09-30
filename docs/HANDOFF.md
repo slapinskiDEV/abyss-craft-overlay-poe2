@@ -49,8 +49,10 @@ Overview for a new contributor or agent: `docs/APP_CONTEXT_REPORT.md`.
    "Choices made where the SoT is silent or internally inconsistent"; U-007 (fractured Mark).
 5. **Before the video:** `npm run data:update` (pack is RePoE 4.5.5.2 / game 0.5.5), then one tagged
    player release that the video shows; no other release during recording (spec 017 D2, E1).
-6. **Code signing:** unsigned for now; no paid signing (maintainer, 2026-09-30). Free option: apply to
-   SignPath Foundation (see spec 017 decision 3), only with the maintainer's go-ahead.
+6. **Code signing:** unsigned for now; no paid signing (maintainer, 2026-09-30). **SignPath Foundation
+   application sent 2026-09-30** (answers in `docs/signpath-application.md`), awaiting the reply,
+   including whether the bundled GGG data pack is acceptable. If accepted, do the repository steps at
+   the end of that file.
 7. **Not now (maintainer decision 2026-09-30):** donation link, trade search link (spec 013).
 8. Every release: a changelog entry (`src/shared/changelog.ts` + `src/i18n/ui/{en,pl}/changelog.json`).
 
