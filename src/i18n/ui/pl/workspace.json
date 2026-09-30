@@ -43,7 +43,7 @@
   "noModifiers": "Brak pasujących modyfikatorów.",
   "rowsTruncated": "Pokazano {{shown}} z {{count}} modyfikatorów. Resztę znajdziesz wyszukiwarką lub filtrami.",
   "coverage": "{{count}}/{{of}}",
-  "coverageTitle": "Możliwy w {{count}} z {{of}} wariantów usunięcia (to nie jest prawdopodobieństwo)",
+  "coverageTitle": "Możliwy w {{count}} z {{of}} wariantów usunięcia",
   "requiredLevel": "Poziom {{level}}",
   "putrefactionTitle": "Zastępuje wszystkie modyfikatory",
   "putrefactionMax": "Do {{count}} modyfikatorów Unrevealed",
