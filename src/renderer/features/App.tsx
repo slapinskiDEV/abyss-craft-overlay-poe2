@@ -65,6 +65,7 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
 
   const changelog = pendingChangelog(settings.changelogSeen);
   const busy = useCopyBusy(api);
+  const hotkeyError = useHotkeyError(api, settings.hotkey);
   // The overlay keeps keyboard focus in the game (spec 015); only text fields take it, while typing.
   const isTextField = (el: EventTarget | null) => el instanceof HTMLElement && el.closest('input, select, textarea') !== null;
 
@@ -97,6 +98,11 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
           ×
         </button>
       </div>
+      {hotkeyError ? (
+        <p className="banner warning" role="alert">
+          {t('errors:hotkeyRegistrationFailed', { accelerator: hotkeyError })}
+        </p>
+      ) : null}
       {!pack || !game || !parse ? (
         <section className="blocking-error" role="alert">
           <strong>{t(`reasons:${packResult.ok ? 'DATA_PACK_MISSING' : packResult.code}.title`)}</strong>
@@ -114,6 +120,22 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
       )}
     </div>
   );
+}
+
+/** The hotkey that could not be registered (e.g. taken by another program), or null (spec 017 A7). */
+function useHotkeyError(api: OverlayApi, hotkey: string): string | null {
+  const [failed, setFailed] = useState<string | null>(null);
+  useEffect(() => {
+    let current = true;
+    api
+      .getHotkeyStatus()
+      .then((s) => current && setFailed(s && !s.ok ? s.accelerator : null))
+      .catch(() => undefined);
+    return () => {
+      current = false;
+    };
+  }, [api, hotkey]);
+  return failed;
 }
 
 /** Loading state while the hotkey copies the hovered item (spec 016); self-clears after 3 s. */

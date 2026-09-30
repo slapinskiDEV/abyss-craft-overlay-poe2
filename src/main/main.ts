@@ -1,6 +1,6 @@
 // Electron main process (spec 001). Runtime path: user clipboard -> overlay (SoT §3.1).
 import { app, dialog, ipcMain, type BrowserWindow, type Tray } from 'electron';
-import type { AppInfo, AppSettings, ClipboardSnapshot, DataPackLoadResult } from '../preload/api-types';
+import type { AppInfo, AppSettings, ClipboardSnapshot, DataPackLoadResult, HotkeyRegistrationResult } from '../preload/api-types';
 import { IPC } from '../shared/ipc-channels';
 import { LATEST_CHANGELOG_ENTRY, pendingChangelog } from '../shared/changelog';
 import { readClipboardSnapshot, writeDebugReportToClipboard } from './clipboard';
@@ -35,6 +35,7 @@ let packResult: DataPackLoadResult | null = null;
 let lastSnapshot: ClipboardSnapshot | null = null;
 let autoCopyEnabled = (): boolean => false;
 let hotkeyBusy = false;
+let hotkeyStatus: HotkeyRegistrationResult | null = null;
 
 const packPath = () => dataPackPath({ isPackaged: app.isPackaged, resourcesPath: process.resourcesPath, appPath: app.getAppPath() });
 
@@ -55,7 +56,9 @@ function showOverlay(): void {
   const target = win;
   if (!target) return;
   // Read exactly once per show (SoT §16.2), then show.
-  void readClipboardSnapshot().then((snapshot) => deliver(target, snapshot, true));
+  void readClipboardSnapshot()
+    .then((snapshot) => deliver(target, snapshot, true))
+    .catch((error: unknown) => console.error('show: clipboard read failed', error));
 }
 
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
@@ -90,6 +93,8 @@ function toggle(): void {
       if (action === 'hide') target.hide();
       else deliver(target, snapshot, false);
     })
+    // A failed read or a window closed during quit must not become an unhandled rejection (spec 017 A6).
+    .catch((error: unknown) => console.error('hotkey: copy flow failed', error))
     .finally(() => {
       hotkeyBusy = false;
       busy(false);
@@ -117,11 +122,34 @@ app.whenReady().then(() => {
     isQuitting: () => quitting,
   });
   const common = uiResources(settings.get().localization.uiLocale).common;
-  tray = createTray({ show: common.trayShow, quit: common.trayQuit }, showOverlay, () => {
-    quitting = true;
-    app.quit();
+  const overlay = win;
+  tray = createTray(
+    { show: common.trayShow, resetPosition: common.trayResetPosition, quit: common.trayQuit },
+    showOverlay,
+    () => {
+      centerOnPrimary(overlay);
+      showOverlay();
+    },
+    () => {
+      quitting = true;
+      app.quit();
+    },
+  );
+  hotkeyStatus = registerToggleHotkey(settings.get().hotkey, toggle);
+  // A hotkey taken by another program at launch: open the overlay once so the player sees why and
+  // can choose another one (spec 017 A7).
+  if (!hotkeyStatus.ok) win.once('ready-to-show', showOverlay);
+  // A renderer crash reloads the window instead of leaving it blank, at most a few times a minute
+  // (spec 017 A5).
+  const crashes: number[] = [];
+  win.webContents.on('render-process-gone', (_event, details) => {
+    console.error('renderer gone', details.reason);
+    if (quitting || details.reason === 'clean-exit') return;
+    const now = Date.now();
+    while (crashes.length > 0 && now - (crashes[0] ?? now) > 60_000) crashes.shift();
+    crashes.push(now);
+    if (crashes.length <= 3) overlay.webContents.reload();
   });
-  registerToggleHotkey(settings.get().hotkey, toggle);
   // Development: show the overlay right away; global hotkeys and tray icons are unreliable on some
   // Linux desktops (e.g. GNOME/Wayland). Packaged builds start hidden and wait for the hotkey.
   // After an update the overlay opens once so the player sees the release notes (spec 011).
@@ -168,6 +196,7 @@ app.whenReady().then(() => {
     };
   });
   ipcMain.handle(IPC.getUpdateStatus, () => updater.status());
+  ipcMain.handle(IPC.getHotkeyStatus, () => hotkeyStatus);
   ipcMain.on(IPC.startUpdate, () => updater.start());
   ipcMain.on(IPC.requestKeyboardFocus, () => win && allowKeyboardFocus(win));
   ipcMain.on(IPC.releaseKeyboardFocus, () => win && releaseKeyboardFocus(win));
@@ -176,8 +205,10 @@ app.whenReady().then(() => {
   ipcMain.handle(IPC.setHotkey, (_e, accelerator: unknown) => {
     if (!validAcceleratorPayload(accelerator)) return { ok: false, code: 'HOTKEY_INVALID', accelerator: String(accelerator) };
     const result = registerToggleHotkey(accelerator, toggle);
-    if (result.ok) broadcast(settings.update({ hotkey: accelerator }));
-    else registerToggleHotkey(settings.get().hotkey, toggle); // keep the previous one
+    if (result.ok) {
+      hotkeyStatus = result;
+      broadcast(settings.update({ hotkey: accelerator }));
+    } else registerToggleHotkey(settings.get().hotkey, toggle); // keep the previous one
     return result;
   });
 }).catch(failStartup);

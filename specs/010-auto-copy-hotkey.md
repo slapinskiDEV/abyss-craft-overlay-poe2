@@ -50,6 +50,10 @@ Hotkey handler (`main.ts`):
   and cannot release the physically held Shift.
 - *Why release Shift first:* the user still holds `Ctrl+Shift` of the hotkey when it fires. Without
   releasing Shift the game would receive `Ctrl+Shift+Alt+C`.
+- *Default hotkey Alt+T (spec 015, 017 A9):* the release of Shift stays harmless. Alt is pressed and
+  released again although the player holds it; the final Alt-up can make a still-held `Alt+T` type a
+  plain `T` after key repeat (~0.5 s), while skipping it would leave Alt stuck whenever the player
+  lets go during the sequence. The stuck key is worse, so the sequence is unchanged (manual check 017 F4).
 - *Scan codes and spacing:* in the first Windows test the hotkey did not copy the item. The sent
   events had scan code 0 and no duration. Games that read raw input see only the scan code, and
   games that sample key state once per frame can miss a zero-length tap, so both are now set.

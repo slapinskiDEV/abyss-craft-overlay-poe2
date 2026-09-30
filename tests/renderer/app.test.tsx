@@ -3,7 +3,7 @@ import { act, configure, cleanup, fireEvent, render, screen, waitFor, within } f
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { App } from '../../src/renderer/features/App';
 import type { ParseFn } from '../../src/renderer/features/Workspace';
-import type { AppSettings, ClipboardSnapshot, DataPackLoadResult, OverlayApi, UpdateStatus } from '../../src/preload/api-types';
+import type { AppSettings, ClipboardSnapshot, DataPackLoadResult, HotkeyRegistrationResult, OverlayApi, UpdateStatus } from '../../src/preload/api-types';
 import { LATEST_CHANGELOG_ENTRY } from '../../src/shared/changelog';
 import type { ParsedItem } from '../../src/parser/common/types';
 import { defaultSettings } from '../../src/main/settings-model';
@@ -13,7 +13,7 @@ import { ENGINE_PACK, affix, parsed } from '../fixtures/data/test-only-engine-pa
 configure({ asyncUtilTimeout: 10000 });
 afterEach(cleanup);
 
-function fakeApi(overrides: { pack?: DataPackLoadResult; settings?: Partial<AppSettings>; update?: UpdateStatus } = {}) {
+function fakeApi(overrides: { pack?: DataPackLoadResult; settings?: Partial<AppSettings>; update?: UpdateStatus; hotkey?: HotkeyRegistrationResult } = {}) {
   let settings: AppSettings = { ...defaultSettings('en-US'), onboardingCompleted: true, changelogSeen: LATEST_CHANGELOG_ENTRY, ...overrides.settings };
   const settingsListeners: Array<(s: AppSettings) => void> = [];
   const clipboardListeners: Array<(s: ClipboardSnapshot) => void> = [];
@@ -44,6 +44,7 @@ function fakeApi(overrides: { pack?: DataPackLoadResult; settings?: Partial<AppS
     onCopyBusy: (cb) => (busyListeners.push(cb), () => undefined),
     requestKeyboardFocus: vi.fn(),
     releaseKeyboardFocus: vi.fn(),
+    getHotkeyStatus: async () => overrides.hotkey ?? { ok: true, accelerator: settings.hotkey },
   };
   return { api, pushClipboard: (text: string) => {
       lastSnapshot = { text, readAt: '' };
@@ -243,6 +244,18 @@ describe('overlay UI (spec 006)', () => {
   it('always shows the GGG notice', async () => {
     await mount(armour);
     expect(screen.getByText("This product isn't affiliated with or endorsed by Grinding Gear Games in any way.")).toBeTruthy();
+  });
+});
+
+describe('hotkey taken at startup (spec 017 A7)', () => {
+  it('shows which hotkey could not be registered', async () => {
+    await mount(armour, { hotkey: { ok: false, code: 'HOTKEY_REGISTRATION_FAILED', accelerator: 'Alt+T' } });
+    expect(await screen.findByText('The hotkey Alt+T is already in use. Choose another one.')).toBeTruthy();
+  });
+
+  it('shows nothing when the hotkey is registered', async () => {
+    await mount(armour);
+    expect(screen.queryByText(/is already in use/)).toBeNull();
   });
 });
 

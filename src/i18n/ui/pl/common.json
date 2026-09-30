@@ -20,6 +20,7 @@
     "insufficient": "Parser: niewystarczający"
   },
   "trayShow": "Pokaż nakładkę",
+  "trayResetPosition": "Resetuj pozycję okna",
   "trayQuit": "Zakończ",
   "startupFailedTitle": "Nie udało się uruchomić PoE2 Abyss Craft Overlay",
   "startupFailedBody": "Coś poszło nie tak podczas uruchamiania nakładki. Uruchom ją ponownie. Jeśli to się powtarza, załóż zgłoszenie (issue) i dołącz poniższy tekst.",

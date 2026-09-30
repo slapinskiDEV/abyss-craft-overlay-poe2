@@ -28,6 +28,7 @@ const api: OverlayApi = {
   onCopyBusy: (cb) => subscribe<boolean>(IPC.copyBusy, cb),
   requestKeyboardFocus: () => ipcRenderer.send(IPC.requestKeyboardFocus),
   releaseKeyboardFocus: () => ipcRenderer.send(IPC.releaseKeyboardFocus),
+  getHotkeyStatus: () => ipcRenderer.invoke(IPC.getHotkeyStatus),
 };
 
 contextBridge.exposeInMainWorld('overlayApi', api);

@@ -27,11 +27,11 @@ vulnerabilities), Electron security settings (sandbox, context isolation, CSP, n
 | A2 | **done** | `settings.ts:41-42` `writeFileSync` + `renameSync` without try/catch, called from the 400 ms bounds timer. On Windows antivirus/OneDrive often holds the file (EPERM/EBUSY) → "A JavaScript error occurred in the main process". | Catch, log, retry once on the next write; keep memory and disk consistent. |
 | A3 | **done** | `settings.ts:32-33`: if the settings file cannot be read, the `.bak` copy fails too and the constructor throws inside the `void`ed `whenReady` (`main.ts:92`). Result: a process with no window, tray or hotkey that still holds the single-instance lock. | Catch the backup copy; `.catch` on `whenReady` shows an error dialog and exits. |
 | A4 | **done** | `main.ts:22` `app.quit()` for a second instance does not stop the `whenReady` body: a second copy may create a window/tray, try the hotkey and write `settings.json`. | `app.exit(0)` / early return when the lock is not held. |
-| A5 | nice-to-have | No `render-process-gone` handler: a renderer crash leaves a blank overlay. | Reload the window (at most a few times in a row). |
-| A6 | nice-to-have | `main.ts:80-89` copy-flow promise without `.catch` (unhandled rejection during quit). | Add `.catch` that clears `copyBusy`. |
-| A7 | nice-to-have | Startup hotkey registration result is ignored (`main.ts:108`); a conflict at launch is silent. | Push the failure to the renderer and show the existing hotkey error. |
-| A8 | nice-to-have | "Reset window position" exists only inside the overlay; an off-screen window (monitor removed) cannot be recovered. | Add it to the tray menu. |
-| A9 | nice-to-have | `copy-shortcut.ts:21-33` releases Shift (old `Ctrl+Shift+D`); with `Alt+T` it injects `Alt up` while Alt is still held, and a custom hotkey with other modifiers adds them on top of `Ctrl+Alt+C`. SoT §3.1 requires releasing the held hotkey modifier. | Release the modifiers of the configured accelerator; update comments and spec 010. Manual test: hold Alt+T. |
+| A5 | **done** | No `render-process-gone` handler: a renderer crash leaves a blank overlay. | Reload the window (at most a few times in a row). |
+| A6 | **done** | `main.ts:80-89` copy-flow promise without `.catch` (unhandled rejection during quit). | Add `.catch` that clears `copyBusy`. |
+| A7 | **done** | Startup hotkey registration result is ignored (`main.ts:108`); a conflict at launch is silent. | Push the failure to the renderer and show the existing hotkey error. |
+| A8 | **done** | "Reset window position" exists only inside the overlay; an off-screen window (monitor removed) cannot be recovered. | Add it to the tray menu. |
+| A9 | **done (kept, documented)** | `copy-shortcut.ts:21-33` releases Shift (old `Ctrl+Shift+D`); with `Alt+T` it injects `Alt up` while Alt is still held, and a custom hotkey with other modifiers adds them on top of `Ctrl+Alt+C`. SoT §3.1 requires releasing the held hotkey modifier. | Release the modifiers of the configured accelerator; update comments and spec 010. Manual test: hold Alt+T. |
 
 ### B. Renderer (`src/renderer/`)
 

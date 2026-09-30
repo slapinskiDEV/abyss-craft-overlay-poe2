@@ -18,8 +18,14 @@ export const KEY_HOLD_MS = 25;
 export interface KeyEvent { vk: number; up: boolean }
 
 /**
- * Ctrl+Alt+C while the user may still hold the hotkey's Shift: release Shift first so the game
- * sees Ctrl+Alt+C, then press and release the combination. Pure for tests.
+ * Ctrl+Alt+C while the user may still hold the hotkey's modifiers (SoT §3.1). Shift (older default
+ * Ctrl+Shift+D) is released first so the game sees Ctrl+Alt+C. Ctrl and Alt are pressed and always
+ * released again, even when the hotkey itself holds Alt (default Alt+T).
+ *
+ * Design choice (spec 017 A9): the final Alt-up makes Windows treat a still-held Alt as released,
+ * so holding Alt+T past key repeat (~0.5 s) can send a plain T to the game. Skipping that Alt-up
+ * would instead leave Alt stuck down in the game whenever the player lets go during the ~50 ms
+ * sequence, which is worse. Manual check: spec 017 F4. Pure for tests.
  */
 export function copyShortcutSequence(): KeyEvent[] {
   return [

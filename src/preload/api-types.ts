@@ -80,4 +80,6 @@ export interface OverlayApi {
   /** A text field was pressed: the overlay may take keyboard focus while typing (spec 015). */
   requestKeyboardFocus(): void;
   releaseKeyboardFocus(): void;
+  /** Result of the last hotkey registration; a failure at startup is shown in the overlay (spec 017 A7). */
+  getHotkeyStatus(): Promise<HotkeyRegistrationResult>;
 }

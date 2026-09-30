@@ -18,6 +18,7 @@ export const IPC = {
   copyBusy: 'overlay:copy-busy', // main -> renderer push: hotkey copy in progress (spec 016)
   requestKeyboardFocus: 'overlay:request-keyboard-focus', // text field pressed (spec 015)
   releaseKeyboardFocus: 'overlay:release-keyboard-focus',
+  getHotkeyStatus: 'overlay:get-hotkey-status', // last registration result (spec 017 A7)
 } as const;
 
 export const DEBUG_REPORT_MAX_BYTES = 256 * 1024;
