@@ -1,0 +1,14 @@
+{
+  "title": "Ustawienia",
+  "uiLanguage": "Język interfejsu",
+  "gameTermLanguage": "Język terminologii z gry",
+  "clipboardLanguage": "Język schowka",
+  "clipboardAuto": "Automatycznie",
+  "hotkey": "Skrót nakładki",
+  "closeOnBlur": "Zamykaj, gdy nakładka traci fokus",
+  "showLegacyCurrencies": "Pokazuj wycofane waluty",
+  "showDataVersion": "Pokazuj wersję danych",
+  "resetWindowPosition": "Przywróć pozycję okna",
+  "autoCopy": "Skrót kopiuje wskazany przedmiot (wysyła {{copyShortcut}} do gry)",
+  "checkForUpdates": "Sprawdzaj aktualizacje (łączy się z GitHubem)"
+}

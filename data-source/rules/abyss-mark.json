@@ -1,0 +1,19 @@
+{
+  "match": {
+    "domain": "item",
+    "textIncludes": "Mark of the Abyssal Lord",
+    "names": [
+      "Abyssal",
+      "of the Abyss"
+    ]
+  },
+  "expectedCount": 2,
+  "evidence": {
+    "ruleId": "abyss-mark",
+    "evidenceRefs": [
+      "wiki:Essence_of_the_Abyss",
+      "sot:v0.2.4#12.1"
+    ],
+    "evidenceLevel": "VERIFIED_SECONDARY"
+  }
+}

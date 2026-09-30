@@ -1,0 +1,37 @@
+[
+  {
+    "id": "sot:v0.2.4#11.3",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.4",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Lich force Omens compatible Bone families: Jawbone yes, ordinary Collarbone yes; Rib, Cranium, Vertebrae, Altered Collarbone no. Used where the wiki does not state Cranium/Vertebrae explicitly."
+  },
+  {
+    "id": "sot:v0.2.4#7.5",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.4",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Known anomaly: the 'Gain (3-6) Rage on Melee Hit' suffix is documented as belonging to Kurgal despite conflicting Ulaman naming/data."
+  },
+  {
+    "id": "sot:v0.2.4#2.3",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.4",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Unique-item custom Desecration systems (Undying Hate, Grip of Kulemak, The Unborn Lich, etc.) are unsupported in MVP; Time-Lost Jewels must never be treated as ordinary jewels."
+  },
+  {
+    "id": "sot:v0.2.4#12.1",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.4",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Mark of the Abyssal Lord: prefix form 'Abyssal' or suffix form 'of the Abyss'; distinguish from jewel-exclusive 'of the Abyss' by mod-ID matching."
+  },
+  {
+    "id": "sot:v0.2.4#10.2",
+    "sourceName": "POE2_ABYSS_OVERLAY_SOURCE_OF_TRUTH.md",
+    "observedVersion": "0.2.4",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Known Bone set and targets; armour includes shields/foci where the data classifies them as armour-compatible (SoT §2.1)."
+  }
+]

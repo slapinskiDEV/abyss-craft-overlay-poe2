@@ -1,0 +1,36 @@
+{
+  "prefix": "Prefix",
+  "suffix": "Suffix",
+  "eligible": "Eligible",
+  "blocked": "Blocked",
+  "conditional": "Conditional",
+  "close": "Close",
+  "settings": "Settings",
+  "retry": "Read clipboard again",
+  "status": {
+    "valid": "Valid",
+    "valid_with_warning": "Warning",
+    "invalid": "Invalid",
+    "unsupported": "Unsupported",
+    "unknown": "Unknown"
+  },
+  "confidence": {
+    "full": "Parser: full",
+    "partial": "Parser: partial",
+    "insufficient": "Parser: insufficient"
+  },
+  "trayShow": "Show overlay",
+  "trayQuit": "Quit",
+  "copyDebugReport": "Copy debug report",
+  "includeRawText": "Include copied item text",
+  "debugReportCopied": "Debug report copied.",
+  "about": "About",
+  "apply": "Apply",
+  "update": {
+    "available": "Update to {{version}}",
+    "downloading": "Downloading {{done}}/{{total}} MB",
+    "ready": "Installing…",
+    "failed": "Update failed"
+  },
+  "copyingItem": "Copying the item…"
+}

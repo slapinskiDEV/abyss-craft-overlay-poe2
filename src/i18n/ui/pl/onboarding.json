@@ -1,0 +1,8 @@
+{
+  "title": "Jak korzystać z nakładki",
+  "step1": "Najedź kursorem na przedmiot w grze (Rare, angielski klient).",
+  "step2": "Naciśnij {{hotkey}}: nakładka skopiuje przedmiot ({{copyShortcut}}) i go pokaże.",
+  "step3": "Wybierz Bone oraz Omen (jeden lub więcej).",
+  "step4": "Sprawdź pulę dostępnych modyfikatorów i ostrzeżenia.",
+  "dismiss": "Rozumiem"
+}

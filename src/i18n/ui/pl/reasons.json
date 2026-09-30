@@ -1,0 +1,310 @@
+{
+  "DATA_PACK_MISSING": {
+    "title": "Brak danych o craftingu",
+    "detail": "Nie znaleziono dołączonego pakietu danych. Zainstaluj aplikację ponownie."
+  },
+  "DATA_PACK_INTEGRITY_FAILED": {
+    "title": "Dane o craftingu są uszkodzone",
+    "detail": "Dołączony pakiet danych nie przeszedł kontroli integralności."
+  },
+  "DATA_PACK_NOT_VALIDATED": {
+    "title": "Dane o craftingu nie są zweryfikowane",
+    "detail": "Dołączony pakiet danych nie przeszedł walidacji, więc wyniki nie są pokazywane."
+  },
+  "DATA_PACK_SCHEMA_UNSUPPORTED": {
+    "title": "Nieobsługiwany format danych",
+    "detail": "Dołączony pakiet danych ma format, którego ta wersja nie potrafi odczytać."
+  },
+  "DATA_CONFLICT": {
+    "title": "Konflikt danych",
+    "detail": "Dane o craftingu są niespójne, więc nakładka nie obliczy puli."
+  },
+  "GAME_TERM_FALLBACK_EN": {
+    "title": "Pokazano termin angielski",
+    "detail": "Brak oficjalnego tłumaczenia dla {{entityId}}; pokazano nazwę angielską."
+  },
+  "GAME_TERM_MISSING": {
+    "title": "Nieznany termin z gry",
+    "detail": "Brak nazwy dla {{entityId}}."
+  },
+  "NOT_A_POE2_ITEM": {
+    "title": "To nie jest przedmiot z Path of Exile 2",
+    "detail": "Najpierw skopiuj przedmiot z Path of Exile 2, a potem otwórz nakładkę ponownie."
+  },
+  "UNSUPPORTED_CLIPBOARD_LOCALE": {
+    "title": "Nieobsługiwany język klienta gry",
+    "detail": "Ta wersja odczytuje tekst przedmiotów tylko z angielskiego klienta gry."
+  },
+  "BASE_TYPE_UNRESOLVED": {
+    "title": "Nie rozpoznano typu bazowego",
+    "detail": "Nie udało się jednoznacznie rozpoznać typu bazowego „{{text}}” w danych o craftingu."
+  },
+  "ITEM_CLASS_UNRESOLVED": {
+    "title": "Nie rozpoznano klasy przedmiotu",
+    "detail": "Klasy przedmiotu „{{text}}” nie ma w danych o craftingu."
+  },
+  "ITEM_LEVEL_MISSING": {
+    "title": "Brak poziomu przedmiotu",
+    "detail": "Skopiowany tekst nie zawiera poziomu przedmiotu."
+  },
+  "AFFIX_UNRESOLVED": {
+    "title": "Nie rozpoznano modyfikatora",
+    "detail": "Nie udało się dopasować „{{text}}” do znanego modyfikatora."
+  },
+  "AFFIX_AMBIGUOUS": {
+    "title": "Modyfikator pasuje do kilku wpisów",
+    "detail": "Skopiowane linie modyfikatora pasują do więcej niż jednego znanego modyfikatora."
+  },
+  "AFFIX_SIDE_UNKNOWN": {
+    "title": "Nieznany prefiks lub sufiks",
+    "detail": "Nie wiadomo, czy „{{text}}” to prefiks, czy sufiks. Pokazuje to kopia zaawansowana (Ctrl+Alt+C)."
+  },
+  "MARKER_UNCONFIRMED": {
+    "title": "Format schowka niepotwierdzony",
+    "detail": "Znacznik schowka {{token}} nie został jeszcze potwierdzony na prawdziwej kopii z gry."
+  },
+  "DESECRATED_STATE_UNDETERMINED": {
+    "title": "Nie można wykluczyć istniejącej Desecration",
+    "detail": "Nakładka nie potrafi jeszcze potwierdzić na podstawie tekstu, czy przedmiot ma już modyfikator Desecrated."
+  },
+  "MARK_UNRESOLVED": {
+    "title": "Niejasny stan Mark",
+    "detail": "Modyfikator może być Mark of the Abyssal Lord albo innym modyfikatorem o tym samym wzorcu tekstu."
+  },
+  "SPECIAL_ITEM_DETECTED": {
+    "title": "Specjalny przedmiot unikatowy",
+    "detail": "{{name}} ma własny system Desecration, który nie jest jeszcze obsługiwany."
+  },
+  "TIME_LOST_JEWEL_DETECTED": {
+    "title": "Specjalne zasady Desecration",
+    "detail": "{{baseItemName}} ma osobne wyniki Desecration, które nie są jeszcze obsługiwane."
+  },
+  "NORMAL_COPY_LIMITED_DETAIL": {
+    "title": "Ograniczone szczegóły",
+    "detail": "Zwykła kopia ma mniej szczegółów modyfikatorów. Użyj kopii zaawansowanej (Ctrl+Alt+C), aby uzyskać lepsze wyniki."
+  },
+  "UNKNOWN_CURRENCY": {
+    "title": "Nieznana waluta",
+    "detail": "Wybranej waluty nie ma w danych o craftingu."
+  },
+  "UNKNOWN_OMEN": {
+    "title": "Nieznany Omen",
+    "detail": "Aktywnego Omenu nie ma w danych o craftingu."
+  },
+  "PARSER_INSUFFICIENT": {
+    "title": "Nie rozpoznano przedmiotu",
+    "detail": "Przedmiotu nie udało się rozpoznać na tyle, by ocenić crafting."
+  },
+  "ITEM_NOT_RARE": {
+    "title": "Przedmiot nie jest Rare",
+    "detail": "{{currencyName}} można użyć tylko na przedmiotach Rare."
+  },
+  "ITEM_CORRUPTED": {
+    "title": "Przedmiot jest skażony (Corrupted)",
+    "detail": "Przedmiotów Corrupted nie można poddać Desecration."
+  },
+  "ITEM_ALREADY_DESECRATED": {
+    "title": "Przedmiot ma już Desecration",
+    "detail": "Przedmiot ma już modyfikator Desecrated."
+  },
+  "EXISTING_DESECRATION_UNDETERMINED": {
+    "title": "Nie wykluczono istniejącej Desecration",
+    "detail": "Nakładka nie potrafi jeszcze potwierdzić, że przedmiot nie ma modyfikatora Desecrated, więc nie obliczy puli."
+  },
+  "BONE_INCOMPATIBLE_ITEM_CLASS": {
+    "title": "Waluta nie pasuje do przedmiotu",
+    "detail": "{{currencyName}} nie można użyć na {{itemClassName}}."
+  },
+  "ITEM_CLASS_TARGET_UNMAPPED": {
+    "title": "Klasa przedmiotu niezweryfikowana",
+    "detail": "Nie zweryfikowano, która waluta może poddać Desecration {{itemClassName}}."
+  },
+  "GNAWED_ITEM_LEVEL_TOO_HIGH": {
+    "title": "Za wysoki poziom przedmiotu",
+    "detail": "{{currencyName}} działa tylko na przedmiotach o poziomie {{maxItemLevel}} lub niższym."
+  },
+  "LICH_OMEN_INCOMPATIBLE_WITH_BONE": {
+    "title": "Omenu nie można użyć z tą walutą",
+    "detail": "{{omenName}} nie można użyć z {{currencyName}}."
+  },
+  "OMEN_INCOMPATIBLE_WITH_BONE": {
+    "title": "Omenu nie można użyć z tą walutą",
+    "detail": "{{omenName}} nie można użyć z {{currencyName}}."
+  },
+  "ALTERED_COLLARBONE_LICH_OMEN_CONFLICT": {
+    "title": "Omenu nie można użyć z tą walutą",
+    "detail": "{{omenName}} nie można użyć z {{currencyName}}."
+  },
+  "CONFLICTING_SIDE_OMENS": {
+    "title": "Sprzeczne Omeny strony",
+    "detail": "Wymuszanie jednocześnie prefiksu i sufiksu nie jest obsługiwane."
+  },
+  "UNKNOWN_MULTIPLE_LICH_OMENS": {
+    "title": "Kilka Omenów Lich",
+    "detail": "Użycie więcej niż jednego Omenu Lich naraz nie jest zweryfikowane."
+  },
+  "UNKNOWN_PUTREFACTION_OMEN_COMBINATION": {
+    "title": "Niezweryfikowane połączenie Omenów",
+    "detail": "{{omenName}} razem z Omenami strony lub Lich nie jest zweryfikowany."
+  },
+  "UNKNOWN_PUTREFACTION_MARK_INTERACTION": {
+    "title": "Niezweryfikowana interakcja",
+    "detail": "{{omenName}} na przedmiocie z Mark of the Abyssal Lord nie jest zweryfikowany."
+  },
+  "UNKNOWN_ALTERED_PUTREFACTION_INTERACTION": {
+    "title": "Niezweryfikowana interakcja",
+    "detail": "{{omenName}} z {{currencyName}} nie jest zweryfikowany. Nakładka nie będzie zgadywać puli modyfikatorów."
+  },
+  "UNSUPPORTED_SPECIAL_ITEM": {
+    "title": "Specjalny przedmiot nieobsługiwany",
+    "detail": "Ten przedmiot unikatowy ma własny system Desecration, który nie jest jeszcze obsługiwany."
+  },
+  "SPECIAL_JEWEL_RULE": {
+    "title": "Specjalne zasady nieobsługiwane",
+    "detail": "{{baseItemName}} ma osobne wyniki Desecration, które nie są jeszcze obsługiwane."
+  },
+  "RULE_EVIDENCE_MISSING": {
+    "title": "Reguła niezweryfikowana",
+    "detail": "Reguła potrzebna do tego craftingu nie ma zweryfikowanego źródła."
+  },
+  "AFFIX_LIMIT_UNKNOWN": {
+    "title": "Niezweryfikowane limity modyfikatorów",
+    "detail": "Maksymalna liczba prefiksów i sufiksów dla {{itemClassName}} nie jest zweryfikowana."
+  },
+  "AFFIX_CAPACITY_UNDETERMINED": {
+    "title": "Nieznana liczba wolnych miejsc",
+    "detail": "Części modyfikatorów nie przypisano do prefiksów lub sufiksów, więc liczba wolnych miejsc jest nieznana. Pomaga kopia zaawansowana (Ctrl+Alt+C)."
+  },
+  "MARK_STATE_UNDETERMINED": {
+    "title": "Niejasny stan Mark",
+    "detail": "Nie wiadomo, czy przedmiot ma Mark of the Abyssal Lord."
+  },
+  "FRACTURED_STATE_UNDETERMINED": {
+    "title": "Nieznane modyfikatory fractured",
+    "detail": "Na podstawie skopiowanego tekstu nie można jeszcze potwierdzić, które modyfikatory są fractured."
+  },
+  "LEGACY_CURRENCY": {
+    "title": "Wycofana waluta",
+    "detail": "{{currencyName}} już nie wypada."
+  },
+  "PARSER_PARTIAL_MOD_GROUPS": {
+    "title": "Blokowanie może być niepełne",
+    "detail": "Części istniejących modyfikatorów nie rozpoznano dokładnie; blokowanie grup modyfikatorów może być niepełne."
+  },
+  "UNKNOWN_MARK_SIDE_INTERACTION": {
+    "title": "Niezweryfikowana interakcja",
+    "detail": "Omen strony przeciwnej do Mark of the Abyssal Lord nie jest zweryfikowany. Nakładka nie będzie zgadywać puli modyfikatorów."
+  },
+  "UNKNOWN_FRACTURED_MARK_INTERACTION": {
+    "title": "Niezweryfikowana interakcja",
+    "detail": "Desecration przedmiotu z fractured Mark of the Abyssal Lord nie jest zweryfikowany."
+  },
+  "NO_REMOVABLE_AFFIX_ON_SIDE": {
+    "title": "Brak modyfikatora do usunięcia",
+    "detail": "Docelowa strona jest pełna, a wszystkie jej modyfikatory są fractured."
+  },
+  "UNKNOWN_MIXED_CAPACITY_SIDE_CHOICE": {
+    "title": "Niezweryfikowana interakcja",
+    "detail": "Gdy jedna strona jest pełna, a druga ma wolne miejsce, nie zweryfikowano, której strony użyje Desecration. Nakładka nie będzie zgadywać puli modyfikatorów."
+  },
+  "UNKNOWN_ANCIENT_MARK_FLOOR": {
+    "title": "Niezweryfikowana interakcja",
+    "detail": "{{currencyName}} na przedmiocie z Mark of the Abyssal Lord łączy dwa progi poziomu w niezweryfikowany sposób."
+  },
+  "MARK_REPLACED_FIRST": {
+    "title": "Mark jest zastępowany jako pierwszy",
+    "detail": "Mark of the Abyssal Lord zostanie zastąpiony nowym modyfikatorem Desecrated."
+  },
+  "CONDITIONAL_TAGS_INCOMPLETE": {
+    "title": "Pula warunkowa może być niepełna",
+    "detail": "Nierozpoznany modyfikator może zmieniać, które modyfikatory mogą się wylosować."
+  },
+  "FORCED_LICH_POOL_EMPTY": {
+    "title": "Wymuszona pula jest pusta",
+    "detail": "Na tym przedmiocie nie jest możliwy żaden modyfikator wymuszany przez {{omenName}}. Omen i tak zostanie zużyty, a odsłonięcie zaoferuje zwykłe modyfikatory."
+  },
+  "ANCIENT_BENEFIT_OVERRIDDEN_BY_LICH_OMEN": {
+    "title": "Minimalny poziom nie działa",
+    "detail": "{{omenName}} znosi minimalny poziom modyfikatora z {{currencyName}}."
+  },
+  "MARK_FLOOR_OVERRIDDEN_BY_LICH_OMEN": {
+    "title": "Próg Mark nie działa",
+    "detail": "{{omenName}} znosi próg poziomu z Mark of the Abyssal Lord."
+  },
+  "UNKNOWN_LICH_FALLBACK_COMPOSITION": {
+    "title": "Pula zastępcza niezweryfikowana",
+    "detail": "Nie zweryfikowano, jakie modyfikatory zaoferuje odsłonięcie, gdy wymuszona pula jest pusta. Nakładka nie będzie zgadywać puli modyfikatorów."
+  },
+  "FAMILY_FLOOR_FALLBACK_TIER": {
+    "title": "Zachowano najwyższy tier",
+    "detail": "Żaden tier tego modyfikatora nie osiąga minimalnego poziomu, więc w puli zostaje najwyższy dostępny tier."
+  },
+  "EXCLUSIVE_OPTION_GUARANTEE_NOTE": {
+    "title": "Opcja ekskluzywna",
+    "detail": "Przy odsłonięciu co najmniej jedna opcja to ekskluzywny modyfikator Desecrated, jeśli taki jest możliwy."
+  },
+  "ECHOES_REROLL_AVAILABLE": {
+    "title": "Dostępne ponowne losowanie",
+    "detail": "{{omenName}} pozwala raz wylosować oferowane opcje ponownie. Pula się nie zmienia."
+  },
+  "ITEM_WILL_BE_CORRUPTED": {
+    "title": "Przedmiot zostanie skażony",
+    "detail": "{{omenName}} zastępuje modyfikatory i robi z przedmiotu Corrupted."
+  },
+  "ANCIENT_FLOOR_NOT_GUARANTEED_PUTREFACTION": {
+    "title": "Minimalny poziom niegwarantowany",
+    "detail": "Z {{omenName}}, {{currencyName}} nie sprawia, że każdy nowy modyfikator osiąga minimalny poziom."
+  },
+  "PUTREFACTION_SLOT_COUNT_WORKING_MODEL": {
+    "title": "Liczba miejsc to model roboczy",
+    "detail": "Do {{maxUnrevealed}} modyfikatorów Unrevealed, na podstawie zweryfikowanych limitów minus modyfikatory fractured."
+  },
+  "WRONG_SIDE": {
+    "title": "Druga strona",
+    "detail": "Ten modyfikator jest po drugiej stronie."
+  },
+  "ITEM_LEVEL_TOO_LOW": {
+    "title": "Za niski poziom przedmiotu",
+    "detail": "Wymaga poziomu przedmiotu {{requiredLevel}}."
+  },
+  "BELOW_MINIMUM_MODIFIER_LEVEL": {
+    "title": "Poniżej minimalnego poziomu modyfikatora",
+    "detail": "Poniżej minimalnego poziomu modyfikatora {{floor}}."
+  },
+  "MOD_GROUP_CONFLICT": {
+    "title": "Zablokowany przez istniejący modyfikator",
+    "detail": "Blokuje go istniejący modyfikator z tej samej grupy."
+  },
+  "BASE_TAG_NOT_ELIGIBLE": {
+    "title": "Niemożliwy na tej bazie",
+    "detail": "Ten typ bazowy nie może wylosować tego modyfikatora."
+  },
+  "SOURCE_NOT_ENABLED": {
+    "title": "Wymaga innej waluty",
+    "detail": "Ten modyfikator wymaga innej waluty Desecration."
+  },
+  "LICH_SOURCE_NOT_SELECTED": {
+    "title": "Zablokowany przez aktywny Omen",
+    "detail": "Aktywny Omen wymusza inną pulę."
+  },
+  "OTHER_LICH_BLOCKED_BY_FORCE_OMEN": {
+    "title": "Inny Lich zablokowany",
+    "detail": "Aktywny Omen blokuje modyfikatory innych Lichów."
+  },
+  "LICH_CLASSIFICATION_UNDER_REVIEW": {
+    "title": "Klasyfikacja do weryfikacji",
+    "detail": "Dane klasyfikują ten modyfikator niespójnie, więc do czasu weryfikacji jest wyłączony z pul wymuszanych."
+  },
+  "PUTREFACTION_EXCLUDES_EXCLUSIVE": {
+    "title": "Nie losowany przez ten Omen",
+    "detail": "Ten Omen nigdy nie losuje modyfikatorów ekskluzywnych dla Desecration."
+  },
+  "POSSIBLY_BLOCKED_BY_UNRESOLVED_AFFIX": {
+    "title": "Może być zablokowany",
+    "detail": "Może go blokować istniejący modyfikator, którego nie rozpoznano dokładnie."
+  },
+  "BASE_POOL_ONLY": {
+    "title": "Tylko pula bazy",
+    "detail": "Pula dla typu bazy i poziomu przedmiotu; obecne modyfikatory, Mark of the Abyssal Lord i stan Desecration nie są brane pod uwagę."
+  }
+}

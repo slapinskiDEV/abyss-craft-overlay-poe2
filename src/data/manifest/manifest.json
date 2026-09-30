@@ -1,0 +1,207 @@
+{
+  "schemaVersion": 1,
+  "targetGameVersion": "0.5.5",
+  "generatedAt": "2026-09-26T13:56:39.053Z",
+  "sources": [
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/base_items.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "c95315f5198e37c162b154c167a4c2c7deed98d751c628e7fd4327286e430a9f"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/item_classes.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "34971a7a2453d2ebcd77f4fd3a7b9251cab17534d8c215742101cb2437fbd380"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/mods_by_base.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "f7b36482847fad7ab3c518b5e641b64422716968aa737ced9c61e0fafe0f374c"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/mods.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "de686180c7250dcde389358fbf251611b0b677d7672cc66def0dc8f3bd3f481d"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/stat_translations/advanced_mod_stat_descriptions.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "823b618506fc46265b537cd976bb5f42a9a747ebf97af2616ecec8bcedbf228c"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/stat_translations/stat_descriptions.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "997cf70a7b39a688786f9e96aa2bb5abeaec3b8f70753bad6de8cc519214e1d1"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/tag_details.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "8f5444f0b547ee3cce600a443a6d4ca4abf6ba5b67fbf93d9404c93e4cb9402a"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/tags.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "9240cf83b237ca1b80e41940477d91128ffd64a89ec27f23de33762de714ef30"
+    },
+    {
+      "name": "RePoE PoE2",
+      "url": "https://repoe-fork.github.io/poe2/uniques.min.json",
+      "observedVersion": "4.5.5.2",
+      "sha256": "66b7ef63b533f79eb315e979dc30aa643b205dd82a7625f00d419e73ec0ddfd6"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Altered_Collarbone&oldid=130973",
+      "observedVersion": "rev 130973",
+      "sha256": "9a3dcb41b2fc199bb71d4c5c911232f41b3809877d0d42e915803a71d88bdc52"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Ancient_Collarbone&oldid=57673",
+      "observedVersion": "rev 57673",
+      "sha256": "a97d4b0ac1b26a34bbb16dcda34e657c67589d40b91ae51a4c254d6248e0d8fc"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Ancient_Jawbone&oldid=57672",
+      "observedVersion": "rev 57672",
+      "sha256": "b514a35a57d60b700b2c12f7a89b442b77b61e789c0e2670a36b79b185c3e558"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Ancient_Rib&oldid=57676",
+      "observedVersion": "rev 57676",
+      "sha256": "c9a6f27121a71bcd794548e7b49b472900052705c7c62e382381e2ccc1b760d3"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Desecrated_modifier&oldid=132208",
+      "observedVersion": "rev 132208",
+      "sha256": "8a28f80dda4a01585f603b81a35379223eacdc87614824d32e7d7e04cb7a4bc2"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Essence_of_the_Abyss&oldid=130833",
+      "observedVersion": "rev 130833",
+      "sha256": "1436139307887cca4763244ef8e9f7313a19e7baee51c8751581f7a710358dbf"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Gnawed_Collarbone&oldid=55259",
+      "observedVersion": "rev 55259",
+      "sha256": "335284ccc5ad9dc2afa63cc8953713e56e7f6fb3ee49251fa084845791717e25"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Gnawed_Jawbone&oldid=55257",
+      "observedVersion": "rev 55257",
+      "sha256": "3bfbb33af6f6f3374c20073ec6dccba8a89ff4a06d6b70b27cac9ec0a4f93963"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Gnawed_Rib&oldid=55258",
+      "observedVersion": "rev 55258",
+      "sha256": "21309697ce8a2626355bcbfe71509812e5481364967f97c793f45c4d1e2f1b51"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_Abyssal_Echoes&oldid=113019",
+      "observedVersion": "rev 113019",
+      "sha256": "adbeed2506408b0bd27a6f9ed60675d2afc2636be36044d1d008abbaf63e9086"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_Dextral_Necromancy&oldid=111396",
+      "observedVersion": "rev 111396",
+      "sha256": "edec2d503e8bb47194701f85261ca4f9b7c60833a500e12b3b0da2c260a8c47e"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_Light&oldid=113020",
+      "observedVersion": "rev 113020",
+      "sha256": "b1749e78fe012125d2eba4e8fcc597e13591a7b6d69243b5e9a12e2ac11734ce"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_Putrefaction&oldid=111398",
+      "observedVersion": "rev 111398",
+      "sha256": "368412e826e718c345e624181616fac60d3e5a9ea4fa0e4320c7c29e0243be02"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_Sinistral_Necromancy&oldid=111399",
+      "observedVersion": "rev 111399",
+      "sha256": "668d88cead04fccea264f58d675702f7fbb70955654ec3757f9b9d07094b777c"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_the_Blackblooded&oldid=130823",
+      "observedVersion": "rev 130823",
+      "sha256": "016ae2febd61389e7bb79f08affe30bd139e8564e1e3190b690a1c8e0cd4da73"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_the_Liege&oldid=130822",
+      "observedVersion": "rev 130822",
+      "sha256": "ce4a7a3473d3932e8036ccef8e4f5afdfe44947ce8041f912c3af914b5ce7266"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Omen_of_the_Sovereign&oldid=130824",
+      "observedVersion": "rev 130824",
+      "sha256": "96d54dbbdb832f382674fe33dc8cebd2e6fa16e6725768532e4f311ceef3fb20"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Preserved_Collarbone&oldid=55260",
+      "observedVersion": "rev 55260",
+      "sha256": "ac1d1773730999a8417c78e95f643560bc62d7023a3805d11786be2ef6dd8a93"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Preserved_Cranium&oldid=55261",
+      "observedVersion": "rev 55261",
+      "sha256": "1b7c7e925615e7404890a81d3475be64b7f5b3ae49662a58ebe692a1266fe240"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Preserved_Jawbone&oldid=55262",
+      "observedVersion": "rev 55262",
+      "sha256": "b35823a13d7ead3378ad9d08bb026336a554162e5dcb5e468f3a5b60206ab649"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Preserved_Rib&oldid=55263",
+      "observedVersion": "rev 55263",
+      "sha256": "18d1eb8c1ac981eace91c7718826508430088cf3efa08a3f958a2eabae176e44"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Preserved_Vertebrae&oldid=89336",
+      "observedVersion": "rev 89336",
+      "sha256": "0315b1fd85fdd54722b0114881a6f8b5933f46db43d2e4def04d70ecb806323b"
+    },
+    {
+      "name": "PoE2 Wiki",
+      "url": "https://www.poe2wiki.net/index.php?title=Rarity&oldid=133680",
+      "observedVersion": "rev 133680",
+      "sha256": "99b7c9ac5683abc605d91ad377cf2ae003d3be98bd11211c1c9fde68ac63cc71"
+    }
+  ],
+  "localizationLocales": [
+    "en"
+  ],
+  "repoeObservedVersion": "4.5.5.2",
+  "dataPackId": "6d3bdf338a48d9a3bf430f9c2b7675ccf99332eedec8b16ff530335d5b6745be",
+  "rulesEvidenceDigest": "bdcb1109e2861ccf05b47b747826126f5a688f7550734959c1e410163860e23c",
+  "stale": false,
+  "validated": true
+}

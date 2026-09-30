@@ -1,0 +1,20 @@
+[
+  {
+    "description": "Gain (3-6) Rage on Melee Hit suffix",
+    "match": {
+      "domain": "desecrated",
+      "generationType": "suffix",
+      "textIncludes": "Gain (3-6) [Rage|Rage] on [Melee] [Hit]"
+    },
+    "lichPool": "kurgal",
+    "mechanic": "lichPool classification",
+    "reason": "SoT \u00a77.5 documents this row as Kurgal despite Ulaman naming",
+    "evidence": {
+      "ruleId": "lich-override.rage_on_melee_hit",
+      "evidenceRefs": [
+        "sot:v0.2.4#7.5"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  }
+]

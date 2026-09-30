@@ -1,0 +1,14 @@
+{
+  "title": "Settings",
+  "uiLanguage": "Interface language",
+  "gameTermLanguage": "Game terminology language",
+  "clipboardLanguage": "Clipboard language",
+  "clipboardAuto": "Automatic",
+  "hotkey": "Overlay hotkey",
+  "closeOnBlur": "Close when the overlay loses focus",
+  "showLegacyCurrencies": "Show legacy currencies",
+  "showDataVersion": "Show data version",
+  "resetWindowPosition": "Reset window position",
+  "autoCopy": "Hotkey copies the hovered item (sends {{copyShortcut}} to the game)",
+  "checkForUpdates": "Check for updates (connects to GitHub)"
+}

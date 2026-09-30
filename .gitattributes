@@ -1,0 +1,5 @@
+* text=auto eol=lf
+*.png binary
+*.exe binary
+data-source/snapshots/** -diff linguist-generated
+src/data/normalized/pack/pack.json -diff linguist-generated

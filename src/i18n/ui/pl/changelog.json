@@ -1,0 +1,46 @@
+{
+  "title": "Co nowego",
+  "close": "OK",
+  "entries": {
+    "2026-09-29": {
+      "heading": "29.09.2026",
+      "items": [
+        "Aktualizacje: gdy pojawi się nowa wersja, w pasku nakładki pojawia się przycisk „Aktualizuj”.",
+        "Skrót kopiuje przedmiot pod kursorem i od razu go pokazuje, także gdy przed chwilą klikałeś w nakładce.",
+        "Nowy układ: waluty i Omeny po lewej, lista modyfikatorów na środku, podgląd przedmiotu po prawej.",
+        "Kliknij modyfikator na liście, aby zobaczyć go na przedmiocie.",
+        "Pod przedmiotem widać, ile wolnych miejsc na prefiksy i sufiksy ma przedmiot.",
+        "Widoczne są tylko waluty i Omeny, których można użyć na danym przedmiocie.",
+        "Nowa ikona: zielony romb."
+      ]
+    },
+    "2026-09-29b": {
+      "heading": "29.09.2026 (aktualizacja)",
+      "items": [
+        "Po skopiowaniu przedmiotu waluta jest już wybrana: ostatnio użyta dla tego typu przedmiotu albo Bone bez ograniczeń poziomu.",
+        "Filtr Prefiks/Sufiks od razu pokazuje stronę, na której przedmiot ma wolne miejsce."
+      ]
+    },
+    "2026-09-29c": {
+      "heading": "29.09.2026 (poprawka skrótu)",
+      "items": [
+        "Nowy domyślny skrót: Alt+T.",
+        "Klikanie w nakładce nie zabiera już fokusu grze: najedź na przedmiot i naciśnij skrót, bez klikania w grę.",
+        "Esc działa podczas pisania w wyszukiwarce; poza tym nakładkę zamyka skrót na tym samym przedmiocie albo ×."
+      ]
+    },
+    "2026-09-29d": {
+      "heading": "29.09.2026 (szybkość)",
+      "items": [
+        "Szybsze przełączanie przedmiotów po Alt+T.",
+        "Podczas kopiowania nakładka pokazuje wskaźnik ładowania: przyciemnione okno z obracającym się rombem."
+      ]
+    },
+    "2026-09-30": {
+      "heading": "30.09.2026 (open source)",
+      "items": [
+        "Nakładka jest teraz open source na licencji MIT: github.com/slapinskiDEV/abyss-craft-overlay-poe2"
+      ]
+    }
+  }
+}

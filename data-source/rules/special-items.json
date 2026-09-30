@@ -1,0 +1,55 @@
+[
+  {
+    "match": {
+      "uniqueNameEn": "Undying Hate"
+    },
+    "handling": "unsupported_special_item",
+    "evidence": {
+      "ruleId": "special.undying_hate",
+      "evidenceRefs": [
+        "sot:v0.2.4#2.3"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "match": {
+      "uniqueNameEn": "Grip of Kulemak"
+    },
+    "handling": "unsupported_special_item",
+    "evidence": {
+      "ruleId": "special.grip_of_kulemak",
+      "evidenceRefs": [
+        "sot:v0.2.4#2.3"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "match": {
+      "uniqueNameEn": "The Unborn Lich"
+    },
+    "handling": "unsupported_special_item",
+    "evidence": {
+      "ruleId": "special.the_unborn_lich",
+      "evidenceRefs": [
+        "sot:v0.2.4#2.3"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "match": {
+      "itemClassId": "Jewel",
+      "baseNamePrefix": "Time-Lost "
+    },
+    "handling": "special_jewel_rule",
+    "evidence": {
+      "ruleId": "special.time_lost_jewels",
+      "evidenceRefs": [
+        "sot:v0.2.4#2.3"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  }
+]

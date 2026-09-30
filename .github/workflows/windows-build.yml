@@ -1,0 +1,102 @@
+# Builds the Windows test artifacts (spec 008): release gate first, then NSIS installer + portable exe.
+# Every push to master also publishes a GitHub Release with both .exe files for download.
+name: Windows build
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: write # create the GitHub Release
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Set build version (spec 011)
+        id: version
+        run: npx tsx scripts/set-build-version.ts ${{ github.run_number }}
+
+      - name: Release gate (validated pack, no skipped tests)
+        run: npm run verify:release
+
+      - name: Build and package (unsigned)
+        run: npm run build && npm run package:scan && npx electron-builder --win --publish never
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: 'false'
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: poe2-abyss-overlay-windows
+          path: |
+            release/*/*.exe
+            release/*/latest.yml
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Test build ${{ steps.version.outputs.version }} (${{ github.sha }})
+          target_commitish: ${{ github.sha }}
+          prerelease: false
+          make_latest: true
+          body: |
+            Unsigned Windows test build of commit ${{ github.sha }}.
+            - `poe2-abyss-overlay-setup.exe`: installer (updates itself)
+            - `poe2-abyss-overlay-portable.exe`: portable, no installation
+            Windows SmartScreen may warn because the build is unsigned: "More info" -> "Run anyway".
+          files: release/*/*.exe
+          fail_on_unmatched_files: true
+
+      # Spec 011: public releases repository for players and the in-app updater. Skipped until the
+      # RELEASES_TOKEN secret (fine-grained token, Contents: read/write on that repository) exists.
+      # README first: it also gives an empty repository the commit a release tag needs.
+      # The token is passed only to these steps, never to npm install scripts.
+      - name: Check for the releases token
+        id: pub
+        shell: bash
+        run: echo "enabled=${{ secrets.RELEASES_TOKEN != '' }}" >> "$GITHUB_OUTPUT"
+
+      - name: Sync README to the public releases repository
+        if: steps.pub.outputs.enabled == 'true'
+        shell: bash
+        env:
+          RELEASES_TOKEN: ${{ secrets.RELEASES_TOKEN }}
+        run: |
+          git clone "https://x-access-token:${RELEASES_TOKEN}@github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases.git" pub
+          cp docs/releases-repo/README.md pub/README.md
+          cd pub
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || (git commit -m "Update README" && git push origin HEAD)
+
+      - name: Publish to the public releases repository
+        if: steps.pub.outputs.enabled == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          repository: slapinskiDEV/abyss-craft-overlay-poe2-releases
+          token: ${{ secrets.RELEASES_TOKEN }}
+          tag_name: v${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          make_latest: true
+          body_path: docs/releases-repo/RELEASE_BODY.md
+          files: |
+            release/*/*.exe
+            release/*/*.blockmap
+            release/*/latest.yml
+          fail_on_unmatched_files: true
+

@@ -1,0 +1,71 @@
+{
+  "sourceName": "RePoE PoE2",
+  "observedVersion": "4.5.5.2",
+  "versionUrl": "https://raw.githubusercontent.com/repoe-fork/poe2/master/version.txt",
+  "retrievedAt": "2026-09-26T13:46:34.933Z",
+  "files": [
+    {
+      "id": "repoe:4.5.5.2:base_items.min.json",
+      "path": "base_items.min.json",
+      "url": "https://repoe-fork.github.io/poe2/base_items.min.json",
+      "sha256": "c95315f5198e37c162b154c167a4c2c7deed98d751c628e7fd4327286e430a9f",
+      "bytes": 3097514
+    },
+    {
+      "id": "repoe:4.5.5.2:mods.min.json",
+      "path": "mods.min.json",
+      "url": "https://repoe-fork.github.io/poe2/mods.min.json",
+      "sha256": "de686180c7250dcde389358fbf251611b0b677d7672cc66def0dc8f3bd3f481d",
+      "bytes": 8704544
+    },
+    {
+      "id": "repoe:4.5.5.2:mods_by_base.min.json",
+      "path": "mods_by_base.min.json",
+      "url": "https://repoe-fork.github.io/poe2/mods_by_base.min.json",
+      "sha256": "f7b36482847fad7ab3c518b5e641b64422716968aa737ced9c61e0fafe0f374c",
+      "bytes": 3652143
+    },
+    {
+      "id": "repoe:4.5.5.2:item_classes.min.json",
+      "path": "item_classes.min.json",
+      "url": "https://repoe-fork.github.io/poe2/item_classes.min.json",
+      "sha256": "34971a7a2453d2ebcd77f4fd3a7b9251cab17534d8c215742101cb2437fbd380",
+      "bytes": 8763
+    },
+    {
+      "id": "repoe:4.5.5.2:tags.min.json",
+      "path": "tags.min.json",
+      "url": "https://repoe-fork.github.io/poe2/tags.min.json",
+      "sha256": "9240cf83b237ca1b80e41940477d91128ffd64a89ec27f23de33762de714ef30",
+      "bytes": 25084
+    },
+    {
+      "id": "repoe:4.5.5.2:tag_details.min.json",
+      "path": "tag_details.min.json",
+      "url": "https://repoe-fork.github.io/poe2/tag_details.min.json",
+      "sha256": "8f5444f0b547ee3cce600a443a6d4ca4abf6ba5b67fbf93d9404c93e4cb9402a",
+      "bytes": 74756
+    },
+    {
+      "id": "repoe:4.5.5.2:uniques.min.json",
+      "path": "uniques.min.json",
+      "url": "https://repoe-fork.github.io/poe2/uniques.min.json",
+      "sha256": "66b7ef63b533f79eb315e979dc30aa643b205dd82a7625f00d419e73ec0ddfd6",
+      "bytes": 114983
+    },
+    {
+      "id": "repoe:4.5.5.2:stat_translations/stat_descriptions.min.json",
+      "path": "stat_translations/stat_descriptions.min.json",
+      "url": "https://repoe-fork.github.io/poe2/stat_translations/stat_descriptions.min.json",
+      "sha256": "997cf70a7b39a688786f9e96aa2bb5abeaec3b8f70753bad6de8cc519214e1d1",
+      "bytes": 2958906
+    },
+    {
+      "id": "repoe:4.5.5.2:stat_translations/advanced_mod_stat_descriptions.min.json",
+      "path": "stat_translations/advanced_mod_stat_descriptions.min.json",
+      "url": "https://repoe-fork.github.io/poe2/stat_translations/advanced_mod_stat_descriptions.min.json",
+      "sha256": "823b618506fc46265b537cd976bb5f42a9a747ebf97af2616ecec8bcedbf228c",
+      "bytes": 14529
+    }
+  ]
+}

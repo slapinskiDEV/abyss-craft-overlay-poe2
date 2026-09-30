@@ -1,0 +1,310 @@
+{
+  "DATA_PACK_MISSING": {
+    "title": "Crafting data is missing",
+    "detail": "The bundled data pack could not be found. Reinstall the application."
+  },
+  "DATA_PACK_INTEGRITY_FAILED": {
+    "title": "Crafting data is damaged",
+    "detail": "The bundled data pack failed its integrity check."
+  },
+  "DATA_PACK_NOT_VALIDATED": {
+    "title": "Crafting data is not validated",
+    "detail": "The bundled data pack did not pass validation, so no results are shown."
+  },
+  "DATA_PACK_SCHEMA_UNSUPPORTED": {
+    "title": "Unsupported data format",
+    "detail": "The bundled data pack uses a format this version cannot read."
+  },
+  "DATA_CONFLICT": {
+    "title": "Data conflict",
+    "detail": "The crafting data is inconsistent, so the overlay will not calculate a pool."
+  },
+  "GAME_TERM_FALLBACK_EN": {
+    "title": "English term shown",
+    "detail": "No official translation is available for {{entityId}}; the English name is shown."
+  },
+  "GAME_TERM_MISSING": {
+    "title": "Unknown game term",
+    "detail": "No name is available for {{entityId}}."
+  },
+  "NOT_A_POE2_ITEM": {
+    "title": "Not a Path of Exile 2 item",
+    "detail": "Copy a Path of Exile 2 item first, then open the overlay again."
+  },
+  "UNSUPPORTED_CLIPBOARD_LOCALE": {
+    "title": "Unsupported game client language",
+    "detail": "This version reads item text from an English game client only."
+  },
+  "BASE_TYPE_UNRESOLVED": {
+    "title": "Base type not recognized",
+    "detail": "The base type \"{{text}}\" could not be identified unambiguously from the crafting data."
+  },
+  "ITEM_CLASS_UNRESOLVED": {
+    "title": "Item class not recognized",
+    "detail": "The item class \"{{text}}\" is not in the crafting data."
+  },
+  "ITEM_LEVEL_MISSING": {
+    "title": "Item level missing",
+    "detail": "The copied text has no item level."
+  },
+  "AFFIX_UNRESOLVED": {
+    "title": "Modifier not recognized",
+    "detail": "\"{{text}}\" could not be matched to a known modifier."
+  },
+  "AFFIX_AMBIGUOUS": {
+    "title": "Modifier matches several entries",
+    "detail": "The copied modifier lines match more than one known modifier."
+  },
+  "AFFIX_SIDE_UNKNOWN": {
+    "title": "Prefix or suffix unknown",
+    "detail": "It is unknown whether \"{{text}}\" is a prefix or a suffix. Advanced copy (Ctrl+Alt+C) shows this."
+  },
+  "MARKER_UNCONFIRMED": {
+    "title": "Clipboard format not yet confirmed",
+    "detail": "The clipboard marker {{token}} has not been confirmed from a real game copy yet."
+  },
+  "DESECRATED_STATE_UNDETERMINED": {
+    "title": "Existing Desecration cannot be ruled out",
+    "detail": "The overlay cannot yet confirm from the copied text whether the item already has a Desecrated modifier."
+  },
+  "MARK_UNRESOLVED": {
+    "title": "Mark state unclear",
+    "detail": "A modifier could be the Mark of the Abyssal Lord or another modifier with the same text pattern."
+  },
+  "SPECIAL_ITEM_DETECTED": {
+    "title": "Special unique item",
+    "detail": "{{name}} uses its own Desecration system, which is not supported yet."
+  },
+  "TIME_LOST_JEWEL_DETECTED": {
+    "title": "Special Desecration rules",
+    "detail": "{{baseItemName}} has separate Desecration outcomes, which are not supported yet."
+  },
+  "NORMAL_COPY_LIMITED_DETAIL": {
+    "title": "Limited detail",
+    "detail": "Normal copy has less modifier detail. Use advanced copy (Ctrl+Alt+C) for better results."
+  },
+  "UNKNOWN_CURRENCY": {
+    "title": "Unknown currency",
+    "detail": "The selected currency is not in the crafting data."
+  },
+  "UNKNOWN_OMEN": {
+    "title": "Unknown Omen",
+    "detail": "An active Omen is not in the crafting data."
+  },
+  "PARSER_INSUFFICIENT": {
+    "title": "Item not identified",
+    "detail": "The item could not be identified well enough to evaluate the craft."
+  },
+  "ITEM_NOT_RARE": {
+    "title": "Item is not Rare",
+    "detail": "{{currencyName}} can only be used on Rare items."
+  },
+  "ITEM_CORRUPTED": {
+    "title": "Item is corrupted",
+    "detail": "Corrupted items cannot be Desecrated."
+  },
+  "ITEM_ALREADY_DESECRATED": {
+    "title": "Item is already Desecrated",
+    "detail": "The item already has a Desecrated modifier."
+  },
+  "EXISTING_DESECRATION_UNDETERMINED": {
+    "title": "Existing Desecration not ruled out",
+    "detail": "The overlay cannot yet confirm that the item has no Desecrated modifier, so it will not calculate a pool."
+  },
+  "BONE_INCOMPATIBLE_ITEM_CLASS": {
+    "title": "Currency does not fit this item",
+    "detail": "{{currencyName}} cannot be used on {{itemClassName}}."
+  },
+  "ITEM_CLASS_TARGET_UNMAPPED": {
+    "title": "Item class not verified",
+    "detail": "It is not verified which currency can Desecrate {{itemClassName}}."
+  },
+  "GNAWED_ITEM_LEVEL_TOO_HIGH": {
+    "title": "Item level too high",
+    "detail": "{{currencyName}} only works on items of item level {{maxItemLevel}} or below."
+  },
+  "LICH_OMEN_INCOMPATIBLE_WITH_BONE": {
+    "title": "Omen cannot be used with this currency",
+    "detail": "{{omenName}} cannot be used with {{currencyName}}."
+  },
+  "OMEN_INCOMPATIBLE_WITH_BONE": {
+    "title": "Omen cannot be used with this currency",
+    "detail": "{{omenName}} cannot be used with {{currencyName}}."
+  },
+  "ALTERED_COLLARBONE_LICH_OMEN_CONFLICT": {
+    "title": "Omen cannot be used with this currency",
+    "detail": "{{omenName}} cannot be used with {{currencyName}}."
+  },
+  "CONFLICTING_SIDE_OMENS": {
+    "title": "Conflicting side Omens",
+    "detail": "Forcing both prefix and suffix at once is not supported."
+  },
+  "UNKNOWN_MULTIPLE_LICH_OMENS": {
+    "title": "Several Lich Omens",
+    "detail": "Using more than one Lich Omen at once is not verified."
+  },
+  "UNKNOWN_PUTREFACTION_OMEN_COMBINATION": {
+    "title": "Omen combination not verified",
+    "detail": "{{omenName}} together with side or Lich Omens is not verified."
+  },
+  "UNKNOWN_PUTREFACTION_MARK_INTERACTION": {
+    "title": "Interaction not verified",
+    "detail": "{{omenName}} on an item with the Mark of the Abyssal Lord is not verified."
+  },
+  "UNKNOWN_ALTERED_PUTREFACTION_INTERACTION": {
+    "title": "Interaction not verified",
+    "detail": "{{omenName}} with {{currencyName}} is not verified. The overlay will not guess the modifier pool."
+  },
+  "UNSUPPORTED_SPECIAL_ITEM": {
+    "title": "Special item not supported",
+    "detail": "This unique item uses its own Desecration system, which is not supported yet."
+  },
+  "SPECIAL_JEWEL_RULE": {
+    "title": "Special rules not supported",
+    "detail": "{{baseItemName}} has separate Desecration outcomes, which are not supported yet."
+  },
+  "RULE_EVIDENCE_MISSING": {
+    "title": "Rule not verified",
+    "detail": "A rule needed for this craft has no verified evidence."
+  },
+  "AFFIX_LIMIT_UNKNOWN": {
+    "title": "Modifier limits not verified",
+    "detail": "The maximum number of prefixes and suffixes for {{itemClassName}} is not verified."
+  },
+  "AFFIX_CAPACITY_UNDETERMINED": {
+    "title": "Free modifier slots unknown",
+    "detail": "Some modifiers could not be assigned to prefix or suffix, so free slots are unknown. Advanced copy (Ctrl+Alt+C) helps."
+  },
+  "MARK_STATE_UNDETERMINED": {
+    "title": "Mark state unclear",
+    "detail": "It is unclear whether the item carries the Mark of the Abyssal Lord."
+  },
+  "FRACTURED_STATE_UNDETERMINED": {
+    "title": "Fractured modifiers unknown",
+    "detail": "It cannot yet be confirmed from the copied text which modifiers are fractured."
+  },
+  "LEGACY_CURRENCY": {
+    "title": "Legacy currency",
+    "detail": "{{currencyName}} no longer drops."
+  },
+  "PARSER_PARTIAL_MOD_GROUPS": {
+    "title": "Blocking may be incomplete",
+    "detail": "Some existing modifiers were not identified exactly; mod-group blocking may be incomplete."
+  },
+  "UNKNOWN_MARK_SIDE_INTERACTION": {
+    "title": "Interaction not verified",
+    "detail": "A side Omen for the side opposite the Mark of the Abyssal Lord is not verified. The overlay will not guess the modifier pool."
+  },
+  "UNKNOWN_FRACTURED_MARK_INTERACTION": {
+    "title": "Interaction not verified",
+    "detail": "Desecrating an item with a fractured Mark of the Abyssal Lord is not verified."
+  },
+  "NO_REMOVABLE_AFFIX_ON_SIDE": {
+    "title": "No removable modifier",
+    "detail": "The target side is full and every modifier on it is fractured."
+  },
+  "UNKNOWN_MIXED_CAPACITY_SIDE_CHOICE": {
+    "title": "Interaction not verified",
+    "detail": "With one side full and the other open, it is not verified which side Desecration uses. The overlay will not guess the modifier pool."
+  },
+  "UNKNOWN_ANCIENT_MARK_FLOOR": {
+    "title": "Interaction not verified",
+    "detail": "{{currencyName}} on an item with the Mark of the Abyssal Lord combines two level floors in an unverified way."
+  },
+  "MARK_REPLACED_FIRST": {
+    "title": "Mark is replaced first",
+    "detail": "The Mark of the Abyssal Lord is replaced by the new Desecrated modifier."
+  },
+  "CONDITIONAL_TAGS_INCOMPLETE": {
+    "title": "Conditional pool may be incomplete",
+    "detail": "An unidentified modifier could change which modifiers can roll."
+  },
+  "FORCED_LICH_POOL_EMPTY": {
+    "title": "Forced pool is empty",
+    "detail": "No modifier forced by {{omenName}} is possible on this item. The Omen is still consumed and the reveal offers regular modifiers."
+  },
+  "ANCIENT_BENEFIT_OVERRIDDEN_BY_LICH_OMEN": {
+    "title": "Minimum level has no effect",
+    "detail": "{{omenName}} overrides the minimum modifier level of {{currencyName}}."
+  },
+  "MARK_FLOOR_OVERRIDDEN_BY_LICH_OMEN": {
+    "title": "Mark level floor has no effect",
+    "detail": "{{omenName}} overrides the level floor of the Mark of the Abyssal Lord."
+  },
+  "UNKNOWN_LICH_FALLBACK_COMPOSITION": {
+    "title": "Fallback pool not verified",
+    "detail": "Which modifiers the reveal offers when the forced pool is empty is not verified for this item. The overlay will not guess the modifier pool."
+  },
+  "FAMILY_FLOOR_FALLBACK_TIER": {
+    "title": "Highest tier kept",
+    "detail": "No tier of this modifier reaches the minimum level, so the highest eligible tier stays in the pool."
+  },
+  "EXCLUSIVE_OPTION_GUARANTEE_NOTE": {
+    "title": "Exclusive option offered",
+    "detail": "When revealed, at least one option is an exclusive Desecrated modifier if one is possible."
+  },
+  "ECHOES_REROLL_AVAILABLE": {
+    "title": "Reroll available",
+    "detail": "{{omenName}} lets you reroll the offered options once. The pool is unchanged."
+  },
+  "ITEM_WILL_BE_CORRUPTED": {
+    "title": "Item will be corrupted",
+    "detail": "{{omenName}} replaces the modifiers and corrupts the item."
+  },
+  "ANCIENT_FLOOR_NOT_GUARANTEED_PUTREFACTION": {
+    "title": "Minimum level not guaranteed",
+    "detail": "With {{omenName}}, {{currencyName}} does not make every new modifier meet the minimum level."
+  },
+  "PUTREFACTION_SLOT_COUNT_WORKING_MODEL": {
+    "title": "Slot count is a working model",
+    "detail": "Up to {{maxUnrevealed}} Unrevealed modifiers, based on the verified modifier limits minus fractured modifiers."
+  },
+  "WRONG_SIDE": {
+    "title": "Other side",
+    "detail": "This modifier is on the other side."
+  },
+  "ITEM_LEVEL_TOO_LOW": {
+    "title": "Item level too low",
+    "detail": "Requires item level {{requiredLevel}}."
+  },
+  "BELOW_MINIMUM_MODIFIER_LEVEL": {
+    "title": "Below minimum modifier level",
+    "detail": "Below the minimum modifier level {{floor}}."
+  },
+  "MOD_GROUP_CONFLICT": {
+    "title": "Blocked by an existing modifier",
+    "detail": "An existing modifier of the same group blocks it."
+  },
+  "BASE_TAG_NOT_ELIGIBLE": {
+    "title": "Not possible on this base",
+    "detail": "This base type cannot roll this modifier."
+  },
+  "SOURCE_NOT_ENABLED": {
+    "title": "Needs another currency",
+    "detail": "This modifier needs a different Desecration currency."
+  },
+  "LICH_SOURCE_NOT_SELECTED": {
+    "title": "Blocked by the active Omen",
+    "detail": "The active Omen forces a different pool."
+  },
+  "OTHER_LICH_BLOCKED_BY_FORCE_OMEN": {
+    "title": "Other Lich blocked",
+    "detail": "The active Omen blocks modifiers of other Liches."
+  },
+  "LICH_CLASSIFICATION_UNDER_REVIEW": {
+    "title": "Classification under review",
+    "detail": "The data classifies this modifier inconsistently, so it is excluded from forced pools until reviewed."
+  },
+  "PUTREFACTION_EXCLUDES_EXCLUSIVE": {
+    "title": "Not rolled by this Omen",
+    "detail": "This Omen never rolls Desecration-exclusive modifiers."
+  },
+  "POSSIBLY_BLOCKED_BY_UNRESOLVED_AFFIX": {
+    "title": "May be blocked",
+    "detail": "An existing modifier that could not be identified exactly may block it."
+  },
+  "BASE_POOL_ONLY": {
+    "title": "Base pool only",
+    "detail": "Pool for the base type and item level; current modifiers, Mark of the Abyssal Lord and Desecration state are not considered."
+  }
+}

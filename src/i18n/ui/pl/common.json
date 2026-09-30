@@ -1,0 +1,36 @@
+{
+  "prefix": "Prefiks",
+  "suffix": "Sufiks",
+  "eligible": "Dostępne",
+  "blocked": "Zablokowane",
+  "conditional": "Warunkowe",
+  "close": "Zamknij",
+  "settings": "Ustawienia",
+  "retry": "Odczytaj schowek ponownie",
+  "status": {
+    "valid": "Poprawne",
+    "valid_with_warning": "Ostrzeżenie",
+    "invalid": "Niepoprawne",
+    "unsupported": "Nieobsługiwane",
+    "unknown": "Nieznane"
+  },
+  "confidence": {
+    "full": "Parser: pełny",
+    "partial": "Parser: częściowy",
+    "insufficient": "Parser: niewystarczający"
+  },
+  "trayShow": "Pokaż nakładkę",
+  "trayQuit": "Zakończ",
+  "copyDebugReport": "Kopiuj raport debug",
+  "includeRawText": "Dołącz skopiowany tekst przedmiotu",
+  "debugReportCopied": "Skopiowano raport debug.",
+  "about": "O programie",
+  "apply": "Zastosuj",
+  "update": {
+    "available": "Aktualizuj do {{version}}",
+    "downloading": "Pobieranie {{done}}/{{total}} MB",
+    "ready": "Instalowanie…",
+    "failed": "Aktualizacja nie powiodła się"
+  },
+  "copyingItem": "Kopiowanie przedmiotu…"
+}

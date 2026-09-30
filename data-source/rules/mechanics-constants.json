@@ -1,0 +1,6 @@
+{
+  "gnawedMaxItemLevel": { "value": 64, "evidence": { "ruleId": "const.gnawedMaxItemLevel", "evidenceRefs": ["wiki:Gnawed_Jawbone", "wiki:Gnawed_Rib", "wiki:Gnawed_Collarbone"], "evidenceLevel": "VERIFIED_SECONDARY" } },
+  "ancientMinimumModifierLevel": { "value": 40, "evidence": { "ruleId": "const.ancientMinimumModifierLevel", "evidenceRefs": ["wiki:Ancient_Jawbone", "wiki:Ancient_Rib", "wiki:Ancient_Collarbone"], "evidenceLevel": "VERIFIED_SECONDARY" } },
+  "markFloorFactor": { "value": 0.4, "uRef": "U-003", "evidence": { "ruleId": "const.markFloorFactor", "evidenceRefs": ["wiki:Essence_of_the_Abyss"], "evidenceLevel": "VERIFIED_SECONDARY", "notes": "Working model floor(itemLevel * 0.40); exact rounding unverified (U-003)." } },
+  "revealOptionCount": { "value": 3, "evidence": { "ruleId": "const.revealOptionCount", "evidenceRefs": ["wiki:Desecrated_modifier"], "evidenceLevel": "VERIFIED_SECONDARY" } }
+}

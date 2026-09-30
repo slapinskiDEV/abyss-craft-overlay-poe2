@@ -1,0 +1,5 @@
+{
+  "targetGameVersion": "0.5.5",
+  "stale": false,
+  "notes": "SoT v0.2.4 target game context: Path of Exile 2, 0.5.5 / Forbidden Rites. Set stale=true when a newer patch is known (SoT §22.2)."
+}

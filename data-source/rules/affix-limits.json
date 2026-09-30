@@ -1,0 +1,382 @@
+{
+  "$comment": "Map (Waystone) has no evidenced limit yet -> AFFIX_LIMIT_UNKNOWN.",
+  "limits": [
+    {
+      "itemClassId": "Bow",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Bow",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Claw",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Claw",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Crossbow",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Crossbow",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Dagger",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Dagger",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Flail",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Flail",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "One Hand Axe",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.One Hand Axe",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "One Hand Mace",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.One Hand Mace",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "One Hand Sword",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.One Hand Sword",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Spear",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Spear",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Talisman",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Talisman",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Two Hand Axe",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Two Hand Axe",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Two Hand Mace",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Two Hand Mace",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Two Hand Sword",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Two Hand Sword",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Warstaff",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Warstaff",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Wand",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Wand",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Staff",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Staff",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Sceptre",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Sceptre",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Quiver",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Quiver",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Body Armour",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Body Armour",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Boots",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Boots",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Gloves",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Gloves",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Helmet",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Helmet",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Shield",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Shield",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Buckler",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Buckler",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Focus",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Focus",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Amulet",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Amulet",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Ring",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Ring",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Belt",
+      "rarity": "rare",
+      "maxPrefixes": 3,
+      "maxSuffixes": 3,
+      "evidence": {
+        "ruleId": "limit.Belt",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Jewel",
+      "rarity": "rare",
+      "maxPrefixes": 2,
+      "maxSuffixes": 2,
+      "evidence": {
+        "ruleId": "limit.Jewel",
+        "evidenceRefs": [
+          "wiki:Rarity"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    }
+  ]
+}

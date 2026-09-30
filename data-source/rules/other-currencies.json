@@ -1,0 +1,13 @@
+[
+  {
+    "lookupNameEn": "Orb of Annulment",
+    "role": "recovery",
+    "evidence": {
+      "ruleId": "currency.orb_of_annulment",
+      "evidenceRefs": [
+        "wiki:Omen_of_Light"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  }
+]

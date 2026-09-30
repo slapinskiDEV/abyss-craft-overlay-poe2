@@ -1,0 +1,399 @@
+{
+  "lichAudit": [
+    {
+      "modifierId": "AbyssMod1HMaceAmanamuPrefixDamageAgainstFullyArmourBrokenEnemies",
+      "name": "Amanamu's",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod1HMaceAmanamuSuffixAdditionalFissureChance",
+      "name": "of Amanamu",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod1HMaceAmanamuSuffixBreakPercentArmourPhysicalDamage",
+      "name": "of Amanamu",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod1HMaceAmanamuSuffixChanceSlamSkillsCauseAftershocks",
+      "name": "of Amanamu",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod1HMaceKurgalPrefixEmpoweredAttackDamage",
+      "name": "Kurgal's",
+      "classification": {
+        "lichPool": "kurgal",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "kurgal",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod1HMaceKurgalSuffixWarcryCooldownRecoveryRate",
+      "name": "of Kurgal",
+      "classification": {
+        "lichPool": "kurgal",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "kurgal",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod2HMaceAmanamuPrefixDamageAgainstFullyArmourBrokenEnemies",
+      "name": "Amanamu's",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod2HMaceAmanamuSuffixAdditionalFissureChance",
+      "name": "of Amanamu",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod2HMaceAmanamuSuffixBreakPercentArmourPhysicalDamage",
+      "name": "of Amanamu",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod2HMaceAmanamuSuffixChanceSlamSkillsCauseAftershocks",
+      "name": "of Amanamu",
+      "classification": {
+        "lichPool": "amanamu",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "amanamu",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod2HMaceKurgalPrefixEmpoweredAttackDamage",
+      "name": "Kurgal's",
+      "classification": {
+        "lichPool": "kurgal",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "kurgal",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssMod2HMaceKurgalSuffixWarcryCooldownRecoveryRate",
+      "name": "of Kurgal",
+      "classification": {
+        "lichPool": "kurgal",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "kurgal",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssModStaffKurgalSuffixCastSpeedWhileFullMana",
+      "name": "of Kurgal",
+      "classification": {
+        "lichPool": "kurgal",
+        "conflict": true,
+        "basis": "name",
+        "observedTags": [
+          "kurgal",
+          "ulaman"
+        ]
+      }
+    },
+    {
+      "modifierId": "AbyssModTalismanUlamanSuffixGainXRageOnMeleeHit",
+      "name": "of Ulaman",
+      "classification": {
+        "lichPool": "kurgal",
+        "conflict": false,
+        "basis": "override",
+        "observedTags": [
+          "amanamu",
+          "kurgal"
+        ]
+      }
+    }
+  ],
+  "resolvedEntities": [
+    {
+      "lookupNameEn": "Gnawed Jawbone",
+      "id": "gnawed_jawbone",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketWeaponLow",
+      "canonicalNameEn": "Gnawed Jawbone"
+    },
+    {
+      "lookupNameEn": "Preserved Jawbone",
+      "id": "preserved_jawbone",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketWeapon",
+      "canonicalNameEn": "Preserved Jawbone"
+    },
+    {
+      "lookupNameEn": "Ancient Jawbone",
+      "id": "ancient_jawbone",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketWeaponHigh",
+      "canonicalNameEn": "Ancient Jawbone"
+    },
+    {
+      "lookupNameEn": "Gnawed Rib",
+      "id": "gnawed_rib",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketArmourLow",
+      "canonicalNameEn": "Gnawed Rib"
+    },
+    {
+      "lookupNameEn": "Preserved Rib",
+      "id": "preserved_rib",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketArmour",
+      "canonicalNameEn": "Preserved Rib"
+    },
+    {
+      "lookupNameEn": "Ancient Rib",
+      "id": "ancient_rib",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketArmourHigh",
+      "canonicalNameEn": "Ancient Rib"
+    },
+    {
+      "lookupNameEn": "Gnawed Collarbone",
+      "id": "gnawed_collarbone",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketJewelleryLow",
+      "canonicalNameEn": "Gnawed Collarbone"
+    },
+    {
+      "lookupNameEn": "Preserved Collarbone",
+      "id": "preserved_collarbone",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketJewellery",
+      "canonicalNameEn": "Preserved Collarbone"
+    },
+    {
+      "lookupNameEn": "Ancient Collarbone",
+      "id": "ancient_collarbone",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketJewelleryHigh",
+      "canonicalNameEn": "Ancient Collarbone"
+    },
+    {
+      "lookupNameEn": "Preserved Cranium",
+      "id": "preserved_cranium",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketJewel",
+      "canonicalNameEn": "Preserved Cranium"
+    },
+    {
+      "lookupNameEn": "Altered Collarbone",
+      "id": "altered_collarbone",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketBreach",
+      "canonicalNameEn": "Altered Collarbone"
+    },
+    {
+      "lookupNameEn": "Preserved Vertebrae",
+      "id": "preserved_vertebrae",
+      "gameMetadataId": "Metadata/Items/Currency/AbyssalBenchTicketWaystone",
+      "canonicalNameEn": "Preserved Vertebrae"
+    },
+    {
+      "lookupNameEn": "Omen of Sinistral Necromancy",
+      "id": "omen_of_sinistral_necromancy",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAbyssAddPrefixes",
+      "canonicalNameEn": "Omen of Sinistral Necromancy"
+    },
+    {
+      "lookupNameEn": "Omen of Dextral Necromancy",
+      "id": "omen_of_dextral_necromancy",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAbyssAddSuffixes",
+      "canonicalNameEn": "Omen of Dextral Necromancy"
+    },
+    {
+      "lookupNameEn": "Omen of the Liege",
+      "id": "omen_of_the_liege",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAbyssGuarenteeLichTypeMod2",
+      "canonicalNameEn": "Omen of the Liege"
+    },
+    {
+      "lookupNameEn": "Omen of the Sovereign",
+      "id": "omen_of_the_sovereign",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAbyssGuarenteeLichTypeMod1",
+      "canonicalNameEn": "Omen of the Sovereign"
+    },
+    {
+      "lookupNameEn": "Omen of the Blackblooded",
+      "id": "omen_of_the_blackblooded",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAbyssGuarenteeLichTypeMod3",
+      "canonicalNameEn": "Omen of the Blackblooded"
+    },
+    {
+      "lookupNameEn": "Omen of Putrefaction",
+      "id": "omen_of_putrefaction",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAbyssVeilAllAndCorrupt",
+      "canonicalNameEn": "Omen of Putrefaction"
+    },
+    {
+      "lookupNameEn": "Omen of Abyssal Echoes",
+      "id": "omen_of_abyssal_echoes",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAbyssRerollOptions",
+      "canonicalNameEn": "Omen of Abyssal Echoes"
+    },
+    {
+      "lookupNameEn": "Omen of Light",
+      "id": "omen_of_light",
+      "gameMetadataId": "Metadata/Items/Currency/OmenOnAnnulRemoveAbyssMod",
+      "canonicalNameEn": "Omen of Light"
+    },
+    {
+      "lookupNameEn": "Orb of Annulment",
+      "id": "orb_of_annulment",
+      "gameMetadataId": "Metadata/Items/Currency/CurrencyRemoveMod",
+      "canonicalNameEn": "Orb of Annulment"
+    }
+  ],
+  "resolvedOverrides": [
+    {
+      "description": "Gain (3-6) Rage on Melee Hit suffix",
+      "modifierIds": [
+        "AbyssModTalismanUlamanSuffixGainXRageOnMeleeHit"
+      ]
+    }
+  ],
+  "droppedModsByDomain": {
+    "flask": 105,
+    "strongbox": 175,
+    "leaguestone": 2,
+    "crafted": 9,
+    "expedition_relic": 62,
+    "sentinel": 33,
+    "heist_npc": 404,
+    "heist_area": 298,
+    "heist_trinket": 123,
+    "atlas": 143,
+    "memory_line": 19,
+    "monster": 190,
+    "sanctum_relic": 138,
+    "tablet": 90,
+    "ultimatum_key": 31,
+    "veiled": 2
+  },
+  "statsWithoutTranslation": [
+    "dummy_stat_display_nothing",
+    "essence_buff_elemental_damage_taken_+%",
+    "ground_fire_art_variation",
+    "ground_ice_art_variation",
+    "ground_lightning_art_variation",
+    "local_display_socketed_gems_have_%_chance_to_ignite_with_fire_damage",
+    "local_jewel_effect_base_radius",
+    "map_abyss_tower_augment_quantity_+%_final_from_overrun_unique_tablet",
+    "map_extra_content_weighting",
+    "map_ground_effect_patches_per_100_tiles",
+    "map_ground_effect_radius",
+    "map_ground_mana_siphoning_base_lightning_damage_to_deal_per_minute",
+    "map_ground_mana_siphoning_mana_degeneration_per_minute",
+    "map_item_drop_quantity_+%",
+    "map_item_drop_rarity_+%_final_from_map",
+    "map_map_item_drop_chance_+%",
+    "map_map_item_drop_chance_+%_final_from_map",
+    "map_monster_potency_+%_final_from_map",
+    "map_number_of_magic_and_rare_packs_+%_final_and_rare_monster_modifiers_chance_+%_final_from_map",
+    "map_number_of_magic_packs_+%",
+    "map_number_of_rare_packs_+%",
+    "map_pack_size_+%_final_from_map",
+    "minion_area_of_effect_+%"
+  ],
+  "excludedUnreachableDesecrated": [
+    "AbyssModBootsUlamanSuffixReducedMovementPenaltyWhileSkilling",
+    "AbyssModGlovesAmanamuSuffixPercentOfLifeLeechInstant",
+    "ConvertedAbyssModQuarterstaffChaosAndAilment1",
+    "MapAbyssPackUnionofSouls",
+    "MapAbyssRaresBossUnionofSouls",
+    "UniqueKulemakChaosDamageAndExplosion_1",
+    "UniqueKulemakChaosDamageCurseLowersChaosRes_1",
+    "UniqueKulemakElementalDamageEleAilmentDuration_1",
+    "UniqueKulemakHisDarkHorizon_1",
+    "UniqueKulemakHisFoulEmergence_1",
+    "UniqueKulemakHisGraveCommand_1",
+    "UniqueKulemakHisScatteringCalamity_1",
+    "UniqueKulemakHisVileIntrusion_1",
+    "UniqueKulemakHisWinnowingFlame_1",
+    "UniqueKulemakSpellPhysicalDamageBleedChance_1",
+    "UniqueKulemakSpiritAndSpiritReservationEfficiency_1",
+    "UniqueKulemakUnholyMightAndMagnitude_1",
+    "UniqueWatcherVeiledAlliesInPresenceAllElementalResistance",
+    "UniqueWatcherVeiledAlliesInPresenceCastSpeed",
+    "UniqueWatcherVeiledAlliesInPresenceCriticalHitChance",
+    "UniqueWatcherVeiledAlliesInPresenceFlatLifeRegen",
+    "UniqueWatcherVeiledCurseAreaOfEffect",
+    "UniqueWatcherVeiledEffectOfCurses",
+    "UniqueWatcherVeiledManaCostEfficiency",
+    "UniqueWatcherVeiledManaRegeneration",
+    "UniqueWatcherVeiledMinionLife",
+    "UniqueWatcherVeiledPresenceAreaOfEffect",
+    "UniqueWatcherVeiledSpiritReservationEfficiency"
+  ],
+  "abyssMarkModifierIds": [
+    "EssenceAbyssPrefix",
+    "EssenceAbyssSuffix"
+  ]
+}

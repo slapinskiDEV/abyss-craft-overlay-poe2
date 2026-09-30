@@ -1,0 +1,141 @@
+[
+  {
+    "lookupNameEn": "Omen of Sinistral Necromancy",
+    "phase": "desecrate",
+    "effect": {
+      "kind": "force_side",
+      "side": "prefix"
+    },
+    "compatibleBoneFamilies": "any",
+    "evidence": {
+      "ruleId": "omen.sinistral",
+      "evidenceRefs": [
+        "wiki:Omen_of_Sinistral_Necromancy"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Omen of Dextral Necromancy",
+    "phase": "desecrate",
+    "effect": {
+      "kind": "force_side",
+      "side": "suffix"
+    },
+    "compatibleBoneFamilies": "any",
+    "evidence": {
+      "ruleId": "omen.dextral",
+      "evidenceRefs": [
+        "wiki:Omen_of_Dextral_Necromancy"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Omen of the Liege",
+    "phase": "desecrate",
+    "effect": {
+      "kind": "force_lich",
+      "lichPool": "amanamu"
+    },
+    "compatibleBoneFamilies": [
+      "jawbone",
+      "collarbone"
+    ],
+    "evidence": {
+      "ruleId": "omen.liege",
+      "evidenceRefs": [
+        "wiki:Omen_of_the_Liege",
+        "sot:v0.2.4#11.3"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Omen of the Sovereign",
+    "phase": "desecrate",
+    "effect": {
+      "kind": "force_lich",
+      "lichPool": "ulaman"
+    },
+    "compatibleBoneFamilies": [
+      "jawbone",
+      "collarbone"
+    ],
+    "evidence": {
+      "ruleId": "omen.sovereign",
+      "evidenceRefs": [
+        "wiki:Omen_of_the_Sovereign",
+        "sot:v0.2.4#11.3"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Omen of the Blackblooded",
+    "phase": "desecrate",
+    "effect": {
+      "kind": "force_lich",
+      "lichPool": "kurgal"
+    },
+    "compatibleBoneFamilies": [
+      "jawbone",
+      "collarbone"
+    ],
+    "evidence": {
+      "ruleId": "omen.blackblooded",
+      "evidenceRefs": [
+        "wiki:Omen_of_the_Blackblooded",
+        "sot:v0.2.4#11.3"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Omen of Putrefaction",
+    "phase": "desecrate",
+    "effect": {
+      "kind": "putrefaction"
+    },
+    "compatibleBoneFamilies": "any",
+    "evidence": {
+      "ruleId": "omen.putrefaction",
+      "evidenceRefs": [
+        "wiki:Omen_of_Putrefaction"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Omen of Abyssal Echoes",
+    "phase": "reveal",
+    "effect": {
+      "kind": "reveal_reroll",
+      "rerolls": 1
+    },
+    "compatibleBoneFamilies": "any",
+    "evidence": {
+      "ruleId": "omen.abyssal_echoes",
+      "evidenceRefs": [
+        "wiki:Omen_of_Abyssal_Echoes",
+        "wiki:Desecrated_modifier"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Omen of Light",
+    "phase": "annul",
+    "effect": {
+      "kind": "annul_desecrated_only"
+    },
+    "compatibleBoneFamilies": "any",
+    "evidence": {
+      "ruleId": "omen.light",
+      "evidenceRefs": [
+        "wiki:Omen_of_Light"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  }
+]

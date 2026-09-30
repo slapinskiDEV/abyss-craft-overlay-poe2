@@ -1,0 +1,6 @@
+{
+  "notAnItem": "Copy a Path of Exile 2 item first, then open the overlay again.",
+  "unsupportedClipboardLocale": "This version reads item text from an English game client only.",
+  "hotkeyRegistrationFailed": "The hotkey {{accelerator}} is already in use. Choose another one.",
+  "hotkeyInvalid": "{{accelerator}} is not a valid hotkey."
+}

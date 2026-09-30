@@ -1,0 +1,8 @@
+{
+  "title": "How to use the overlay",
+  "step1": "Hover an item in the game (Rare, English client).",
+  "step2": "Press {{hotkey}}: the overlay copies the item ({{copyShortcut}}) and shows it.",
+  "step3": "Choose a Bone and Omens.",
+  "step4": "Review the eligible pool and warnings.",
+  "dismiss": "Got it"
+}

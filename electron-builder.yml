@@ -1,0 +1,38 @@
+# Spec 008. Provisional, brand-neutral app ID (SoT §1.1). Unsigned MVP build (SoT §19.4).
+appId: dev.local.poe2-abyss-overlay
+productName: PoE2 Abyss Craft Overlay
+directories:
+  output: release/${version}
+files:
+  - out/**/*
+  - package.json
+  - "!**/*.map"
+  # koffi ships prebuilt binaries for every platform; the Windows x64 build needs only one.
+  - "!node_modules/koffi/build/koffi/!(win32_x64)/**"
+  - "!node_modules/koffi/src/**"
+  - "!node_modules/koffi/doc/**"
+extraResources:
+  - from: src/data/normalized/pack
+    to: data-pack
+    filter: ["pack.json"]
+  - from: NOTICE.txt
+    to: NOTICE.txt
+asar: true
+# Spec 011: the updater reads latest.yml from the public releases repository. Stable file names
+# keep the README's direct download link valid across versions.
+publish:
+  - provider: generic
+    url: https://github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases/releases/latest/download
+win:
+  icon: build/icon.ico # npm run icon (src/main/app-icon.ts)
+  target:
+    - target: nsis
+      arch: [x64]
+    - target: portable
+      arch: [x64]
+nsis:
+  artifactName: ${name}-setup.${ext}
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+portable:
+  artifactName: ${name}-portable.${ext}

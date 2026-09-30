@@ -1,0 +1,202 @@
+[
+  {
+    "lookupNameEn": "Gnawed Jawbone",
+    "family": "jawbone",
+    "tier": "gnawed",
+    "targetGroup": "weapon_or_quiver",
+    "maxItemLevelConstant": "gnawedMaxItemLevel",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.gnawed_jawbone",
+      "evidenceRefs": [
+        "wiki:Gnawed_Jawbone",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Preserved Jawbone",
+    "family": "jawbone",
+    "tier": "preserved",
+    "targetGroup": "weapon_or_quiver",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.preserved_jawbone",
+      "evidenceRefs": [
+        "wiki:Preserved_Jawbone",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Ancient Jawbone",
+    "family": "jawbone",
+    "tier": "ancient",
+    "targetGroup": "weapon_or_quiver",
+    "minimumModifierLevelConstant": "ancientMinimumModifierLevel",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.ancient_jawbone",
+      "evidenceRefs": [
+        "wiki:Ancient_Jawbone",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Gnawed Rib",
+    "family": "rib",
+    "tier": "gnawed",
+    "targetGroup": "armour",
+    "maxItemLevelConstant": "gnawedMaxItemLevel",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.gnawed_rib",
+      "evidenceRefs": [
+        "wiki:Gnawed_Rib",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Preserved Rib",
+    "family": "rib",
+    "tier": "preserved",
+    "targetGroup": "armour",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.preserved_rib",
+      "evidenceRefs": [
+        "wiki:Preserved_Rib",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Ancient Rib",
+    "family": "rib",
+    "tier": "ancient",
+    "targetGroup": "armour",
+    "minimumModifierLevelConstant": "ancientMinimumModifierLevel",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.ancient_rib",
+      "evidenceRefs": [
+        "wiki:Ancient_Rib",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Gnawed Collarbone",
+    "family": "collarbone",
+    "tier": "gnawed",
+    "targetGroup": "jewellery",
+    "maxItemLevelConstant": "gnawedMaxItemLevel",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.gnawed_collarbone",
+      "evidenceRefs": [
+        "wiki:Gnawed_Collarbone",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Preserved Collarbone",
+    "family": "collarbone",
+    "tier": "preserved",
+    "targetGroup": "jewellery",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.preserved_collarbone",
+      "evidenceRefs": [
+        "wiki:Preserved_Collarbone",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Ancient Collarbone",
+    "family": "collarbone",
+    "tier": "ancient",
+    "targetGroup": "jewellery",
+    "minimumModifierLevelConstant": "ancientMinimumModifierLevel",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.ancient_collarbone",
+      "evidenceRefs": [
+        "wiki:Ancient_Collarbone",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Preserved Cranium",
+    "family": "cranium",
+    "tier": "preserved",
+    "targetGroup": "jewel",
+    "unlocksSpecialPools": [],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.preserved_cranium",
+      "evidenceRefs": [
+        "wiki:Preserved_Cranium",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Altered Collarbone",
+    "family": "altered_collarbone",
+    "tier": "altered",
+    "targetGroup": "jewellery",
+    "unlocksSpecialPools": [
+      "otherworldly"
+    ],
+    "releaseState": "current",
+    "evidence": {
+      "ruleId": "bone.altered_collarbone",
+      "evidenceRefs": [
+        "wiki:Altered_Collarbone",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  },
+  {
+    "lookupNameEn": "Preserved Vertebrae",
+    "family": "vertebrae",
+    "tier": "preserved",
+    "targetGroup": "waystone",
+    "unlocksSpecialPools": [],
+    "releaseState": "drop_disabled_legacy",
+    "evidence": {
+      "ruleId": "bone.preserved_vertebrae",
+      "evidenceRefs": [
+        "wiki:Preserved_Vertebrae",
+        "sot:v0.2.4#10.2"
+      ],
+      "evidenceLevel": "VERIFIED_SECONDARY"
+    }
+  }
+]

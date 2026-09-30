@@ -1,0 +1,376 @@
+{
+  "$comment": "Item classes not listed here are unmapped: the engine returns ITEM_CLASS_TARGET_UNMAPPED (unknown). TrapTool and FishingRod are deliberately unmapped: no evidence.",
+  "targets": [
+    {
+      "itemClassId": "Bow",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Bow",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Claw",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Claw",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Crossbow",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Crossbow",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Dagger",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Dagger",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Flail",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Flail",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "One Hand Axe",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.One Hand Axe",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "One Hand Mace",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.One Hand Mace",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "One Hand Sword",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.One Hand Sword",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Spear",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Spear",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Talisman",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Talisman",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Two Hand Axe",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Two Hand Axe",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Two Hand Mace",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Two Hand Mace",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Two Hand Sword",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Two Hand Sword",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Warstaff",
+      "target": "weapon_or_quiver",
+      "basis": "RePoE base tag 'weapon' on every released base of the class",
+      "evidence": {
+        "ruleId": "target.Warstaff",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Wand",
+      "target": "weapon_or_quiver",
+      "basis": "no 'weapon' tag, but the snapshot has desecrated rows spawnable on the class tag",
+      "evidence": {
+        "ruleId": "target.Wand",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone",
+          "repoe:4.5.5.2:mods.min.json"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Staff",
+      "target": "weapon_or_quiver",
+      "basis": "no 'weapon' tag, but the snapshot has desecrated rows spawnable on the class tag",
+      "evidence": {
+        "ruleId": "target.Staff",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone",
+          "repoe:4.5.5.2:mods.min.json"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Sceptre",
+      "target": "weapon_or_quiver",
+      "basis": "no 'weapon' tag; wiki states Sceptres have no exclusive desecrated modifiers, i.e. they are Desecration targets with a regular pool only",
+      "evidence": {
+        "ruleId": "target.Sceptre",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone",
+          "wiki:Desecrated_modifier"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Quiver",
+      "target": "weapon_or_quiver",
+      "basis": "wiki: Weapon or Quiver",
+      "evidence": {
+        "ruleId": "target.Quiver",
+        "evidenceRefs": [
+          "wiki:Preserved_Jawbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Body Armour",
+      "target": "armour",
+      "basis": "RePoE base tag 'armour' on every released base of the class (SoT \u00a72.1)",
+      "evidence": {
+        "ruleId": "target.Body Armour",
+        "evidenceRefs": [
+          "wiki:Preserved_Rib",
+          "sot:v0.2.4#10.2"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Boots",
+      "target": "armour",
+      "basis": "RePoE base tag 'armour' on every released base of the class (SoT \u00a72.1)",
+      "evidence": {
+        "ruleId": "target.Boots",
+        "evidenceRefs": [
+          "wiki:Preserved_Rib",
+          "sot:v0.2.4#10.2"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Gloves",
+      "target": "armour",
+      "basis": "RePoE base tag 'armour' on every released base of the class (SoT \u00a72.1)",
+      "evidence": {
+        "ruleId": "target.Gloves",
+        "evidenceRefs": [
+          "wiki:Preserved_Rib",
+          "sot:v0.2.4#10.2"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Helmet",
+      "target": "armour",
+      "basis": "RePoE base tag 'armour' on every released base of the class (SoT \u00a72.1)",
+      "evidence": {
+        "ruleId": "target.Helmet",
+        "evidenceRefs": [
+          "wiki:Preserved_Rib",
+          "sot:v0.2.4#10.2"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Shield",
+      "target": "armour",
+      "basis": "RePoE base tag 'armour' on every released base of the class (SoT \u00a72.1)",
+      "evidence": {
+        "ruleId": "target.Shield",
+        "evidenceRefs": [
+          "wiki:Preserved_Rib",
+          "sot:v0.2.4#10.2"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Buckler",
+      "target": "armour",
+      "basis": "RePoE base tag 'armour' on every released base of the class (SoT \u00a72.1)",
+      "evidence": {
+        "ruleId": "target.Buckler",
+        "evidenceRefs": [
+          "wiki:Preserved_Rib",
+          "sot:v0.2.4#10.2"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Focus",
+      "target": "armour",
+      "basis": "RePoE base tag 'armour' on every released base of the class (SoT \u00a72.1)",
+      "evidence": {
+        "ruleId": "target.Focus",
+        "evidenceRefs": [
+          "wiki:Preserved_Rib",
+          "sot:v0.2.4#10.2"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Amulet",
+      "target": "jewellery",
+      "basis": "wiki: Amulet, Ring or Belt",
+      "evidence": {
+        "ruleId": "target.Amulet",
+        "evidenceRefs": [
+          "wiki:Preserved_Collarbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Ring",
+      "target": "jewellery",
+      "basis": "wiki: Amulet, Ring or Belt",
+      "evidence": {
+        "ruleId": "target.Ring",
+        "evidenceRefs": [
+          "wiki:Preserved_Collarbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Belt",
+      "target": "jewellery",
+      "basis": "wiki: Amulet, Ring or Belt",
+      "evidence": {
+        "ruleId": "target.Belt",
+        "evidenceRefs": [
+          "wiki:Preserved_Collarbone"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Jewel",
+      "target": "jewel",
+      "basis": "wiki: Rare Jewel (Time-Lost Jewels handled by special-items.json)",
+      "evidence": {
+        "ruleId": "target.Jewel",
+        "evidenceRefs": [
+          "wiki:Preserved_Cranium"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    },
+    {
+      "itemClassId": "Map",
+      "target": "waystone",
+      "basis": "Waystones are RePoE item class 'Map'",
+      "evidence": {
+        "ruleId": "target.Map",
+        "evidenceRefs": [
+          "wiki:Preserved_Vertebrae",
+          "repoe:4.5.5.2:base_items.min.json"
+        ],
+        "evidenceLevel": "VERIFIED_SECONDARY"
+      }
+    }
+  ]
+}

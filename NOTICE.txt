@@ -1,0 +1,20 @@
+PoE2 Abyss Craft Overlay
+Copyright (c) 2026 slapinskiDEV. Source code licensed under the MIT License (see LICENSE).
+https://github.com/slapinskiDEV/abyss-craft-overlay-poe2
+
+This product isn't affiliated with or endorsed by Grinding Gear Games in any way.
+Path of Exile and Path of Exile 2 are trademarks of Grinding Gear Games.
+
+Third-party content (not covered by the MIT License)
+
+- Game data: RePoE PoE2 export (https://repoe-fork.github.io/poe2/, generator
+  https://github.com/repoe-fork/repoe, MIT). The exported data is owned by Grinding Gear Games
+  and is used in accordance with their terms of use. It is stored under
+  data-source/snapshots/ and, normalized, in the bundled data pack
+  (src/data/normalized/pack/pack.json). Versions and sha256 are recorded in the data pack manifest.
+
+- Mechanics evidence: short excerpts from the Path of Exile 2 Wiki (https://www.poe2wiki.net/),
+  licensed under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported
+  (CC BY-NC-SA 3.0, https://creativecommons.org/licenses/by-nc-sa/3.0/). Each excerpt in
+  data-source/rules/evidence-wiki.json names its source page revision. Those excerpts are
+  shared under the same license.

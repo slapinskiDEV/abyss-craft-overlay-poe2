@@ -1,0 +1,46 @@
+{
+  "title": "What's new",
+  "close": "OK",
+  "entries": {
+    "2026-09-29": {
+      "heading": "2026-09-29",
+      "items": [
+        "Updates: when a new version is out, an \"Update\" button appears in the overlay's title bar.",
+        "The hotkey copies the hovered item and shows it right away, also right after you clicked in the overlay.",
+        "New layout: currencies and Omens on the left, the modifier list in the middle, the item preview on the right.",
+        "Click a modifier in the list to see it on the item.",
+        "The preview shows how many prefix and suffix slots the item has free.",
+        "Only currencies and Omens usable on the item are listed.",
+        "New icon: the green diamond."
+      ]
+    },
+    "2026-09-29b": {
+      "heading": "2026-09-29 (update)",
+      "items": [
+        "After copying an item a currency is already chosen: the last one used for this item type, or the Bone without level restrictions.",
+        "The Prefix/Suffix filter starts on the side the item has a free slot on."
+      ]
+    },
+    "2026-09-29c": {
+      "heading": "2026-09-29 (hotkey fix)",
+      "items": [
+        "New default hotkey: Alt+T.",
+        "Clicking in the overlay no longer takes focus from the game: hover an item and press the hotkey, no click in the game needed.",
+        "Esc works while typing in the search; otherwise the hotkey on the same item or × closes the overlay."
+      ]
+    },
+    "2026-09-29d": {
+      "heading": "2026-09-29 (speed)",
+      "items": [
+        "Faster item switching after Alt+T.",
+        "While copying, the overlay shows a loading state: a dimmed window with the spinning diamond."
+      ]
+    },
+    "2026-09-30": {
+      "heading": "2026-09-30 (open source)",
+      "items": [
+        "The overlay is now open source under the MIT license: github.com/slapinskiDEV/abyss-craft-overlay-poe2"
+      ]
+    }
+  }
+}

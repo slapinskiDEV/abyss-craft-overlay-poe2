@@ -1,0 +1,232 @@
+[
+  {
+    "id": "wiki:Gnawed_Jawbone",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Gnawed_Jawbone&oldid=55257",
+    "observedVersion": "rev 55257",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "3bfbb33af6f6f3374c20073ec6dccba8a89ff4a06d6b70b27cac9ec0a4f93963",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Weapon or Quiver … This item can only be used on items of item level 64 or below."
+  },
+  {
+    "id": "wiki:Preserved_Jawbone",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Preserved_Jawbone&oldid=55262",
+    "observedVersion": "rev 55262",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "b35823a13d7ead3378ad9d08bb026336a554162e5dcb5e468f3a5b60206ab649",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Weapon or Quiver"
+  },
+  {
+    "id": "wiki:Ancient_Jawbone",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Ancient_Jawbone&oldid=57672",
+    "observedVersion": "rev 57672",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "b514a35a57d60b700b2c12f7a89b442b77b61e789c0e2670a36b79b185c3e558",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Weapon or Quiver … |crafting_mod_level_min                  = 40 … Minimum Modifier Level: The modifier options when the desecrated modifier is revealed are at least this level or higher, except if a specific modifier type would be excluded entirely from being able to roll."
+  },
+  {
+    "id": "wiki:Gnawed_Rib",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Gnawed_Rib&oldid=55258",
+    "observedVersion": "rev 55258",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "21309697ce8a2626355bcbfe71509812e5481364967f97c793f45c4d1e2f1b51",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Armour … This item can only be used on items of item level 64 or below."
+  },
+  {
+    "id": "wiki:Preserved_Rib",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Preserved_Rib&oldid=55263",
+    "observedVersion": "rev 55263",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "18d1eb8c1ac981eace91c7718826508430088cf3efa08a3f958a2eabae176e44",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Armour"
+  },
+  {
+    "id": "wiki:Ancient_Rib",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Ancient_Rib&oldid=57676",
+    "observedVersion": "rev 57676",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "c9a6f27121a71bcd794548e7b49b472900052705c7c62e382381e2ccc1b760d3",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Armour … |crafting_mod_level_min                  = 40 … Minimum Modifier Level: The modifier options when the desecrated modifier is revealed are at least this level or higher, except if a specific modifier type would be excluded entirely from being able to roll."
+  },
+  {
+    "id": "wiki:Gnawed_Collarbone",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Gnawed_Collarbone&oldid=55259",
+    "observedVersion": "rev 55259",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "335284ccc5ad9dc2afa63cc8953713e56e7f6fb3ee49251fa084845791717e25",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Amulet, Ring or Belt … This item can only be used on items of item level 64 or below."
+  },
+  {
+    "id": "wiki:Preserved_Collarbone",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Preserved_Collarbone&oldid=55260",
+    "observedVersion": "rev 55260",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "ac1d1773730999a8417c78e95f643560bc62d7023a3805d11786be2ef6dd8a93",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Amulet, Ring or Belt"
+  },
+  {
+    "id": "wiki:Ancient_Collarbone",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Ancient_Collarbone&oldid=57673",
+    "observedVersion": "rev 57673",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "a97d4b0ac1b26a34bbb16dcda34e657c67589d40b91ae51a4c254d6248e0d8fc",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Amulet, Ring or Belt … |crafting_mod_level_min                  = 40 … Minimum Modifier Level: The modifier options when the desecrated modifier is revealed are at least this level or higher, except if a specific modifier type would be excluded entirely from being able to roll."
+  },
+  {
+    "id": "wiki:Preserved_Cranium",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Preserved_Cranium&oldid=55261",
+    "observedVersion": "rev 55261",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "1b7c7e925615e7404890a81d3475be64b7f5b3ae49662a58ebe692a1266fe240",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Jewel"
+  },
+  {
+    "id": "wiki:Altered_Collarbone",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Altered_Collarbone&oldid=130973",
+    "observedVersion": "rev 130973",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "9a3dcb41b2fc199bb71d4c5c911232f41b3809877d0d42e915803a71d88bdc52",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Amulet, Ring or Belt with a chance for otherworldly modifiers"
+  },
+  {
+    "id": "wiki:Preserved_Vertebrae",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Preserved_Vertebrae&oldid=89336",
+    "observedVersion": "rev 89336",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "0315b1fd85fdd54722b0114881a6f8b5933f46db43d2e4def04d70ecb806323b",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Desecrates a Rare Waystone … |drop_enabled                            = False … * Preserved Vertebrae no longer drop."
+  },
+  {
+    "id": "wiki:Omen_of_Sinistral_Necromancy",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_Sinistral_Necromancy&oldid=111399",
+    "observedVersion": "rev 111399",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "668d88cead04fccea264f58d675702f7fbb70955654ec3757f9b9d07094b777c",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory your next Desecration attempt will add only prefix modifiers"
+  },
+  {
+    "id": "wiki:Omen_of_Dextral_Necromancy",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_Dextral_Necromancy&oldid=111396",
+    "observedVersion": "rev 111396",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "edec2d503e8bb47194701f85261ca4f9b7c60833a500e12b3b0da2c260a8c47e",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory your next Desecration attempt will add only suffix modifiers"
+  },
+  {
+    "id": "wiki:Omen_of_the_Liege",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_the_Liege&oldid=130822",
+    "observedVersion": "rev 130822",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "ce4a7a3473d3932e8036ccef8e4f5afdfe44947ce8041f912c3af914b5ce7266",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory your next Weapon or Jewellery Desecration attempt will guarantee a random Amanamu modifier … Despite the tooltip specifying weapons and jewellery, the omen appears to be restricted by the type of desecration currency used, rather than the base that it is applied to - belts can be desecrated with this omen despite not being classed as jewellery or weapons. While the item can be used with gnawed or ancient bones, it is recommended to only use it with Preserved Jawbone and Preserved Collarbone as lich mods have a minimum ilvl of 65, making them incompatible with Gnawed Jawbone, and the omen overrides the minimum level requirement set by Ancient Jawbone, Ancient Collarbone, or Essence of the Abyss, making the use of these rarer currencies redundant. Attempting to apply an incompatible desecration currency - Altered Collarbone or any tier of rib - will result in an error message being output to game chat and the currency item not being applied. … Note that the omen will be consumed even if no Amanamu modifiers are possible to roll, whether due to insufficient item level, being blocked by a modifier of the same mod group, or if no modifiers exist in the base type's desecrated modifier pool. In this case, it will only offer regular modifiers when revealed."
+  },
+  {
+    "id": "wiki:Omen_of_the_Sovereign",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_the_Sovereign&oldid=130824",
+    "observedVersion": "rev 130824",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "96d54dbbdb832f382674fe33dc8cebd2e6fa16e6725768532e4f311ceef3fb20",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory your next Weapon or Jewellery Desecration attempt will guarantee a random Ulaman modifier … Despite the tooltip specifying weapons and jewellery, the omen appears to be restricted by the type of desecration currency used, rather than the base that it is applied to - belts can be desecrated with this omen despite not being classed as jewellery or weapons. While the item can be used with gnawed or ancient bones, it is recommended to only use it with Preserved Jawbone and Preserved Collarbone as lich mods have a minimum ilvl of 65, making them incompatible with Gnawed Jawbone, and the omen overrides the minimum level requirement set by Ancient Jawbone, Ancient Collarbone, or Essence of the Abyss, making the use of these rarer currencies redundant. Attempting to apply an incompatible desecration currency - Altered Collarbone or any tier of rib - will result in an error message being output to game chat and the currency item not being applied. … Note that the omen will be consumed even if no Ulaman modifiers are possible to roll, whether due to insufficient item level, being blocked by a modifier of the same mod group, or if no modifiers exist in the base type's desecrated modifier pool. In this case, it will only offer regular modifiers when revealed."
+  },
+  {
+    "id": "wiki:Omen_of_the_Blackblooded",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_the_Blackblooded&oldid=130823",
+    "observedVersion": "rev 130823",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "016ae2febd61389e7bb79f08affe30bd139e8564e1e3190b690a1c8e0cd4da73",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory your next Weapon or Jewellery Desecration attempt will guarantee a random Kurgal modifier … Despite the tooltip specifying weapons and jewellery, the omen appears to be restricted by the type of desecration currency used, rather than the base that it is applied to - belts can be desecrated with this omen despite not being classed as jewellery or weapons. While the item can be used with gnawed or ancient bones, it is recommended to only use it with Preserved Jawbone and Preserved Collarbone as lich mods have a minimum ilvl of 65, making them incompatible with Gnawed Jawbone, and the omen overrides the minimum level requirement set by Ancient Jawbone, Ancient Collarbone, or Essence of the Abyss, making the use of these rarer currencies redundant. Attempting to apply an incompatible desecration currency - Altered Collarbone or any tier of rib - will result in an error message being output to game chat and the currency item not being applied. … Note that the omen will be consumed even if no Kurgal modifiers are possible to roll, whether due to insufficient item level, being blocked by a modifier of the same mod group, or if no modifiers exist in the base type's desecrated modifier pool. In this case, it will only offer regular modifiers when revealed."
+  },
+  {
+    "id": "wiki:Omen_of_Putrefaction",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_Putrefaction&oldid=111398",
+    "observedVersion": "rev 111398",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "368412e826e718c345e624181616fac60d3e5a9ea4fa0e4320c7c29e0243be02",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory your next Desecration attempt will replace all modifiers on the item creating an item with up to 6 Unrevealed modifiers and Corrupting the item … This omen will always attempt to roll the maximum number of desecrated modifiers that is possible on the item's base type, typically 6 (or 5 if the item is fractured). It will never roll Desecration-exclusive modifiers, such as named Lich modifiers, or \"Lightless\"/\"of the Abyss\" affixes on jewels. … When used with an Ancient tier preserved bone, it will not cause all of the desecrated modifiers to meet the minimum modifier level. A Preserved tier bone is recommended to use instead."
+  },
+  {
+    "id": "wiki:Omen_of_Abyssal_Echoes",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_Abyssal_Echoes&oldid=113019",
+    "observedVersion": "rev 113019",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "adbeed2506408b0bd27a6f9ed60675d2afc2636be36044d1d008abbaf63e9086",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory the next time you reveal Desecrated modifiers you can reroll the options once"
+  },
+  {
+    "id": "wiki:Omen_of_Light",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Omen_of_Light&oldid=113020",
+    "observedVersion": "rev 113020",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "b1749e78fe012125d2eba4e8fcc597e13591a7b6d69243b5e9a12e2ac11734ce",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "While this item is active in your inventory your next Orb of Annulment will remove only Desecrated modifiers"
+  },
+  {
+    "id": "wiki:Essence_of_the_Abyss",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Essence_of_the_Abyss&oldid=130833",
+    "observedVersion": "rev 130833",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "1436139307887cca4763244ef8e9f7313a19e7baee51c8751581f7a710358dbf",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Removes a random modifier and augments a Rare item with a new guaranteed modifier Equipment: Mark of the Abyssal Lord … When using a preserved bone to Desecrate the item, it will always attempt to remove this modifier first, replacing it with an unrevealed Desecrated modifier \"of a higher tier\". It appears to cull modifier options that have a level of less than 40% of the item's item level (e.g. an item level 80 item will not reveal into mods less than level 32). This effect is subject to minimum modifier level mechanics."
+  },
+  {
+    "id": "wiki:Rarity",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Rarity&oldid=133680",
+    "observedVersion": "rev 133680",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "99b7c9ac5683abc605d91ad377cf2ae003d3be98bd11211c1c9fde68ac63cc71",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "Rare items can have up to six affixes, having maximum three prefixes and three suffixes. Some item types, such as jewels and tablets, can only have up to four affixes (two prefixes and two suffixes)."
+  },
+  {
+    "id": "wiki:Desecrated_modifier",
+    "sourceName": "PoE2 Wiki",
+    "sourceUrl": "https://www.poe2wiki.net/index.php?title=Desecrated_modifier&oldid=132208",
+    "observedVersion": "rev 132208",
+    "retrievedAt": "2026-09-26T13:56:39.053Z",
+    "sha256": "8a28f80dda4a01585f603b81a35379223eacdc87614824d32e7d7e04cb7a4bc2",
+    "evidenceLevel": "VERIFIED_SECONDARY",
+    "notes": "granting a choice of one of three modifiers. … * Sceptres do not have exclusive desecrated prefixes or suffixes."
+  }
+]
