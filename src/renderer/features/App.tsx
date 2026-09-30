@@ -228,9 +228,12 @@ function useRendererDiagnostics(api: OverlayApi): void {
       api.diag('pointerdown', 0);
     };
     window.addEventListener('pointerdown', onPointer, true);
+    const onVisibility = () => api.diag('visibility', document.visibilityState === 'visible' ? 1 : 0);
+    document.addEventListener('visibilitychange', onVisibility);
     return () => {
       clearInterval(beat);
       window.removeEventListener('pointerdown', onPointer, true);
+      document.removeEventListener('visibilitychange', onVisibility);
     };
   }, [api]);
 }

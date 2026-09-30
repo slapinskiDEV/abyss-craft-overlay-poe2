@@ -82,6 +82,12 @@
         "Nakładka nie chowa się już, gdy gra nie skończyła jeszcze kopiować nowego przedmiotu.",
         "Dokładniejszy lokalny log (overlay.log), żeby znaleźć przyczynę, gdy nakładka czasem przestaje reagować."
       ]
+    },
+    "2026-09-30g": {
+      "heading": "30.09.2026 (okno po ukryciu)",
+      "items": [
+        "Poprawiono zawieszanie nakładki, gdy pokazuje się ją skrótem ponownie po ukryciu."
+      ]
     }
   }
 }

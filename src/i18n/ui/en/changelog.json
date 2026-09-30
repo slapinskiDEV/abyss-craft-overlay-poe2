@@ -82,6 +82,12 @@
         "The overlay no longer hides when the game has not finished copying the new item.",
         "More detailed local log (overlay.log) to find why the overlay sometimes stops reacting."
       ]
+    },
+    "2026-09-30g": {
+      "heading": "2026-09-30 (window after hiding)",
+      "items": [
+        "Fixed the overlay freezing when it is shown again with the hotkey after it was hidden."
+      ]
     }
   }
 }

@@ -88,7 +88,7 @@ export interface OverlayApi {
   getCopyTimings(): Promise<CopyTiming[]>;
   /** Renderer diagnostics for the local log (spec 018): a heartbeat with its own timer lag, or a
    * pointer press that reached the page. */
-  diag(event: 'heartbeat' | 'pointerdown', ms: number): void;
+  diag(event: 'heartbeat' | 'pointerdown' | 'visibility', ms: number): void;
 }
 
 /** One hotkey press with auto-copy: where the time went (spec 018). */

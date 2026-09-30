@@ -1,6 +1,6 @@
 // Release notes shown once after an update (SoT §16.8, spec 011). IDs only, oldest first; the texts
 // live in the UI locale registry (namespace `changelog`), so every UI language has its own notes.
-export const CHANGELOG_ENTRIES = ['2026-09-29', '2026-09-29b', '2026-09-29c', '2026-09-29d', '2026-09-30', '2026-09-30b', '2026-09-30c', '2026-09-30d', '2026-09-30e', '2026-09-30f'] as const;
+export const CHANGELOG_ENTRIES = ['2026-09-29', '2026-09-29b', '2026-09-29c', '2026-09-29d', '2026-09-30', '2026-09-30b', '2026-09-30c', '2026-09-30d', '2026-09-30e', '2026-09-30f', '2026-09-30g'] as const;
 export type ChangelogEntryId = (typeof CHANGELOG_ENTRIES)[number];
 
 export const LATEST_CHANGELOG_ENTRY: ChangelogEntryId = CHANGELOG_ENTRIES[CHANGELOG_ENTRIES.length - 1]!;

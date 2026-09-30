@@ -26,6 +26,10 @@ const uiResources = (locale: string) => (UI_LOCALES.find((l) => l.id === locale)
 // the first copy shows its overlay (`second-instance`). `app.quit()` would still run `whenReady`
 // (spec 017 A4).
 const primaryInstance = app.requestSingleInstanceLock();
+// Chromium's native window occlusion tracking could keep treating the overlay as hidden after it was
+// hidden and shown again without focus over the fullscreen game, so the page stopped repainting and
+// looked frozen (spec 018 follow-up 4). An always-on-top overlay gains nothing from it.
+app.commandLine.appendSwitch('disable-features', 'CalculateNativeWinOcclusion');
 if (!primaryInstance) app.exit(0);
 
 let win: BrowserWindow | null = null;
@@ -53,8 +57,14 @@ function deliver(target: BrowserWindow, snapshot: ClipboardSnapshot, focus: bool
   if (focus) {
     target.show();
     target.focus();
-  } else if (!target.isVisible()) target.showInactive();
+  } else if (!target.isVisible()) showWithoutFocus(target);
   target.webContents.send(IPC.clipboardSnapshot, snapshot);
+}
+
+/** Shows the overlay without taking focus from the game and forces a fresh frame (follow-up 4). */
+function showWithoutFocus(target: BrowserWindow): void {
+  target.showInactive();
+  target.webContents.invalidate();
 }
 
 function showOverlay(): void {
@@ -93,7 +103,7 @@ function toggle(): void {
     // game copies the item.
     busy(true);
     const showStart = performance.now();
-    if (!target.isVisible()) target.showInactive();
+    if (!target.isVisible()) showWithoutFocus(target);
     const showMs = Math.round(performance.now() - showStart);
     const result = await copyThenReadDetailed({ read: readClipboardSnapshot, sendCopy: sendCopyShortcut, sleep, sequence: clipboardSequenceNumber, now: () => performance.now() });
     timing = { clipboardChanged: result.changed, sendMs: Math.round(result.sendMs), showMs, waitMs: Math.round(result.waitMs), readMs: Math.round(result.readMs), polls: result.polls };
@@ -251,6 +261,9 @@ app.whenReady().then(() => {
   ipcMain.on(IPC.diag, (_e, event: unknown, ms: unknown) => {
     if (!validDiag(event, ms)) return;
     if (event === 'pointerdown') return log('renderer:pointerdown');
+    // 1 = the page thinks it is visible, 0 = hidden; hidden while the window is shown means the page
+    // stopped painting (follow-up 4).
+    if (event === 'visibility') return log('renderer:visibility', { visible: ms === 1, windowVisible: win?.isVisible() ?? false });
     lastBeat = performance.now();
     beatGapLogged = false;
     const lag = ms as number;

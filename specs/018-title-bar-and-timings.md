@@ -79,6 +79,21 @@ The unclickable state still cannot be told apart. Changes:
 - The copy flow reads the text once before the copy; a sequence change that leaves the same text no
   longer ends the wait (it made the overlay hide although the new item was still coming).
 
+## Follow-up 4 (maintainer report and log, v0.4.26)
+
+Hotkey presses now take 130–160 ms; no main or renderer stalls were logged, and clicks reached the
+page. The overlay breaks after a **hide → show without focus** cycle: an `Alt+T` whose copy does not
+arrive hides it, the next `Alt+T` shows it with `showInactive`, and that window no longer reacts.
+The first show after start (`show` + focus) works.
+
+Working hypothesis: Chromium's native window occlusion tracking keeps treating the overlay as hidden
+after `showInactive` over the fullscreen game, so the page stops painting. Changes:
+
+- `--disable-features=CalculateNativeWinOcclusion`.
+- Every show without focus is followed by `webContents.invalidate()` (fresh frame).
+- `renderer:visibility` in the log (page visible/hidden plus whether the window is shown); a hidden
+  page in a shown window confirms the hypothesis.
+
 ## Out of scope
 
 - Any change to the copy sequence or the bounded wait (spec 010, 016) before the timings show the
