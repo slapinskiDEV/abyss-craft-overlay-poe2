@@ -1,6 +1,7 @@
 // EN clipboard adapter (spec 004 pipeline). Structural tokens come from EN_GRAMMAR; every entity
 // name is resolved through the data pack. Nothing is guessed: ambiguity stays visible.
 import type { AffixSide, BaseItemDefinition, DataPack, ModifierDefinition } from '../../data/normalized/types';
+import { isOrdinarilySpawnable } from '../../domain/modifiers/spawn-weight';
 import { AffixMatcher, summarize, type AffixCandidates } from '../common/affix-matcher';
 import { StatMatcher, type StatMatch } from '../common/stat-matcher';
 import { normalizeClipboard, splitSections, type Line } from '../common/text';
@@ -109,7 +110,17 @@ export function createEnAdapter(pack: DataPack): ClipboardParserAdapter {
     if (!advanced && rawAffixes.length > 0) diagnostics.push({ code: 'NORMAL_COPY_LIMITED_DETAIL', severity: 'info' });
 
     const baseDomain = base.domain;
-    const plausible = (m: ModifierDefinition): boolean => m.sourceKind === 'desecrated_exclusive' || m.domain === baseDomain;
+    // Spec 004 step 7. An exclusive counts only where the engine's pool would allow it (its spawn
+    // weights on the base tags, or the Otherworldly jewellery classes): an exclusive of another base
+    // must not mark the item as already Desecrated (spec 017 C2). Regular rows stay domain-wide:
+    // the Mark and other non-rolling regular rows have zero ordinary weight but occur on items.
+    const baseTags = new Set(base.tags);
+    const plausible = (m: ModifierDefinition): boolean =>
+      m.sourceKind === 'desecrated_exclusive'
+        ? m.specialPools.includes('otherworldly')
+          ? m.otherworldlyJewelleryClasses.some((t) => baseTags.has(t))
+          : isOrdinarilySpawnable(m.spawnWeights, baseTags)
+        : m.domain === baseDomain;
     const parsedAffixes = advanced
       ? rawAffixes.map((a) => toParsedAffix(a, candidatesForBlock(a, plausible), use))
       : readNormalAffixes(rawAffixes, plausible, diagnostics);

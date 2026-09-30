@@ -20,6 +20,7 @@ const pack = testPack({
     mod('TEST_ONLY_MOD_AMBIG_A', { side: 'suffix', groups: ['TEST_ONLY_GROUP_A'], stats: [{ id: 'TEST_ONLY_stat_amb', min: 1, max: 10 }] }),
     mod('TEST_ONLY_MOD_AMBIG_B', { side: 'suffix', groups: ['TEST_ONLY_GROUP_B'], stats: [{ id: 'TEST_ONLY_stat_amb', min: 1, max: 10 }] }),
     mod('TEST_ONLY_MOD_EXCL', { side: 'suffix', domain: 'desecrated', sourceKind: 'desecrated_exclusive', stats: [{ id: 'TEST_ONLY_stat_excl', min: 1, max: 5 }] }),
+    mod('TEST_ONLY_MOD_EXCL_OTHER_BASE', { side: 'suffix', domain: 'desecrated', sourceKind: 'desecrated_exclusive', spawnWeights: [{ tag: 'TEST_ONLY_tag_mace', weight: 1 }, { tag: 'default', weight: 0 }], stats: [{ id: 'TEST_ONLY_stat_excl_other', min: 1, max: 5 }] }),
     mod('TEST_ONLY_MOD_MARK', { canonicalNameEn: 'TEST_ONLY Marked', spawnWeights: [{ tag: 'default', weight: 0 }], stats: [{ id: 'TEST_ONLY_stat_mark', min: 1, max: 1 }] }),
     mod('TEST_ONLY_MOD_NEG', { side: 'suffix', stats: [{ id: 'TEST_ONLY_stat_neg', min: -10, max: -5 }] }),
   ],
@@ -28,6 +29,7 @@ const pack = testPack({
     translation(['TEST_ONLY_stat_str'], '+{0} to TEST_ONLY Strength'),
     translation(['TEST_ONLY_stat_amb'], '{0}% increased TEST_ONLY Ambiguity'),
     translation(['TEST_ONLY_stat_excl'], '{0}% increased TEST_ONLY Exclusive Power'),
+    translation(['TEST_ONLY_stat_excl_other'], '{0}% increased TEST_ONLY Mace Power'),
     translation(['TEST_ONLY_stat_mark'], 'Bears the TEST_ONLY Mark'),
     translation(['TEST_ONLY_stat_neg'], '{0}% reduced TEST_ONLY Cost', [['negate']]),
   ],
@@ -118,6 +120,13 @@ describe('Abyss state', () => {
     const r = ok(parser.parse(item('{ Suffix Modifier — TEST_ONLY }\n3(1-5)% increased TEST_ONLY Exclusive Power'), 'auto'));
     expect(r.item.abyss.existingDesecration).toBe('present');
     expect(r.item.abyss.hasRevealedDesecratedModifier).toBe(true);
+  });
+
+  it('ignores an exclusive modifier that cannot occur on the base (spec 017 C2)', () => {
+    const r = ok(parser.parse(item('{ Suffix Modifier — TEST_ONLY }\n3(1-5)% increased TEST_ONLY Mace Power'), 'auto'));
+    expect(r.item.suffixes[0]?.candidateModifierIds).toEqual([]);
+    expect(r.item.abyss.existingDesecration).not.toBe('present');
+    expect(r.diagnostics.map((d) => d.code)).toContain('AFFIX_UNRESOLVED');
   });
 
   it('reads negated values through RePoE handlers', () => {
