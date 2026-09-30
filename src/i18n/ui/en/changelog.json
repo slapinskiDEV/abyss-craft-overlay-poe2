@@ -52,6 +52,14 @@
         "Filters no longer get stuck: a new item starts without the previous item's category and level filters.",
         "Unidentified and mirrored items show only the pool for the base, and free slots are not guessed."
       ]
+    },
+    "2026-09-30c": {
+      "heading": "2026-09-30 (title bar fix)",
+      "items": [
+        "The × and settings buttons work again, and clicking the title bar no longer freezes the overlay.",
+        "Drag the overlay by its title.",
+        "The debug report now includes how long the hotkey copy took; please attach it if switching items feels slow."
+      ]
     }
   }
 }

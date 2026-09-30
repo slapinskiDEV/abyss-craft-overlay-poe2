@@ -82,4 +82,19 @@ export interface OverlayApi {
   releaseKeyboardFocus(): void;
   /** Result of the last hotkey registration; a failure at startup is shown in the overlay (spec 017 A7). */
   getHotkeyStatus(): Promise<HotkeyRegistrationResult>;
+  /** Moves the window while the title bar is dragged (spec 018: no OS drag region). */
+  moveWindowBy(dx: number, dy: number): void;
+  /** Timings of the last hotkey copies, newest last (spec 018). */
+  getCopyTimings(): Promise<CopyTiming[]>;
+}
+
+/** One hotkey press with auto-copy: where the time went (spec 018). */
+export interface CopyTiming {
+  at: string;
+  /** From the hotkey to the copy shortcut sent. */
+  sendMs: number;
+  /** From the hotkey until the clipboard changed, or the bounded wait ended. */
+  totalMs: number;
+  clipboardChanged: boolean;
+  action: 'show' | 'hide' | 'refresh';
 }

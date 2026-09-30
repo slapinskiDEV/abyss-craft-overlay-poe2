@@ -27,6 +27,7 @@ maintainer-decision overrides of the SoT in this spec set.
 | 016 | `016-hotkey-latency.md` | Hotkey latency, loading state (SoT 0.2.13) | 010, 015 |
 | 015 | `015-focus-and-hotkey.md` | Overlay keeps keyboard focus in the game; default hotkey Alt+T (SoT 0.2.12) | 010, 012 |
 | 014 | `014-item-defaults.md` | Default Bone and side filter for a new item (SoT 0.2.11) | 009, 012 |
+| 018 | `018-title-bar-and-timings.md` | Title bar without an OS drag region; hotkey timings in the debug report | 001, 015, 016 |
 | 017 | `017-pre-video-stabilization.md` | **Open:** stabilization and release process before the public video | 008, 010, 011, 015, 016 |
 
 ## Implementation order (SoT §23)

@@ -1,16 +1,16 @@
 // Electron main process (spec 001). Runtime path: user clipboard -> overlay (SoT §3.1).
 import { app, dialog, ipcMain, type BrowserWindow, type Tray } from 'electron';
-import type { AppInfo, AppSettings, ClipboardSnapshot, DataPackLoadResult, HotkeyRegistrationResult } from '../preload/api-types';
+import type { AppInfo, AppSettings, ClipboardSnapshot, CopyTiming, DataPackLoadResult, HotkeyRegistrationResult } from '../preload/api-types';
 import { IPC } from '../shared/ipc-channels';
 import { LATEST_CHANGELOG_ENTRY, pendingChangelog } from '../shared/changelog';
 import { readClipboardSnapshot, writeDebugReportToClipboard } from './clipboard';
-import { copyThenRead } from './copy-flow';
+import { copyThenReadDetailed } from './copy-flow';
 import { createAppUpdater } from './app-update';
 import { sendCopyShortcut } from './copy-shortcut';
 import { loadDataPackFile } from './data-pack-loader';
 import { decideHotkeyAction } from './hotkey-action';
 import { dataPackPath } from './resource-paths';
-import { validAcceleratorPayload, validDebugReport } from './ipc-validation';
+import { validAcceleratorPayload, validDebugReport, validMoveDelta } from './ipc-validation';
 import { allowKeyboardFocus, centerOnPrimary, createOverlayWindow, releaseKeyboardFocus } from './overlay-window';
 import { SettingsStore } from './settings';
 import { registerToggleHotkey, unregisterAll } from './shortcuts';
@@ -36,6 +36,8 @@ let lastSnapshot: ClipboardSnapshot | null = null;
 let autoCopyEnabled = (): boolean => false;
 let hotkeyBusy = false;
 let hotkeyStatus: HotkeyRegistrationResult | null = null;
+/** Last hotkey copies, for the debug report (spec 018). */
+const copyTimings: CopyTiming[] = [];
 
 const packPath = () => dataPackPath({ isPackaged: app.isPackaged, resourcesPath: process.resourcesPath, appPath: app.getAppPath() });
 
@@ -79,17 +81,34 @@ function toggle(): void {
   if (focused) releaseKeyboardFocus(target);
   const refocus = focused ? (target.hide(), sleep(REFOCUS_MS)) : Promise.resolve();
   const busy = (on: boolean) => target.webContents.send(IPC.copyBusy, on);
-  const read = refocus.then(() => {
+  const started = performance.now();
+  let sentAt = started;
+  let timing: Pick<CopyTiming, 'clipboardChanged'> | null = null;
+  const read = refocus.then(async () => {
     if (!autoCopyEnabled()) return readClipboardSnapshot();
     // Immediate feedback (spec 016): show the overlay without focus and a loading state while the
     // game copies the item.
     busy(true);
     if (!target.isVisible()) target.showInactive();
-    return copyThenRead({ read: readClipboardSnapshot, sendCopy: sendCopyShortcut, sleep });
+    const result = await copyThenReadDetailed({
+      read: readClipboardSnapshot,
+      sendCopy: async () => {
+        const sent = await sendCopyShortcut();
+        sentAt = performance.now();
+        return sent;
+      },
+      sleep,
+    });
+    timing = { clipboardChanged: result.changed };
+    return result.snapshot;
   });
   void read
     .then((snapshot) => {
       const action = decideHotkeyAction(visible, lastSnapshot?.text, snapshot.text);
+      if (timing) {
+        copyTimings.push({ at: new Date().toISOString(), sendMs: Math.round(sentAt - started), totalMs: Math.round(performance.now() - started), clipboardChanged: timing.clipboardChanged, action });
+        if (copyTimings.length > 10) copyTimings.shift();
+      }
       if (action === 'hide') target.hide();
       else deliver(target, snapshot, false);
     })
@@ -197,6 +216,14 @@ app.whenReady().then(() => {
   });
   ipcMain.handle(IPC.getUpdateStatus, () => updater.status());
   ipcMain.handle(IPC.getHotkeyStatus, () => hotkeyStatus);
+  ipcMain.handle(IPC.getCopyTimings, () => copyTimings);
+  // Title-bar drag in JS (spec 018): an OS drag region in a non-focusable window swallowed clicks on
+  // the title-bar buttons and froze the overlay on Windows.
+  ipcMain.on(IPC.moveWindowBy, (_e, dx: unknown, dy: unknown) => {
+    if (!win || !validMoveDelta(dx, dy)) return;
+    const [x = 0, y = 0] = win.getPosition();
+    win.setPosition(x + (dx as number), y + (dy as number));
+  });
   ipcMain.on(IPC.startUpdate, () => updater.start());
   ipcMain.on(IPC.requestKeyboardFocus, () => win && allowKeyboardFocus(win));
   ipcMain.on(IPC.releaseKeyboardFocus, () => win && releaseKeyboardFocus(win));

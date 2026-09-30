@@ -1,7 +1,7 @@
 // Serializable debug report (SoT §15.3). Raw clipboard text only with explicit consent.
 import type { DesecrationEvaluation } from '../../domain/desecration/types';
 import type { ParsedItemResult } from '../../parser/common/types';
-import type { AppInfo } from '../../preload/api-types';
+import type { AppInfo, CopyTiming } from '../../preload/api-types';
 
 export interface DebugReportInput {
   appInfo: AppInfo | null;
@@ -12,6 +12,8 @@ export interface DebugReportInput {
   includeRawText: boolean;
   rawText: string;
   gameTermDiagnostics: readonly unknown[];
+  /** Hotkey copy timings from main and item render times in ms, newest last (spec 018). */
+  timings?: { copy: readonly CopyTiming[]; renderMs: readonly number[] };
 }
 
 export function buildDebugReport(input: DebugReportInput): string {
@@ -46,6 +48,7 @@ export function buildDebugReport(input: DebugReportInput): string {
         }
       : null,
     gameTermDiagnostics: input.gameTermDiagnostics,
+    ...(input.timings ? { timings: { copy: [...input.timings.copy], renderMs: [...input.timings.renderMs] } } : {}),
     ...(input.includeRawText ? { rawText: input.rawText } : {}),
   };
   return JSON.stringify(report, null, 2);

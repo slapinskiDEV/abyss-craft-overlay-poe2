@@ -45,6 +45,8 @@ function fakeApi(overrides: { pack?: DataPackLoadResult; settings?: Partial<AppS
     requestKeyboardFocus: vi.fn(),
     releaseKeyboardFocus: vi.fn(),
     getHotkeyStatus: async () => overrides.hotkey ?? { ok: true, accelerator: settings.hotkey },
+    moveWindowBy: vi.fn(),
+    getCopyTimings: async () => [],
   };
   return { api, pushClipboard: (text: string) => {
       lastSnapshot = { text, readAt: '' };
@@ -244,6 +246,30 @@ describe('overlay UI (spec 006)', () => {
   it('always shows the GGG notice', async () => {
     await mount(armour);
     expect(screen.getByText("This product isn't affiliated with or endorsed by Grinding Gear Games in any way.")).toBeTruthy();
+  });
+});
+
+describe('title bar without an OS drag region (spec 018)', () => {
+  it('opens the settings and closes the overlay with the title-bar buttons', async () => {
+    const f = await mount(armour);
+    fireEvent.click(screen.getByRole('button', { name: 'Settings' }));
+    expect(screen.getByRole('button', { name: 'Settings' }).getAttribute('aria-pressed')).toBe('true');
+    fireEvent.click(screen.getByRole('button', { name: 'Close' }));
+    expect(f.api.hideOverlay).toHaveBeenCalled();
+  });
+
+  it('moves the window by the pointer delta while the title is dragged', async () => {
+    const f = await mount(armour);
+    const title = document.querySelector('.titlebar .drag') as HTMLElement;
+    title.setPointerCapture = () => undefined;
+    title.hasPointerCapture = () => true;
+    title.releasePointerCapture = () => undefined;
+    fireEvent.pointerDown(title, { button: 0, screenX: 100, screenY: 100, pointerId: 1 });
+    fireEvent.pointerMove(title, { screenX: 130, screenY: 90, pointerId: 1 });
+    fireEvent.pointerUp(title, { pointerId: 1 });
+    fireEvent.pointerMove(title, { screenX: 200, screenY: 200, pointerId: 1 });
+    expect(f.api.moveWindowBy).toHaveBeenCalledTimes(1);
+    expect(f.api.moveWindowBy).toHaveBeenCalledWith(30, -10);
   });
 });
 

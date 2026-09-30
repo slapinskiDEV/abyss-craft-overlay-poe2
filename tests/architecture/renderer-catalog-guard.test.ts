@@ -19,6 +19,12 @@ describe('renderer catalog guard', () => {
   });
 });
 
+describe('title bar (spec 018)', () => {
+  it('declares no OS drag region: in the non-focusable overlay it swallowed button clicks on Windows', () => {
+    expect(readFileSync(join('src', 'renderer', 'styles', 'theme.css'), 'utf8')).not.toMatch(/app-region/);
+  });
+});
+
 describeRealData('renderer catalog guard against the real pack', () => {
   it('contains no real Bone, Omen, currency, base, class or pool name or ID', () => {
     const pack = JSON.parse(readFileSync('src/data/normalized/pack/pack.json', 'utf8')) as DataPack;

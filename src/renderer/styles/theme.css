@@ -54,15 +54,15 @@ body {
 .titlebar {
   display: flex; align-items: center; gap: 6px; padding: 7px 10px 7px 14px; flex: none;
   background: rgba(7, 8, 11, 0.88); border-bottom: 1px solid var(--line-soft);
-  -webkit-app-region: drag; z-index: 2; backdrop-filter: blur(6px);
+  z-index: 2; backdrop-filter: blur(6px);
 }
-.titlebar .drag { flex: 1; }
+.titlebar .drag { flex: 1; cursor: grab; user-select: none; touch-action: none; }
+.titlebar .drag:active { cursor: grabbing; }
 .brand { display: flex; align-items: center; gap: 9px; color: var(--muted); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
 .sigil {
   width: 10px; height: 10px; transform: rotate(45deg); border: 1.5px solid var(--abyss);
   box-shadow: 0 0 8px var(--abyss), inset 0 0 4px var(--abyss); background: var(--ink);
 }
-.titlebar button { -webkit-app-region: no-drag; }
 
 /* Controls ----------------------------------------------------------------------------------- */
 button, select, input {

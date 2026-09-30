@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { DataPack } from '../../data/normalized/types';
 import { affixSlots, boneOptions, defaultBoneId, defaultSides, evaluateDesecration, usableOmenIds } from '../../domain';
@@ -35,11 +35,15 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
   const [includeRaw, setIncludeRaw] = useState(false);
   const [selected, setSelected] = useState<ModifierRow | null>(null);
   const [copied, setCopied] = useState(false);
+  // Time from a new clipboard text to the next painted frame, last ten items (spec 018).
+  const renderStart = useRef<number | null>(null);
+  const renderTimes = useRef<number[]>([]);
 
   useEffect(() => {
     let pushed = false;
     const off = api.onClipboardSnapshot((snap) => {
       pushed = true;
+      renderStart.current = performance.now();
       dispatch({ type: 'clipboard', text: snap.text });
     });
     // A snapshot pushed before this component subscribed is served from main's cache (spec 009).
@@ -78,6 +82,15 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
     dispatch({ type: 'keepSelectable', boneIds: bones, omenIds: omens, ...(targetGroup ? { targetGroup } : {}), ...(fallbackBone ? { defaultBoneId: fallbackBone } : {}) });
   }, [item, pack, targetGroup, state.boneId]);
 
+  useEffect(() => {
+    const start = renderStart.current;
+    if (start === null) return;
+    renderStart.current = null;
+    requestAnimationFrame(() => {
+      renderTimes.current = [...renderTimes.current.slice(-9), Math.round(performance.now() - start)];
+    });
+  }, [state.rawText]);
+
   const slots = useMemo(() => (item ? affixSlots(item, pack) : null), [item, pack]);
   // Each new item starts with the side filter matching its free slots (spec 014).
   useEffect(() => {
@@ -99,8 +112,16 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
   const bothSources = evaluation !== null && evaluation.basePool.sides.length > 0 && evaluation.branches.length > 0;
 
   const copyDebugReport = () => {
-    const text = buildDebugReport({ appInfo, parse: result, evaluation, boneId: state.boneId, omenIds: state.omenIds, includeRawText: includeRaw, rawText: state.rawText, gameTermDiagnostics: game.diagnostics() });
-    void api.writeDebugReport(text).then(() => setCopied(true)).catch(logIpcError);
+    void api
+      .getCopyTimings()
+      .catch(() => [])
+      .then((copy) => {
+        const timings = { copy, renderMs: renderTimes.current };
+        const text = buildDebugReport({ appInfo, parse: result, evaluation, boneId: state.boneId, omenIds: state.omenIds, includeRawText: includeRaw, rawText: state.rawText, gameTermDiagnostics: game.diagnostics(), timings });
+        return api.writeDebugReport(text);
+      })
+      .then(() => setCopied(true))
+      .catch(logIpcError);
   };
   // The "copied" note clears itself so a later copy is confirmed again (spec 017 B7).
   useEffect(() => {

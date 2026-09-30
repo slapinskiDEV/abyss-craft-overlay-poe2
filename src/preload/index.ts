@@ -29,6 +29,8 @@ const api: OverlayApi = {
   requestKeyboardFocus: () => ipcRenderer.send(IPC.requestKeyboardFocus),
   releaseKeyboardFocus: () => ipcRenderer.send(IPC.releaseKeyboardFocus),
   getHotkeyStatus: () => ipcRenderer.invoke(IPC.getHotkeyStatus),
+  moveWindowBy: (dx, dy) => ipcRenderer.send(IPC.moveWindowBy, dx, dy),
+  getCopyTimings: () => ipcRenderer.invoke(IPC.getCopyTimings),
 };
 
 contextBridge.exposeInMainWorld('overlayApi', api);

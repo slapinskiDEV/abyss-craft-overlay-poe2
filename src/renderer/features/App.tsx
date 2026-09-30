@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { I18nextProvider, useTranslation } from 'react-i18next';
 import type { i18n as I18n } from 'i18next';
 import type { DataPack } from '../../data/normalized/types';
@@ -75,6 +75,7 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
   const changelog = pendingChangelog(settings.changelogSeen);
   const busy = useCopyBusy(api);
   const hotkeyError = useHotkeyError(api, settings.hotkey);
+  const drag = useTitleBarDrag(api);
   // The overlay keeps keyboard focus in the game (spec 015); only text fields take it, while typing.
   const isTextField = (el: EventTarget | null) => el instanceof HTMLElement && el.closest('input, select, textarea') !== null;
 
@@ -95,7 +96,7 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
       ) : null}
       {changelog.length > 0 ? <ChangelogDialog entries={changelog} onClose={() => void api.updateSettings({ changelogSeen: LATEST_CHANGELOG_ENTRY })} /> : null}
       <div className="titlebar">
-        <span className="drag brand">
+        <span className="drag brand" {...drag}>
           <span className="sigil" aria-hidden="true" />
           PoE2 Abyss Craft Overlay
         </span>
@@ -157,6 +158,39 @@ function StartupErrorText() {
       <p>{t('common:startupFailedBody')}</p>
     </>
   );
+}
+
+/**
+ * Title-bar drag without an OS drag region (spec 018): on Windows a `-webkit-app-region: drag` area
+ * in the non-focusable overlay swallowed clicks on the title-bar buttons and froze the window.
+ * Pointer capture keeps the moves coming while the cursor leaves the window.
+ */
+function useTitleBarDrag(api: OverlayApi) {
+  // A ref, not render state: moving the window saves its bounds, which re-renders the shell.
+  const last = useRef<{ x: number; y: number } | null>(null);
+  return {
+    onPointerDown: (e: React.PointerEvent<HTMLElement>) => {
+      if (e.button !== 0) return;
+      e.currentTarget.setPointerCapture(e.pointerId);
+      last.current = { x: e.screenX, y: e.screenY };
+    },
+    onPointerMove: (e: React.PointerEvent<HTMLElement>) => {
+      const from = last.current;
+      if (!from) return;
+      const dx = Math.round(e.screenX - from.x);
+      const dy = Math.round(e.screenY - from.y);
+      if (dx === 0 && dy === 0) return;
+      last.current = { x: from.x + dx, y: from.y + dy };
+      api.moveWindowBy(dx, dy);
+    },
+    onPointerUp: (e: React.PointerEvent<HTMLElement>) => {
+      last.current = null;
+      if (e.currentTarget.hasPointerCapture(e.pointerId)) e.currentTarget.releasePointerCapture(e.pointerId);
+    },
+    onPointerCancel: () => {
+      last.current = null;
+    },
+  };
 }
 
 /** The hotkey that could not be registered (e.g. taken by another program), or null (spec 017 A7). */

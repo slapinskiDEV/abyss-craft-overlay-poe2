@@ -52,6 +52,14 @@
         "Filtry już się nie zacinają: nowy przedmiot startuje bez filtrów kategorii i poziomu z poprzedniego.",
         "Przedmioty niezidentyfikowane i mirrored pokazują tylko pulę dla bazy, a wolne sloty nie są zgadywane."
       ]
+    },
+    "2026-09-30c": {
+      "heading": "30.09.2026 (poprawka paska tytułu)",
+      "items": [
+        "Przyciski × i ustawień znowu działają, a kliknięcie w pasek tytułu nie zawiesza już nakładki.",
+        "Nakładkę przesuwasz, przeciągając jej tytuł.",
+        "Raport debug zawiera teraz czas kopiowania przedmiotu po skrócie; dołącz go, jeśli przełączanie przedmiotów wydaje się wolne."
+      ]
     }
   }
 }
