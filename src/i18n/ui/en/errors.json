@@ -2,5 +2,7 @@
   "notAnItem": "Copy a Path of Exile 2 item first, then open the overlay again.",
   "unsupportedClipboardLocale": "This version reads item text from an English game client only.",
   "hotkeyRegistrationFailed": "The hotkey {{accelerator}} is already in use. Choose another one.",
-  "hotkeyInvalid": "{{accelerator}} is not a valid hotkey."
+  "hotkeyInvalid": "{{accelerator}} is not a valid hotkey.",
+  "renderFailedTitle": "Something went wrong with this item",
+  "renderFailedDetail": "The overlay could not show this item. Copy another item, or read the clipboard again. If it keeps happening, copy the debug report and open an issue."
 }

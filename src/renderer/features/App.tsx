@@ -9,6 +9,7 @@ import { createClipboardParser } from '../../parser/registry';
 import type { AppInfo, AppSettings, DataPackLoadResult, OverlayApi } from '../../preload/api-types';
 import { pendingChangelog, LATEST_CHANGELOG_ENTRY } from '../../shared/changelog';
 import { ChangelogDialog } from './Changelog';
+import { WorkspaceErrorBoundary } from './ErrorBoundary';
 import { GameTermsContext } from './game-terms';
 import { Onboarding } from './Onboarding';
 import { SettingsPanel } from './SettingsPanel';
@@ -106,7 +107,9 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
         <GameTermsContext.Provider value={game}>
           {!settings.onboardingCompleted ? <Onboarding hotkey={settings.hotkey} onDismiss={() => void api.updateSettings({ onboardingCompleted: true })} /> : null}
           {showSettings ? <SettingsPanel api={api} settings={settings} appInfo={appInfo} sources={pack.manifest.sources} /> : null}
-          <Workspace api={api} pack={pack} parse={parse} settings={settings} appInfo={appInfo} />
+          <WorkspaceErrorBoundary api={api} t={t} appVersion={appInfo?.appVersion}>
+            <Workspace api={api} pack={pack} parse={parse} settings={settings} appInfo={appInfo} />
+          </WorkspaceErrorBoundary>
         </GameTermsContext.Provider>
       )}
     </div>

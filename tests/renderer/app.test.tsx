@@ -246,6 +246,31 @@ describe('overlay UI (spec 006)', () => {
   });
 });
 
+describe('render errors (spec 017 B1)', () => {
+  it('shows a fallback instead of a blank overlay, and the next item restores the workspace', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    try {
+      const f = fakeApi();
+      const parse: ParseFn = (raw, locale) => {
+        if (raw === 'TEST_ONLY broken item') throw new Error('TEST_ONLY parse failure');
+        return parseAs(armour)(raw, locale);
+      };
+      render(<App api={f.api} parseOverride={parse} />);
+      await screen.findByRole('button', { name: 'Copy debug report' });
+      act(() => f.pushClipboard('TEST_ONLY broken item'));
+      expect(await screen.findByText('Something went wrong with this item')).toBeTruthy();
+      fireEvent.click(screen.getByRole('button', { name: 'Copy debug report' }));
+      await waitFor(() => expect(f.api.writeDebugReport).toHaveBeenCalledWith(expect.stringContaining('TEST_ONLY parse failure')));
+      expect(vi.mocked(f.api.writeDebugReport).mock.calls[0]?.[0]).not.toContain('TEST_ONLY broken item');
+      act(() => f.pushClipboard('TEST_ONLY good item'));
+      await waitFor(() => expect(document.querySelector('.item-preview')).not.toBeNull());
+      expect(screen.queryByText('Something went wrong with this item')).toBeNull();
+    } finally {
+      error.mockRestore();
+    }
+  });
+});
+
 describe('app update and release notes (spec 011)', () => {
   it('shows the release notes after an update in the UI language, once', async () => {
     const { api } = fakeApi({ settings: { changelogSeen: null } });

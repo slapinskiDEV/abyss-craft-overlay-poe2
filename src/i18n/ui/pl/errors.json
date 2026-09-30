@@ -2,5 +2,7 @@
   "notAnItem": "Najpierw skopiuj przedmiot z Path of Exile 2, a potem otwórz nakładkę ponownie.",
   "unsupportedClipboardLocale": "Ta wersja odczytuje tekst przedmiotów tylko z angielskiego klienta gry.",
   "hotkeyRegistrationFailed": "Skrót {{accelerator}} jest już zajęty. Wybierz inny.",
-  "hotkeyInvalid": "{{accelerator}} nie jest poprawnym skrótem."
+  "hotkeyInvalid": "{{accelerator}} nie jest poprawnym skrótem.",
+  "renderFailedTitle": "Coś poszło nie tak z tym przedmiotem",
+  "renderFailedDetail": "Nakładka nie mogła pokazać tego przedmiotu. Skopiuj inny przedmiot albo wczytaj schowek ponownie. Jeśli to się powtarza, skopiuj raport debug i załóż zgłoszenie (issue)."
 }
