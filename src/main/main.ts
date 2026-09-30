@@ -1,5 +1,5 @@
 // Electron main process (spec 001). Runtime path: user clipboard -> overlay (SoT §3.1).
-import { app, ipcMain, type BrowserWindow } from 'electron';
+import { app, dialog, ipcMain, type BrowserWindow, type Tray } from 'electron';
 import type { AppInfo, AppSettings, ClipboardSnapshot, DataPackLoadResult } from '../preload/api-types';
 import { IPC } from '../shared/ipc-channels';
 import { LATEST_CHANGELOG_ENTRY, pendingChangelog } from '../shared/changelog';
@@ -16,12 +16,19 @@ import { SettingsStore } from './settings';
 import { registerToggleHotkey, unregisterAll } from './shortcuts';
 import { createTray } from './tray';
 import { UI_LOCALES } from '../i18n/ui/registry';
+import { resolveUiLocale } from '../i18n/resolve-locale';
 
 const uiResources = (locale: string) => (UI_LOCALES.find((l) => l.id === locale) ?? UI_LOCALES[0]).resources;
 
-if (!app.requestSingleInstanceLock()) app.quit();
+// A second copy exits at once, before it creates a window or tray or touches the settings file;
+// the first copy shows its overlay (`second-instance`). `app.quit()` would still run `whenReady`
+// (spec 017 A4).
+const primaryInstance = app.requestSingleInstanceLock();
+if (!primaryInstance) app.exit(0);
 
 let win: BrowserWindow | null = null;
+/** Held for the app's lifetime: an unreferenced Tray can be garbage-collected (spec 017 A1). */
+let tray: Tray | null = null;
 let quitting = false;
 let packResult: DataPackLoadResult | null = null;
 /** Last snapshot pushed to the renderer; served to a renderer that subscribed late. */
@@ -89,7 +96,16 @@ function toggle(): void {
     });
 }
 
-void app.whenReady().then(() => {
+/** A startup error must not leave a process without window, tray or hotkey (spec 017 A3). */
+function failStartup(error: unknown): void {
+  console.error('startup failed', error);
+  const common = uiResources(resolveUiLocale(app.getLocale())).common;
+  dialog.showErrorBox(common.startupFailedTitle, `${common.startupFailedBody}\n\n${String(error)}`);
+  app.exit(1);
+}
+
+app.whenReady().then(() => {
+  if (!primaryInstance) return;
   const settings = new SettingsStore(app.getPath('userData'), app.getLocale());
   autoCopyEnabled = () => settings.get().autoCopy;
   // A fresh install starts with the current notes marked as read (spec 011).
@@ -101,7 +117,7 @@ void app.whenReady().then(() => {
     isQuitting: () => quitting,
   });
   const common = uiResources(settings.get().localization.uiLocale).common;
-  createTray({ show: common.trayShow, quit: common.trayQuit }, showOverlay, () => {
+  tray = createTray({ show: common.trayShow, quit: common.trayQuit }, showOverlay, () => {
     quitting = true;
     app.quit();
   });
@@ -164,7 +180,7 @@ void app.whenReady().then(() => {
     else registerToggleHotkey(settings.get().hotkey, toggle); // keep the previous one
     return result;
   });
-});
+}).catch(failStartup);
 
 app.on('second-instance', () => showOverlay());
 app.on('before-quit', () => {

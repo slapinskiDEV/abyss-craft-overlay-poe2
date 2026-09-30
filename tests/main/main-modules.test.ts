@@ -1,4 +1,4 @@
-import { mkdtempSync, writeFileSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
@@ -11,6 +11,7 @@ import { CHANGELOG_ENTRIES, LATEST_CHANGELOG_ENTRY, pendingChangelog } from '../
 import { loadDataPackFile } from '../../src/main/data-pack-loader';
 import { validDebugReport } from '../../src/main/ipc-validation';
 import { DEFAULT_HOTKEY, defaultSettings, mergeSettings, sanitizeSettings } from '../../src/main/settings-model';
+import { SettingsStore } from '../../src/main/settings';
 import { restoreBounds } from '../../src/main/window-bounds';
 import { testPack } from '../fixtures/data/test-only-pack';
 
@@ -82,6 +83,43 @@ describe('settings (spec 001)', () => {
     const s = mergeSettings(d, { localization: { uiLocale: 'pl' }, window: { x: 10, y: 20 } }, d);
     expect(s.localization).toEqual({ uiLocale: 'pl', gameLocale: 'en', clipboardLocale: 'auto' });
     expect(s.window).toMatchObject({ x: 10, y: 20, width: d.window.width });
+  });
+});
+
+describe('settings file errors never escape (spec 017 A2, A3)', () => {
+  const quiet = <T>(fn: () => T): T => {
+    const warn = console.warn;
+    console.warn = () => {};
+    try {
+      return fn();
+    } finally {
+      console.warn = warn;
+    }
+  };
+
+  it('keeps an update in memory when the file cannot be written', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'settings-'));
+    mkdirSync(join(dir, 'settings.json.tmp')); // writeFileSync on a directory fails
+    const store = new SettingsStore(dir, 'en-US');
+    const next = quiet(() => store.update({ closeOnBlur: true }));
+    expect(next.closeOnBlur).toBe(true);
+    expect(store.get().closeOnBlur).toBe(true);
+  });
+
+  it('starts with defaults when the file cannot be read or backed up', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'settings-'));
+    mkdirSync(join(dir, 'settings.json')); // unreadable as a file, and cannot be copied
+    const store = quiet(() => new SettingsStore(dir, 'pl-PL'));
+    expect(store.get()).toEqual(defaultSettings('pl-PL'));
+  });
+
+  it('backs up a corrupt file and writes valid settings on the next change', () => {
+    const dir = mkdtempSync(join(tmpdir(), 'settings-'));
+    writeFileSync(join(dir, 'settings.json'), '{ not json');
+    const store = new SettingsStore(dir, 'en-US');
+    store.update({ closeOnBlur: true });
+    expect(readFileSync(join(dir, 'settings.json.bak'), 'utf8')).toBe('{ not json');
+    expect(JSON.parse(readFileSync(join(dir, 'settings.json'), 'utf8')).closeOnBlur).toBe(true);
   });
 });
 

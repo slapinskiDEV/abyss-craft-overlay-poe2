@@ -21,6 +21,8 @@
   },
   "trayShow": "Pokaż nakładkę",
   "trayQuit": "Zakończ",
+  "startupFailedTitle": "Nie udało się uruchomić PoE2 Abyss Craft Overlay",
+  "startupFailedBody": "Coś poszło nie tak podczas uruchamiania nakładki. Uruchom ją ponownie. Jeśli to się powtarza, załóż zgłoszenie (issue) i dołącz poniższy tekst.",
   "copyDebugReport": "Kopiuj raport debug",
   "includeRawText": "Dołącz skopiowany tekst przedmiotu",
   "debugReportCopied": "Skopiowano raport debug.",
