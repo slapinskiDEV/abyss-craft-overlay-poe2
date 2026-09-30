@@ -247,6 +247,23 @@ describe('overlay UI (spec 006)', () => {
   });
 });
 
+describe('startup failure (spec 017 B4)', () => {
+  it('shows an error instead of an empty window when a startup call fails', async () => {
+    const error = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+    try {
+      const f = fakeApi();
+      f.api.getSettings = async () => {
+        throw new Error('TEST_ONLY settings IPC failed');
+      };
+      render(<App api={f.api} />);
+      expect(await screen.findByRole('alert')).toBeTruthy();
+      expect(screen.getByText(/could not start/)).toBeTruthy();
+    } finally {
+      error.mockRestore();
+    }
+  });
+});
+
 describe('hotkey taken at startup (spec 017 A7)', () => {
   it('shows which hotkey could not be registered', async () => {
     await mount(armour, { hotkey: { ok: false, code: 'HOTKEY_REGISTRATION_FAILED', accelerator: 'Alt+T' } });

@@ -4,7 +4,7 @@ import type { i18n as I18n } from 'i18next';
 import type { DataPack } from '../../data/normalized/types';
 import { createI18n } from '../../i18n/create-i18n';
 import { createGameTermProvider } from '../../i18n/game/providers/registry';
-import { isRegisteredUiLocale, resolveGameLocale } from '../../i18n/resolve-locale';
+import { isRegisteredUiLocale, resolveGameLocale, resolveUiLocale } from '../../i18n/resolve-locale';
 import { createClipboardParser } from '../../parser/registry';
 import type { AppInfo, AppSettings, DataPackLoadResult, OverlayApi } from '../../preload/api-types';
 import { pendingChangelog, LATEST_CHANGELOG_ENTRY } from '../../shared/changelog';
@@ -27,14 +27,22 @@ export function App({ api, parseOverride }: Props) {
   const [pack, setPack] = useState<DataPackLoadResult | null>(null);
   const [appInfo, setAppInfo] = useState<AppInfo | null>(null);
   const [i18n, setI18n] = useState<I18n | null>(null);
+  const [startupFailed, setStartupFailed] = useState(false);
 
   useEffect(() => {
-    void Promise.all([api.getSettings(), api.loadDataPack(), api.getAppInfo()]).then(async ([s, p, info]) => {
-      setSettings(s);
-      setPack(p);
-      setAppInfo(info);
-      setI18n(await createI18n(isRegisteredUiLocale(s.localization.uiLocale) ? s.localization.uiLocale : 'en'));
-    });
+    Promise.all([api.getSettings(), api.loadDataPack(), api.getAppInfo()])
+      .then(async ([s, p, info]) => {
+        setSettings(s);
+        setPack(p);
+        setAppInfo(info);
+        setI18n(await createI18n(isRegisteredUiLocale(s.localization.uiLocale) ? s.localization.uiLocale : 'en'));
+      })
+      // A failed start shows an error instead of an empty window forever (spec 017 B4).
+      .catch(async (error: unknown) => {
+        console.error('overlay startup failed', error);
+        setStartupFailed(true);
+        setI18n(await createI18n(resolveUiLocale(navigator.language)).catch(() => null));
+      });
     return api.onSettingsChanged(setSettings);
   }, [api]);
 
@@ -43,6 +51,7 @@ export function App({ api, parseOverride }: Props) {
     if (i18n && settings && i18n.language !== settings.localization.uiLocale) void i18n.changeLanguage(settings.localization.uiLocale);
   }, [i18n, settings]);
 
+  if (startupFailed) return <StartupError i18n={i18n} />;
   if (!settings || !pack || !i18n) return null;
   return (
     <I18nextProvider i18n={i18n}>
@@ -119,6 +128,34 @@ function Shell({ api, settings, packResult, appInfo, parseOverride }: { api: Ove
         </GameTermsContext.Provider>
       )}
     </div>
+  );
+}
+
+function StartupError({ i18n }: { i18n: I18n | null }) {
+  const body = i18n ? (
+    <I18nextProvider i18n={i18n}>
+      <StartupErrorText />
+    </I18nextProvider>
+  ) : (
+    // Only when even the UI texts failed to load: nothing to translate with.
+    <strong>PoE2 Abyss Craft Overlay could not start.</strong>
+  );
+  return (
+    <div className="app">
+      <section className="blocking-error" role="alert">
+        {body}
+      </section>
+    </div>
+  );
+}
+
+function StartupErrorText() {
+  const { t } = useTranslation();
+  return (
+    <>
+      <strong>{t('common:startupFailedTitle')}</strong>
+      <p>{t('common:startupFailedBody')}</p>
+    </>
   );
 }
 

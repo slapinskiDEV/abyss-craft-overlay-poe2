@@ -7,7 +7,8 @@ export function UpdateButton({ api }: { api: OverlayApi }) {
   const { t } = useTranslation();
   const [status, setStatus] = useState<UpdateStatus>({ state: 'none' });
   useEffect(() => {
-    void api.getUpdateStatus().then(setStatus);
+    // No status (e.g. IPC failed) simply shows no button (spec 017 B4).
+    void api.getUpdateStatus().then(setStatus).catch(() => undefined);
     return api.onUpdateStatus(setStatus);
   }, [api]);
 

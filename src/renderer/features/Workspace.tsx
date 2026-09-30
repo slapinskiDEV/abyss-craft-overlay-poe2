@@ -16,6 +16,9 @@ import { ResultSummary } from './Result';
 
 export type ParseFn = (raw: string, clipboardLocale: string) => ParsedItemResult;
 
+/** A failed IPC call keeps the current view instead of an unhandled rejection (spec 017 B4). */
+const logIpcError = (error: unknown) => console.error('overlay IPC call failed', error);
+
 interface Props {
   api: OverlayApi;
   pack: DataPack;
@@ -40,9 +43,12 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
       dispatch({ type: 'clipboard', text: snap.text });
     });
     // A snapshot pushed before this component subscribed is served from main's cache (spec 009).
-    void api.getLastSnapshot().then((snap) => {
-      if (snap && !pushed) dispatch({ type: 'clipboard', text: snap.text });
-    });
+    void api
+      .getLastSnapshot()
+      .then((snap) => {
+        if (snap && !pushed) dispatch({ type: 'clipboard', text: snap.text });
+      })
+      .catch(logIpcError);
     return off;
   }, [api]);
 
@@ -51,14 +57,14 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
       if (e.key === 'Escape') api.hideOverlay();
       // Ctrl+V in the overlay: explicit user request to read the clipboard (SoT §3.1).
       else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v' && !(e.target instanceof HTMLInputElement)) {
-        void api.readClipboard().then((s) => dispatch({ type: 'clipboard', text: s.text }));
+        void api.readClipboard().then((s) => dispatch({ type: 'clipboard', text: s.text })).catch(logIpcError);
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [api]);
 
-  const readClipboard = () => void api.readClipboard().then((s) => dispatch({ type: 'clipboard', text: s.text }));
+  const readClipboard = () => void api.readClipboard().then((s) => dispatch({ type: 'clipboard', text: s.text })).catch(logIpcError);
 
   const result = useMemo(() => parse(state.rawText, settings.localization.clipboardLocale), [parse, state.rawText, settings.localization.clipboardLocale]);
   const item = result.ok ? result.item : null;
@@ -88,13 +94,20 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
   const fallbackSource = evaluation ? defaultPoolSource(evaluation) : null;
   const source =
     evaluation && state.poolSource && (state.poolSource === 'base' ? evaluation.basePool.sides.length > 0 : evaluation.branches.length > 0) ? state.poolSource : fallbackSource;
+  const pool = useMemo(() => (evaluation && source ? poolBranches(evaluation, source) : null), [evaluation, source]);
   const branchId = state.selectedBranchId ?? evaluation?.branches[0]?.id ?? 'union';
   const bothSources = evaluation !== null && evaluation.basePool.sides.length > 0 && evaluation.branches.length > 0;
 
   const copyDebugReport = () => {
     const text = buildDebugReport({ appInfo, parse: result, evaluation, boneId: state.boneId, omenIds: state.omenIds, includeRawText: includeRaw, rawText: state.rawText, gameTermDiagnostics: game.diagnostics() });
-    void api.writeDebugReport(text).then(() => setCopied(true));
+    void api.writeDebugReport(text).then(() => setCopied(true)).catch(logIpcError);
   };
+  // The "copied" note clears itself so a later copy is confirmed again (spec 017 B7).
+  useEffect(() => {
+    if (!copied) return;
+    const timer = setTimeout(() => setCopied(false), 3000);
+    return () => clearTimeout(timer);
+  }, [copied]);
 
   return (
     <main className="workspace">
@@ -133,9 +146,9 @@ export function Workspace({ api, pack, parse, settings, appInfo, initialText = '
                   </div>
                 ) : null}
                 <ResultSummary evaluation={evaluation} source={source} />
-                {source ? (
+                {source && pool ? (
                   <ModifierPanel
-                    pool={poolBranches(evaluation, source)}
+                    pool={pool}
                     source={source}
                     branchId={branchId}
                     view={state.view}

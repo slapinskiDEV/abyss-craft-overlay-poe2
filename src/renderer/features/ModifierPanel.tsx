@@ -1,4 +1,4 @@
-import type { KeyboardEvent } from 'react';
+import { useMemo, type KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { DesecrationBranchResult } from '../../domain';
 import { diagnosticParams } from '../../i18n/format-diagnostic';
@@ -33,6 +33,9 @@ interface Props {
   onFilters: (patch: Partial<ModifierFilters>) => void;
 }
 
+/** Rows rendered at once; the rest is reached by filtering (spec 017 B5). */
+const MAX_ROWS = 300;
+
 const categoryClass = (c: ModifierCategoryId) => (c.startsWith('lich:') ? 'lich' : c.startsWith('special:') ? 'special' : c);
 
 export function ModifierPanel({ pool, source, branchId, view, filters, selectedId, openSideOnly, onSelect, onBranch, onView, onFilters }: Props) {
@@ -44,9 +47,13 @@ export function ModifierPanel({ pool, source, branchId, view, filters, selectedI
   const selected = effectiveBranch === 'union' ? pool.branches : pool.branches.filter((b) => b.id === effectiveBranch);
   const completeness = weakestCompleteness(selected);
   const heading = poolHeadingKey(completeness, source);
-  const categories = availableCategories(pool, view === 'blocked' ? undefined : view);
+  // Memoized: the full list is rebuilt only when its inputs change, not on every render (spec 017 B7).
+  const categories = useMemo(() => availableCategories(pool, view === 'blocked' ? undefined : view), [pool, view]);
   const levelFilters = (filters.minLevel !== undefined ? 1 : 0) + (filters.maxLevel !== undefined ? 1 : 0);
-  const rows = heading === null ? [] : buildRows(pool, effectiveBranch, view, withOfferedCategories(filters, categories), game);
+  const rows = useMemo(
+    () => (heading === null ? [] : buildRows(pool, effectiveBranch, view, withOfferedCategories(filters, categories), game)),
+    [heading, pool, effectiveBranch, view, filters, categories, game],
+  );
   // Pool names are official game terms from the data pack (spec 017 B3).
   const categoryLabel = (c: ModifierCategoryId) => (c === 'regular' || c === 'exclusive' ? t(`workspace:category.${c}`) : game.poolName(c).text);
   const branchLabel = (b: DesecrationBranchResult) =>
@@ -137,7 +144,7 @@ export function ModifierPanel({ pool, source, branchId, view, filters, selectedI
             <p className="empty">{t('workspace:noModifiers')}</p>
           ) : (
             <ul className="rows">
-              {rows.slice(0, 300).map((r) => (
+              {rows.slice(0, MAX_ROWS).map((r) => (
                 <li
                   key={r.modifierId}
                   data-modifier-id={r.modifierId}
@@ -166,7 +173,9 @@ export function ModifierPanel({ pool, source, branchId, view, filters, selectedI
                         {categoryLabel(c)}
                       </span>
                     ))}
-                    {!isBase && branchId === 'union' && r.coverage.of > 1 ? <span className="coverage">{t('workspace:coverage', r.coverage)}</span> : null}
+                    {!isBase && branchId === 'union' && r.coverage.of > 1 ? <span className="coverage" title={t('workspace:coverageTitle', r.coverage)}>
+                        {t('workspace:coverage', r.coverage)}
+                      </span> : null}
                   </span>
                   {r.reasons.length > 0 ? (
                     <span className="reason" title={r.reasons.map((x) => t(`reasons:${x.code}.detail`, diagnosticParams({ code: x.code, params: x.params as never }, game))).join('\n')}>
@@ -175,6 +184,11 @@ export function ModifierPanel({ pool, source, branchId, view, filters, selectedI
                   ) : null}
                 </li>
               ))}
+              {rows.length > MAX_ROWS ? (
+                <li className="note truncated" role="note">
+                  {t('workspace:rowsTruncated', { shown: MAX_ROWS, count: rows.length })}
+                </li>
+              ) : null}
             </ul>
           )}
         </>

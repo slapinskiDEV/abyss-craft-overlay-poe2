@@ -53,7 +53,10 @@ export function SettingsPanel({ api, settings, appInfo, sources }: { api: Overla
         <button
           type="button"
           onClick={() =>
-            void api.setHotkey(hotkey).then((r) => setHotkeyError(r.ok ? null : t(r.code === 'HOTKEY_INVALID' ? 'errors:hotkeyInvalid' : 'errors:hotkeyRegistrationFailed', { accelerator: r.accelerator })))
+            void api
+              .setHotkey(hotkey)
+              .then((r) => setHotkeyError(r.ok ? null : t(r.code === 'HOTKEY_INVALID' ? 'errors:hotkeyInvalid' : 'errors:hotkeyRegistrationFailed', { accelerator: r.accelerator })))
+              .catch(() => setHotkeyError(t('errors:hotkeyRegistrationFailed', { accelerator: hotkey })))
           }
         >
           {t('common:apply')}

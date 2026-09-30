@@ -40,10 +40,10 @@ vulnerabilities), Electron security settings (sandbox, context isolation, CSP, n
 | B1 | **done** | No React error boundary (`main.tsx:11-15`); parse/evaluate run during render (`Workspace.tsx:63`, `:84-87`) and `diagnostic.ts:22` throws on an unregistered code. Any throw → blank overlay until restart. | Error boundary around the workspace with a translated fallback, "Read clipboard again" and "Copy debug report", reset when a new clipboard text arrives. |
 | B2 | **done** | Category filter survives view switches and new items (`workspace.ts:47`), but chips are built only from the current view (`ModifierPanel.tsx:48`): a selected chip can vanish and leave "No modifiers match" with no way to turn it off. Min/max level carries over hidden in "More filters". | Drop categories not offered in the current view before filtering; reset level filters on a new item or show them as active. |
 | B3 | **done** | `rows.ts:139-146` `POOL_NAMES` hard-codes pool names in the renderer (CLAUDE.md guardrail 2, SoT §16.4); `ModifierPanel.tsx:49` falls back to the raw id. | Serve the names from the data pack / game-term provider with provenance. |
-| B4 | nice-to-have | Startup chain `App.tsx:31` has no `.catch`; a rejected IPC call leaves `null` forever. Same pattern in `Workspace.tsx:54,61,96`, `SettingsPanel.tsx:56`, `UpdateButton.tsx:10`. | Catch and show the existing blocking-error block. |
-| B5 | nice-to-have | `ModifierPanel.tsx:135` cuts the list at 300 rows while the count shows all. | Translated "showing 300 of N — refine the filter" note. |
-| B6 | nice-to-have | Branch coverage badge `{{count}}/{{of}}` (`:164`) has no label and can read like odds (SoT §16.5, §17). | Add a label/title "in N of M removal outcomes". |
-| B7 | nice-to-have | `buildRows`/`availableCategories` re-run on every keystroke; `copied` state never resets. | `useMemo`; reset `copied` after a few seconds. |
+| B4 | **done** | Startup chain `App.tsx:31` has no `.catch`; a rejected IPC call leaves `null` forever. Same pattern in `Workspace.tsx:54,61,96`, `SettingsPanel.tsx:56`, `UpdateButton.tsx:10`. | Catch and show the existing blocking-error block. |
+| B5 | **done** | `ModifierPanel.tsx:135` cuts the list at 300 rows while the count shows all. | Translated "showing 300 of N — refine the filter" note. |
+| B6 | **done** | Branch coverage badge `{{count}}/{{of}}` (`:164`) has no label and can read like odds (SoT §16.5, §17). | Add a label/title "in N of M removal outcomes". |
+| B7 | **done** | `buildRows`/`availableCategories` re-run on every keystroke; `copied` state never resets. | `useMemo`; reset `copied` after a few seconds. |
 
 ### C. Engine and parser (`src/domain/`, `src/parser/`)
 
