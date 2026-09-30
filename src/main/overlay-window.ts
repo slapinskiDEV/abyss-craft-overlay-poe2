@@ -16,6 +16,49 @@ export interface OverlayWindowOptions {
 /** Windows only: other desktops may never give an unfocusable window any input. */
 const KEEPS_GAME_FOCUS = process.platform === 'win32';
 
+/**
+ * Soft hide (spec 018 follow-up 6): on Windows a real hide() followed by showInactive() left the
+ * non-focusable, always-on-top overlay broken over the game (maintainer repro: press the hotkey twice
+ * on the same item, then once more). After its first show the window is never hidden by the OS
+ * again: "hidden" is fully transparent and click-through, "shown" restores both.
+ */
+const SOFT_HIDE = process.platform === 'win32';
+const softHidden = new WeakSet<BrowserWindow>();
+
+/** Whether the player can see the overlay (a soft-hidden window is not shown). */
+export function isOverlayShown(win: BrowserWindow): boolean {
+  return win.isVisible() && !softHidden.has(win);
+}
+
+export function hideOverlayWindow(win: BrowserWindow): void {
+  if (!SOFT_HIDE || !win.isVisible()) {
+    win.hide();
+    return;
+  }
+  // A real hide gave keyboard focus back to the game; a transparent window has to let go itself.
+  if (win.isFocused()) win.blur();
+  win.setIgnoreMouseEvents(true);
+  win.setOpacity(0);
+  softHidden.add(win);
+  log('window:soft-hide');
+}
+
+/** Shows the overlay; `focus` only where the window may take focus (never on Windows, spec 015). */
+export function showOverlayWindow(win: BrowserWindow, focus: boolean): void {
+  if (softHidden.has(win)) {
+    softHidden.delete(win);
+    win.setOpacity(1);
+    win.setIgnoreMouseEvents(false);
+    win.moveTop();
+    log('window:soft-show');
+  } else if (!win.isVisible()) {
+    if (focus) win.show();
+    else win.showInactive();
+  }
+  if (focus) win.focus();
+  win.webContents.invalidate();
+}
+
 /** Lets the player type in a text field of the overlay (search, level filters, settings). */
 export function allowKeyboardFocus(win: BrowserWindow): void {
   if (!KEEPS_GAME_FOCUS) return;
@@ -74,12 +117,12 @@ export function createOverlayWindow(options: OverlayWindowOptions): BrowserWindo
   win.on('move', persist);
   win.on('resize', persist);
   win.on('blur', () => {
-    if (options.closeOnBlur()) win.hide();
+    if (options.closeOnBlur()) hideOverlayWindow(win);
   });
   win.on('close', (event) => {
     if (!options.isQuitting()) {
       event.preventDefault();
-      win.hide();
+      hideOverlayWindow(win);
     }
   });
   // No navigation or new windows at runtime (spec 001 hardening).

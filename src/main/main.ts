@@ -11,7 +11,7 @@ import { loadDataPackFile } from './data-pack-loader';
 import { decideHotkeyAction } from './hotkey-action';
 import { dataPackPath } from './resource-paths';
 import { validAcceleratorPayload, validDebugReport, validDiag, validMoveDelta } from './ipc-validation';
-import { allowKeyboardFocus, centerOnPrimary, createOverlayWindow, releaseKeyboardFocus } from './overlay-window';
+import { allowKeyboardFocus, centerOnPrimary, createOverlayWindow, hideOverlayWindow, isOverlayShown, releaseKeyboardFocus, showOverlayWindow } from './overlay-window';
 import { SettingsStore } from './settings';
 import { registerToggleHotkey, unregisterAll } from './shortcuts';
 import { createTray } from './tray';
@@ -53,18 +53,9 @@ const packPath = () => dataPackPath({ isPackaged: app.isPackaged, resourcesPath:
  */
 function deliver(target: BrowserWindow, snapshot: ClipboardSnapshot, focus: boolean): void {
   lastSnapshot = snapshot;
-  log('deliver', { focus, wasVisible: target.isVisible() });
-  if (focus) {
-    target.show();
-    target.focus();
-  } else if (!target.isVisible()) showWithoutFocus(target);
+  log('deliver', { focus, wasShown: isOverlayShown(target) });
+  if (focus || !isOverlayShown(target)) showOverlayWindow(target, focus);
   target.webContents.send(IPC.clipboardSnapshot, snapshot);
-}
-
-/** Shows the overlay without taking focus from the game and forces a fresh frame (follow-up 4). */
-function showWithoutFocus(target: BrowserWindow): void {
-  target.showInactive();
-  target.webContents.invalidate();
 }
 
 function showOverlay(): void {
@@ -85,7 +76,7 @@ const REFOCUS_MS = 80;
 function toggle(): void {
   const target = win;
   if (!target || hotkeyBusy) return;
-  const visible = target.isVisible();
+  const visible = isOverlayShown(target);
   hotkeyBusy = true;
   // Pressed while the overlay has focus (e.g. after clicking a Bone): hide it so Windows hands focus
   // back to the game, then copy the hovered item there. Keys are never sent into our own window
@@ -93,7 +84,7 @@ function toggle(): void {
   const focused = visible && target.isFocused();
   log('hotkey', { visible, focused, autoCopy: autoCopyEnabled() });
   if (focused) releaseKeyboardFocus(target);
-  const refocus = focused ? (target.hide(), sleep(REFOCUS_MS)) : Promise.resolve();
+  const refocus = focused ? (hideOverlayWindow(target), sleep(REFOCUS_MS)) : Promise.resolve();
   const busy = (on: boolean) => target.webContents.send(IPC.copyBusy, on);
   const started = performance.now();
   let timing: (Pick<CopyTiming, 'clipboardChanged' | 'sendMs'> & { copied: boolean; showMs: number; waitMs: number; readMs: number; polls: number }) | null = null;
@@ -104,7 +95,7 @@ function toggle(): void {
     // game copies the item.
     busy(true);
     const showStart = performance.now();
-    if (!target.isVisible()) showWithoutFocus(target);
+    if (!isOverlayShown(target)) showOverlayWindow(target, false);
     const showMs = Math.round(performance.now() - showStart);
     const result = await copyThenReadDetailed({ read: readClipboardSnapshot, sendCopy: sendCopyShortcut, sleep, sequence: clipboardSequenceNumber, now: () => performance.now() });
     timing = { clipboardChanged: result.changed, copied: result.copied, sendMs: Math.round(result.sendMs), showMs, waitMs: Math.round(result.waitMs), readMs: Math.round(result.readMs), polls: result.polls };
@@ -119,7 +110,7 @@ function toggle(): void {
         copyTimings.push({ at: new Date().toISOString(), sendMs: timing.sendMs, totalMs: Math.round(performance.now() - started), clipboardChanged: timing.clipboardChanged, action });
         if (copyTimings.length > 10) copyTimings.shift();
       }
-      if (action === 'hide') target.hide();
+      if (action === 'hide') hideOverlayWindow(target);
       else if (action === 'keep') target.webContents.send(IPC.copyMissed, true);
       else {
         deliver(target, snapshot, false);
@@ -269,14 +260,14 @@ app.whenReady().then(() => {
     if (event === 'pointerdown') return log('renderer:pointerdown');
     // 1 = the page thinks it is visible, 0 = hidden; hidden while the window is shown means the page
     // stopped painting (follow-up 4).
-    if (event === 'visibility') return log('renderer:visibility', { visible: ms === 1, windowVisible: win?.isVisible() ?? false });
+    if (event === 'visibility') return log('renderer:visibility', { visible: ms === 1, windowVisible: win ? isOverlayShown(win) : false });
     lastBeat = performance.now();
     beatGapLogged = false;
     const lag = ms as number;
     if (lag > 300) log('renderer:lag', { ms: Math.round(lag) });
   });
   setInterval(() => {
-    if (!win?.isVisible() || beatGapLogged) return;
+    if (!win || !isOverlayShown(win) || beatGapLogged) return;
     const gap = performance.now() - lastBeat;
     if (gap > 5000) {
       beatGapLogged = true;
@@ -293,7 +284,7 @@ app.whenReady().then(() => {
   ipcMain.on(IPC.startUpdate, () => updater.start());
   ipcMain.on(IPC.requestKeyboardFocus, () => win && allowKeyboardFocus(win));
   ipcMain.on(IPC.releaseKeyboardFocus, () => win && releaseKeyboardFocus(win));
-  ipcMain.on(IPC.hideOverlay, () => win?.hide());
+  ipcMain.on(IPC.hideOverlay, () => win && hideOverlayWindow(win));
   ipcMain.on(IPC.resetWindowPosition, () => win && centerOnPrimary(win));
   ipcMain.handle(IPC.setHotkey, (_e, accelerator: unknown) => {
     if (!validAcceleratorPayload(accelerator)) return { ok: false, code: 'HOTKEY_INVALID', accelerator: String(accelerator) };

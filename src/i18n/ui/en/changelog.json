@@ -95,6 +95,12 @@
         "If the game copies nothing (no item under the cursor, or the game window not active), the overlay no longer disappears: it stays open and tells you.",
         "Tip: move the overlay so it does not cover your inventory or stash; an item under the overlay cannot be copied."
       ]
+    },
+    "2026-09-30i": {
+      "heading": "2026-09-30 (reopening)",
+      "items": [
+        "Fixed the overlay being broken after it was closed with the hotkey and opened again."
+      ]
     }
   }
 }

@@ -95,6 +95,12 @@
         "Jeśli gra nic nie skopiuje (brak przedmiotu pod kursorem albo nieaktywne okno gry), nakładka już nie znika: zostaje otwarta i o tym informuje.",
         "Wskazówka: przesuń nakładkę tak, by nie zasłaniała ekwipunku ani skrzyni; przedmiotu pod nakładką nie da się skopiować."
       ]
+    },
+    "2026-09-30i": {
+      "heading": "30.09.2026 (ponowne otwarcie)",
+      "items": [
+        "Poprawiono zepsute okno nakładki po zamknięciu jej skrótem i ponownym otwarciu."
+      ]
     }
   }
 }

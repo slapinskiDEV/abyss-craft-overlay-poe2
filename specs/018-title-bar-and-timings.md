@@ -109,6 +109,20 @@ changed). Same text after a change = same item → hides as before (follow-up 3'
 dropped). Nothing copied → a visible overlay stays (`keep`) and shows a hint (EN/PL) to hover an item
 in the active game window, not covered by the overlay; the next item clears it.
 
+## Follow-up 6 (maintainer repro, v0.4.29)
+
+Exact repro: `Alt+T` twice on the same item (second press hides, as designed), then `Alt+T` again —
+the reopened window is broken. Disabling occlusion tracking (follow-up 4) did not help, so the
+Windows `hide()` → `showInactive()` cycle of the non-focusable, always-on-top window itself is the
+trigger; the first show after start works.
+
+Change: on Windows the overlay is never hidden by the OS after its first show. Hiding makes it fully
+transparent (`setOpacity(0)`) and click-through (`setIgnoreMouseEvents(true)`), and blurs it if it
+had keyboard focus (a real hide gave focus back to the game); showing restores opacity and mouse
+input, raises it and forces a repaint. `isOverlayShown` replaces `isVisible` for the hotkey logic.
+Every show/hide in `main.ts` goes through these helpers (architecture test). Other platforms keep
+real hide/show.
+
 ## Out of scope
 
 - Any change to the copy sequence or the bounded wait (spec 010, 016) before the timings show the

@@ -19,6 +19,13 @@ describe('renderer catalog guard', () => {
   });
 });
 
+describe('overlay show/hide (spec 018 follow-up 6)', () => {
+  it('main shows and hides the overlay only through the soft hide helpers', () => {
+    const main = readFileSync(join('src', 'main', 'main.ts'), 'utf8');
+    expect(main).not.toMatch(/\.(hide|show|showInactive)\(\)/);
+  });
+});
+
 describe('title bar (spec 018)', () => {
   it('declares no OS drag region: in the non-focusable overlay it swallowed button clicks on Windows', () => {
     expect(readFileSync(join('src', 'renderer', 'styles', 'theme.css'), 'utf8')).not.toMatch(/app-region/);
