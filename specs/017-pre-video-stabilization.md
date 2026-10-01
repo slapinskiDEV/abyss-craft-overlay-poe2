@@ -104,9 +104,10 @@ The maintainer asked to follow the recommendations below.
    uninstall entry and update in place. Settings live under the product name, not the app ID, and
    are kept. Product name unchanged. To verify manually (F2): update an installed 0.4.x to the
    first build with the new ID → one entry in "Installed apps", settings kept.
-2. **Clipboard fixtures before the video — decided.** The video is recorded after the SoT §19.1
-   fixtures are captured and the item-specific pool works, so it does not go stale. Fixture capture
-   is therefore a gate for the video (F5).
+2. **Clipboard fixtures before the video — revised 2026-10-01: not a gate.** The maintainer
+   considers the app ready for the video with the base pool (SoT §14.7); fixtures (F5) follow later.
+   The video should say that the list is the pool for the base and that the item's current modifiers
+   are not taken into account yet (the overlay shows this note itself).
 3. **Code signing — decided: not for this release, and no paid signing (2026-09-30).** The build
    stays unsigned (SoT §19.4); the video and both READMEs show the SmartScreen step "More info → Run
    anyway". slapinskiDEV has under three years of tax history, so Azure Artifact Signing is not

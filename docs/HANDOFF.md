@@ -28,8 +28,8 @@ Overview for a new contributor or agent: `docs/APP_CONTEXT_REPORT.md`.
 
 ## Open — next steps
 
-1. **Clipboard fixtures (SoT §19.1, spec 017 F5) — gate for the video and for the item-specific
-   pool.** Until they exist the exact item check is `unknown` (`EXISTING_DESECRATION_UNDETERMINED`,
+1. **Clipboard fixtures (SoT §19.1, spec 017 F5) — needed for the item-specific pool; no longer a
+   gate for the video (maintainer, 2026-10-01: app ready for the video with the base pool).** Until they exist the exact item check is `unknown` (`EXISTING_DESECRATION_UNDETERMINED`,
    U-011/U-014) and the base pool is shown. When the maintainer provides them:
    - save each verbatim copy under `tests/fixtures/clipboard/en/<class>-<base>-<state>-<copyMode>.txt`
      with a `.meta.json` (copy mode, game version, date, sha256);
