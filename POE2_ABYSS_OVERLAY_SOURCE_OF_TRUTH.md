@@ -1,7 +1,7 @@
 # PoE2 Abyss Craft Overlay — Source of Truth
 
 **Status:** Living master document  
-**Document version:** 0.2.16  
+**Document version:** 0.2.17  
 **Target game context:** Path of Exile 2, 0.5.5 / Forbidden Rites event context  
 **Verified/researched:** 2026-09-26  
 **Primary implementation target:** Windows 10/11 desktop overlay  
@@ -348,7 +348,10 @@ The official docs state that independent executables are permitted while applica
 
 The packaged Windows build may check the public releases repository
 `github.com/slapinskiDEV/abyss-craft-overlay-poe2-releases` for a newer app version: shortly after
-start and then every few hours, only while the setting `checkForUpdates` is on (default). The check
+start and then every few hours, and when the overlay is opened if the last check is more than an
+hour old (0.2.17), only while the setting `checkForUpdates` is on (default). An update already
+offered does not stop the checks, and the check is repeated right before the download, so the
+newest release is the one installed (0.2.17). The check
 is a plain request for the release metadata; nothing about the player, the items or the game is sent.
 A newer version is offered as an "Update" button; the installer is downloaded and run only after the
 player clicks it. The portable build opens the download page instead. The data pack still ships
@@ -2373,6 +2376,11 @@ Checked on 2026-09-26.
 ---
 
 # 26. Changelog
+
+## 0.2.17 — 2026-10-01
+
+- §3.5: also check when the overlay is opened and the last check is over an hour old; a newer
+  release replaces an already offered one; re-check before downloading.
 
 ## 0.2.16 — 2026-09-30
 

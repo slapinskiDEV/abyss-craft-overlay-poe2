@@ -12,6 +12,7 @@ import { loadDataPackFile } from '../../src/main/data-pack-loader';
 import { validDebugReport } from '../../src/main/ipc-validation';
 import { DEFAULT_HOTKEY, defaultSettings, mergeSettings, sanitizeSettings } from '../../src/main/settings-model';
 import { SettingsStore } from '../../src/main/settings';
+import { shouldCheck, STALE_CHECK_MS } from '../../src/main/app-update';
 import { flushLog, initLog, log, LOG_MAX_BYTES } from '../../src/main/log';
 import { restoreBounds } from '../../src/main/window-bounds';
 import { testPack } from '../fixtures/data/test-only-pack';
@@ -190,6 +191,23 @@ describe('diagnostic log (spec 018)', () => {
     mkdirSync(join(dir, 'blocked', 'overlay.log')); // appending to a directory fails
     expect(() => log('ignored')).not.toThrow();
     await flushLog();
+  });
+});
+
+describe('update check timing (SoT §3.5, 0.2.17)', () => {
+  const base = { enabled: true, state: 'none' as const, now: 10 * STALE_CHECK_MS, lastCheck: null, minGapMs: STALE_CHECK_MS };
+  it('checks on first open, then again only when the last check is over an hour old', () => {
+    expect(shouldCheck(base)).toBe(true);
+    expect(shouldCheck({ ...base, lastCheck: base.now - STALE_CHECK_MS / 2 })).toBe(false);
+    expect(shouldCheck({ ...base, lastCheck: base.now - STALE_CHECK_MS })).toBe(true);
+  });
+  it('keeps checking while an update is offered, so a newer release replaces it', () => {
+    expect(shouldCheck({ ...base, state: 'available' })).toBe(true);
+  });
+  it('never checks while downloading or installing, or when switched off', () => {
+    expect(shouldCheck({ ...base, state: 'downloading' })).toBe(false);
+    expect(shouldCheck({ ...base, state: 'ready' })).toBe(false);
+    expect(shouldCheck({ ...base, enabled: false })).toBe(false);
   });
 });
 

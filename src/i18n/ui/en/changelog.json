@@ -107,6 +107,12 @@
       "items": [
         "Hover a Bone or Omen to see what it does, with the official in-game text."
       ]
+    },
+    "2026-10-01b": {
+      "heading": "2026-10-01 (updates)",
+      "items": [
+        "New versions are found sooner: the overlay also checks when you open it (at most once an hour), and always installs the newest version."
+      ]
     }
   }
 }

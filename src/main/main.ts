@@ -42,6 +42,8 @@ let lastSnapshot: ClipboardSnapshot | null = null;
 let autoCopyEnabled = (): boolean => false;
 let hotkeyBusy = false;
 let hotkeyStatus: HotkeyRegistrationResult | null = null;
+/** Set once the updater exists; opening the overlay re-checks a stale update check (SoT §3.5). */
+let checkUpdateIfStale = (): void => undefined;
 /** Last hotkey copies, for the debug report (spec 018). */
 const copyTimings: CopyTiming[] = [];
 
@@ -54,7 +56,10 @@ const packPath = () => dataPackPath({ isPackaged: app.isPackaged, resourcesPath:
 function deliver(target: BrowserWindow, snapshot: ClipboardSnapshot, focus: boolean): void {
   lastSnapshot = snapshot;
   log('deliver', { focus, wasShown: isOverlayShown(target) });
-  if (focus || !isOverlayShown(target)) showOverlayWindow(target, focus);
+  if (focus || !isOverlayShown(target)) {
+    showOverlayWindow(target, focus);
+    checkUpdateIfStale();
+  }
   target.webContents.send(IPC.clipboardSnapshot, snapshot);
 }
 
@@ -216,6 +221,7 @@ app.whenReady().then(() => {
     },
   });
 
+  checkUpdateIfStale = () => updater.checkIfStale();
   const broadcast = (s: AppSettings) => win?.webContents.send(IPC.settingsChanged, s);
 
   ipcMain.handle(IPC.readClipboard, async () => (lastSnapshot = await readClipboardSnapshot()));

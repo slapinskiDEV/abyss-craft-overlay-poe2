@@ -80,3 +80,14 @@ pendingChangelog(seen): ChangelogEntryId[] // newest first
 ## Unresolved items
 
 None.
+
+## Follow-up (SoT 0.2.17, 2026-10-01)
+
+- Opening the overlay checks again when the last check is over an hour old (`STALE_CHECK_MS`),
+  besides the check 15 s after start and every 6 h.
+- An update already offered no longer stops the checks: a newer release replaces it (`shouldCheck`
+  allows `available`, never `downloading` or `ready`).
+- "Update" re-checks before `downloadUpdate()`, so the newest release is installed, not the one
+  found hours earlier.
+- Still only the release metadata request to the releases repository; nothing about the player,
+  the item or the game is sent.

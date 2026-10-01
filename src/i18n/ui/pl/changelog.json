@@ -107,6 +107,12 @@
       "items": [
         "Najedź na Bone albo Omen, żeby zobaczyć, co robi: oficjalny opis z gry i krótkie nieoficjalne wyjaśnienie po polsku."
       ]
+    },
+    "2026-10-01b": {
+      "heading": "01.10.2026 (aktualizacje)",
+      "items": [
+        "Nowe wersje są wykrywane szybciej: nakładka sprawdza też przy otwarciu (najwyżej raz na godzinę) i zawsze instaluje najnowszą wersję."
+      ]
     }
   }
 }
