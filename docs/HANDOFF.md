@@ -53,7 +53,9 @@ Overview for a new contributor or agent: `docs/APP_CONTEXT_REPORT.md`.
    application sent 2026-09-30** (answers in `docs/signpath-application.md`), awaiting the reply,
    including whether the bundled GGG data pack is acceptable. If accepted, do the repository steps at
    the end of that file.
-7. **Not now (maintainer decision 2026-09-30):** donation link, trade search link (spec 013).
+7. **Not now (maintainer decisions):** donation link, trade search link (spec 013) (2026-09-30);
+   maximize/restore button in the title bar (2026-10-01; idea: □/❐ + double-click on the title,
+   restore to the previous bounds, current monitor; needs SoT §16.3).
 8. Every release: a changelog entry (`src/shared/changelog.ts` + `src/i18n/ui/{en,pl}/changelog.json`).
 
 ## Commands
